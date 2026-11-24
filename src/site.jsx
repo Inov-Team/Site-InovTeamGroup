@@ -281,12 +281,11 @@ function ExpertiseExplorer({ sel, setSel }) {
   );
 }
 
-// Le visuel de marque en trois poses : des fondus enchaînés sur l'opacité,
-// la seule propriété qui ne coûte ni calcul de mise en page ni repeinte.
+// Le visuel de marque en six poses, enchaînées en fondu. Seule l'opacité
+// bouge : le GPU compose, rien n'est recalculé ni repeint.
 const POSES = [
-  'La main de la marque Inov Team, les fils de lumière passant entre les doigts',
-  'La même main, les doigts refermés sur les fils de lumière',
-  'La même main, l’index tendu vers les fils de lumière'
+  'La main de la marque Inov Team, des fils de lumière passant entre les doigts',
+  '', '', '', '', ''
 ];
 function HandVisual() {
   return (
@@ -294,8 +293,8 @@ function HandVisual() {
       transition={{ opacity: { duration: 0.6, ease }, scale: { duration: 0.7, ease } }}>
       {POSES.map((alt, i) => (
         <img key={i} className={'hand hand-' + (i + 1)} src={`assets/hand-${i + 1}.webp`}
-          width="900" height="585" alt={i ? '' : alt} aria-hidden={i ? 'true' : undefined}
-          fetchPriority={i ? undefined : 'high'} decoding="async" />
+          width="900" height="585" alt={alt} aria-hidden={i ? 'true' : undefined}
+          fetchPriority={i ? 'low' : 'high'} decoding="async" />
       ))}
     </motion.div>
   );
