@@ -31,6 +31,8 @@ npm run preview    # build puis aperçu local
 
 Le dossier `dist/` est autonome : il suffit de déposer son contenu chez l'hébergeur.
 
+Le build copie aussi `index.html` à la racine du dépôt pour GitHub Pages (Settings › Pages › branche `main`, dossier `/ (root)`).
+
 ## À brancher avant la mise en ligne
 
 - Les formulaires de contact et de cooptation ne sont reliés à aucune boîte de réception (ils l'indiquent à l'envoi).

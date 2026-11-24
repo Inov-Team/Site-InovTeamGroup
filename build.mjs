@@ -31,4 +31,6 @@ ${js}
 </script>
 </body>
 </html>`);
-console.log('dist/index.html généré');
+// Copie à la racine pour GitHub Pages (branche main, dossier racine)
+writeFileSync('index.html', readFileSync('dist/index.html'));
+console.log('dist/index.html et index.html générés');
