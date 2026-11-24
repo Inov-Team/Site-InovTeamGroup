@@ -2,10 +2,13 @@ import React, { useRef, useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { POLES } from './poles.js';
 import { ExpertisePage, AllExpertises, EntitePage, ApprochePage, ActualitesPage, ContactPage, CarrieresPage, slug, ENTITES } from './pages.jsx';
-import { motion, AnimatePresence, MotionConfig, useInView, animate, useScroll, useMotionValueEvent, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { meta, SITE } from './routes.js';
+import { motion, AnimatePresence, MotionConfig, useInView, animate, useScroll, useMotionValueEvent, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 
 const spring = { type: 'spring', stiffness: 260, damping: 28 };
-const ease = [0.2, 0.7, 0.2, 1];
+const ease = [0.23, 1, 0.32, 1];        // ease-out fort, pour les entrées
+const easeIO = [0.77, 0, 0.175, 1];     // ease-in-out fort, pour les déplacements
+const fine = () => typeof matchMedia === 'function' && matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 const P = {
   users: 'M16 20v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6M22 20v-1a4 4 0 0 0-3-3.9M16 5.1a3 3 0 0 1 0 5.8',
@@ -28,9 +31,11 @@ const P = {
   arrow: 'M5 12h14M13 6l6 6-6 6',
   cal: 'M4 6h16v14H4zM4 10h16M8 3v5M16 3v5',
   mail: 'M3 6h18v12H3zM3 7l9 6 9-6',
-  chev: 'M6 9l6 6 6-6'
+  chev: 'M6 9l6 6 6-6',
+  pause: 'M9 5v14M15 5v14',
+  play: 'M7 4l12 8-12 8z'
 };
-const I = ({ n, s = 24, c = 'ico', w = 1.6 }) => (
+const Icone = ({ n, s = 24, c = 'ico', w = 1.6 }) => (
   <svg className={c} width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={w} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={P[n]} /></svg>
 );
 const Burst = () => (
@@ -97,11 +102,15 @@ function Header() {
     ent: ENTITES.map((e) => [e.t + e.em, '#entite-' + e.k, e.d])
   };
   const Drop = ({ id, label }) => (
-    <div className="dd" onMouseEnter={() => setDd(id)} onMouseLeave={() => setDd(null)}>
-      <button aria-expanded={dd === id} onClick={() => setDd(dd === id ? null : id)}>{label}<I n="chev" s={16} c="" w={2} /></button>
+    <div className="dd"
+      onMouseEnter={() => fine() && setDd(id)}
+      onMouseLeave={() => fine() && setDd(null)}
+      onKeyDown={(e) => { if (e.key === 'Escape' && dd === id) { setDd(null); e.currentTarget.querySelector('button')?.focus(); } }}
+      onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setDd(null); }}>
+      <button type="button" aria-expanded={dd === id} aria-controls={'dd-' + id} onClick={() => setDd(dd === id ? null : id)}>{label}<Icone n="chev" s={16} c="" w={2} /></button>
       <AnimatePresence>
         {dd === id && (
-          <motion.div className="menu" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }} transition={{ duration: 0.16 }}>
+          <motion.div className="menu" id={'dd-' + id} initial={{ opacity: 0, y: 6, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 4, scale: 0.98 }} transition={{ duration: 0.18, ease }}>
             {menus[id].map(([t, h, d]) => <a key={t} href={h} onClick={() => setDd(null)}>{t}{d && <small>{d}</small>}</a>)}
           </motion.div>
         )}
@@ -119,7 +128,7 @@ function Header() {
           <a href="#carrieres">Carrières</a>
           <a href="#actualites">Actualités</a>
         </nav>
-        <a className="btn cta" href="#contact">Nous contacter <I n="arrow" s={18} c="" w={2} /></a>
+        <a className="btn cta" href="#contact">Nous contacter <Icone n="arrow" s={18} c="" w={2} /></a>
         <button className="burger" aria-expanded={open} aria-controls="mnav" aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'} onClick={() => setOpen(!open)}>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
             <motion.path animate={{ d: open ? 'M4 4L16 16' : 'M3 7H17' }} transition={spring} />
@@ -132,7 +141,7 @@ function Header() {
           <motion.div id="mnav" className="mnav" initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} transition={spring}>
             <nav aria-label="Menu mobile">
               {[['#qui', 'Qui sommes-nous ?'], ['#expertises-toutes', 'Nos expertises'], ['#entites', 'Nos entités'], ['#carrieres', 'Carrières'], ['#actualites', 'Actualités']].map(([h, l]) => <a key={h} href={h} onClick={() => setOpen(false)}>{l}</a>)}
-              <a className="btn" href="#contact" onClick={() => setOpen(false)}>Nous contacter <I n="arrow" s={18} c="" w={2} /></a>
+              <a className="btn" href="#contact" onClick={() => setOpen(false)}>Nous contacter <Icone n="arrow" s={18} c="" w={2} /></a>
             </nav>
           </motion.div>
         )}
@@ -173,7 +182,7 @@ function Wheel({ sel, pick }) {
           <filter id="wsh" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" /></filter>
         </defs>
         <circle cx={C} cy={C} r="250" fill="url(#wglow)" />
-        <motion.circle cx={C} cy={C} r="182" fill="none" stroke="#e4dcfa" strokeWidth="1" strokeDasharray="2 7" animate={{ rotate: 360 }} transition={{ duration: 90, repeat: Infinity, ease: 'linear' }} style={{ originX: '50%', originY: '50%' }} />
+        <circle cx={C} cy={C} r="182" fill="none" stroke="#e4dcfa" strokeWidth="1" strokeDasharray="2 7" />
         <motion.g animate={{ rotate: rot }} transition={{ type: 'spring', stiffness: 70, damping: 16 }} style={{ originX: '50%', originY: '50%' }}>
           <circle cx={C} cy={C} r="259" fill="transparent" />
           {EXP.map(([i, tt], k) => {
@@ -189,7 +198,6 @@ function Wheel({ sel, pick }) {
                 <motion.line x1={x1} y1={y1} x2={x2} y2={y2} strokeLinecap="round" animate={{ stroke: on ? '#7b3fe4' : '#c8bdf0', strokeWidth: on ? 13 : 10 }} transition={{ duration: 0.3 }} />
                 {on && <line x1={x3} y1={y3} x2={x4} y2={y4} stroke="#9b6bff" strokeWidth="22" strokeLinecap="round" filter="url(#wsh)" opacity=".6" />}
                 <motion.line strokeLinecap="round" stroke={on ? 'url(#wg)' : hl ? '#8c6cf0' : '#b3a7e2'} animate={{ x1: x3, y1: y3, x2: x4, y2: y4, strokeWidth: on ? 16 : hl ? 14 : 12 }} transition={{ type: 'spring', stiffness: 200, damping: 18 }} />
-                {on && <motion.circle r="4" fill="#fff" initial={{ cx: x2, cy: y2 }} animate={{ cx: [x2, x4], cy: [y2, y4], opacity: [0, 1, 0] }} transition={{ duration: 1.4, repeat: Infinity, ease: 'easeOut' }} />}
                 <motion.g animate={{ rotate: -rot, opacity: on ? 0 : 1, scale: on ? 0.8 : 1 }} transition={{ type: 'spring', stiffness: 70, damping: 16 }} style={{ originX: `${lx}px`, originY: `${ly}px` }}>
                   <motion.rect x={lx - w / 2} y={ly - 17} width={w} height="34" rx="17" initial={false} animate={{ fill: on ? '#1b1446' : '#ffffff', stroke: on ? '#1b1446' : hl ? '#7b3fe4' : '#e4dcfa' }} transition={{ duration: 0.2 }} strokeWidth="1" />
                   <motion.text x={lx} y={ly + 5} textAnchor="middle" fontSize="13.5" fontWeight="700" fontFamily="Plus Jakarta Sans, sans-serif" initial={false} animate={{ fill: on ? '#ffffff' : hl ? '#7b3fe4' : '#4c4868' }} transition={{ duration: 0.2 }}>{tt}</motion.text>
@@ -213,13 +221,16 @@ function Wheel({ sel, pick }) {
 
 function ExpertiseExplorer({ sel, setSel }) {
   const [auto, setAuto] = useState(true);
+  const [hold, setHold] = useState(false);
+  const reduce = useReducedMotion();
   const ref = useRef(null);
   const seen = useInView(ref, { margin: '-20% 0px -20% 0px' });
+  const joue = auto && seen && !hold && !reduce;
   useEffect(() => {
-    if (!auto || !seen) return;
-    const t = setInterval(() => setSel((s) => (s + 1) % EXP.length), 4000);
+    if (!joue) return;
+    const t = setInterval(() => setSel((s) => (s + 1) % EXP.length), 5000);
     return () => clearInterval(t);
-  }, [auto, seen]);
+  }, [joue]);
   const pick = (k) => { setAuto(false); setSel(k); };
   const pickHover = (k) => { setAuto(false); setSel(k); };
   const onKey = (e) => {
@@ -232,19 +243,27 @@ function ExpertiseExplorer({ sel, setSel }) {
   const p = POLES.find((x) => x.t === t);
   return (
     <div className="xp" ref={ref} onKeyDown={onKey}>
-      <div className="wheel-wrap"><Wheel sel={sel} pick={pick} />{auto && <p className="whint">Cliquez sur un pôle pour l’explorer</p>}</div>
+      <div className="wheel-wrap" onPointerEnter={() => setHold(true)} onPointerLeave={() => setHold(false)}>
+        <Wheel sel={sel} pick={pick} />
+        <div className="whint">
+          <button type="button" className="wpause" onClick={() => setAuto((a) => !a)} aria-pressed={!auto}>
+            {joue ? <><Icone n="pause" s={14} c="" w={2} />Mettre en pause</> : <><Icone n="play" s={14} c="" w={2} />Lancer le défilement</>}
+          </button>
+          <span>ou cliquez sur un pôle</span>
+        </div>
+      </div>
       <div className="xp-list" role="tablist" aria-label="Nos 8 pôles">
         {EXP.map(([i, tt], k) => (
           <button key={tt} id={'xt-' + k} role="tab" aria-selected={sel === k} aria-controls="xp-panel" tabIndex={sel === k ? 0 : -1} className="xp-tab" onClick={() => pick(k)}>
             {sel === k && <motion.span layoutId="xp-hl" className="xp-hl" transition={spring} />}
-            <I n={i} s={22} /><span className="xp-t">{tt}</span>
+            <Icone n={i} s={22} /><span className="xp-t">{tt}</span>
           </button>
         ))}
       </div>
       <div className="xp-panel" id="xp-panel" role="tabpanel">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div key={sel} className="xp-in" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -16 }} transition={{ duration: 0.3, ease }}>
-            <div className="xp-top"><div className="xp-ico"><I n={ic} s={34} w={1.5} /></div>{auto && <motion.span key={'b' + sel} className="xp-bar" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 4, ease: 'linear' }} />}</div>
+            <div className="xp-top"><div className="xp-ico"><Icone n={ic} s={34} w={1.5} /></div>{joue && <motion.span key={'b' + sel} className="xp-bar" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 5, ease: 'linear' }} />}</div>
             <h3>{t}</h3>
             <p className="xp-sum">{p.s}</p>
             <div className="xp-cols">
@@ -252,7 +271,7 @@ function ExpertiseExplorer({ sel, setSel }) {
               {p.p.length > 0 && <div><h4>Profils mobilisés</h4><div className="xp-chips">{p.p.map((x, n) => <motion.span key={x} initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.15 + n * 0.05 }}>{x}</motion.span>)}</div></div>}
             </div>
             <div className="xp-acts">
-              <a className="btn" href={'#expertise-' + slug(t)}>Découvrir le pôle <I n="arrow" s={18} c="" w={2} /></a>
+              <a className="btn" href={'#expertise-' + slug(t)}>Découvrir le pôle <Icone n="arrow" s={18} c="" w={2} /></a>
               <a className="btn out-v" href="#contact">Parler de votre projet</a>
             </div>
           </motion.div>
@@ -266,18 +285,19 @@ function HandVisual() {
   const mx = useMotionValue(0), my = useMotionValue(0);
   const x = useSpring(useTransform(mx, [-1, 1], [-14, 14]), { stiffness: 60, damping: 16 });
   const y = useSpring(useTransform(my, [-1, 1], [-10, 10]), { stiffness: 60, damping: 16 });
+  const reduce = useReducedMotion();
   useEffect(() => {
+    if (reduce || !fine()) return;
     const on = (e) => { mx.set((e.clientX / innerWidth) * 2 - 1); my.set((e.clientY / innerHeight) * 2 - 1); };
-    window.addEventListener('pointermove', on);
+    window.addEventListener('pointermove', on, { passive: true });
     return () => window.removeEventListener('pointermove', on);
-  }, []);
+  }, [reduce]);
   return (
     <motion.div className="hand-wrap" style={{ x, y }}>
       <motion.img className="hand" src="assets/hand-cut.webp" alt="Une main tient des fils de lumière, visuel de marque Inov Team"
         initial={{ opacity: 0, scale: 1.06, filter: 'blur(8px)' }}
-        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)', y: [0, -12, 0] }}
-        transition={{ opacity: { duration: 1.1, ease }, scale: { duration: 1.2, ease }, filter: { duration: 1 }, y: { duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1.2 } }} />
-      <span className="spark s1" /><span className="spark s2" /><span className="spark s3" />
+        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+        transition={{ opacity: { duration: 0.6, ease }, scale: { duration: 0.7, ease }, filter: { duration: 0.6, ease } }} />
     </motion.div>
   );
 }
@@ -286,7 +306,9 @@ function Tilt({ className, href, children }) {
   const rx = useMotionValue(0), ry = useMotionValue(0);
   const rotateX = useSpring(rx, { stiffness: 200, damping: 18 });
   const rotateY = useSpring(ry, { stiffness: 200, damping: 18 });
+  const reduce = useReducedMotion();
   const move = (e) => {
+    if (reduce || !fine()) return;
     const r = e.currentTarget.getBoundingClientRect();
     ry.set(((e.clientX - r.left) / r.width - 0.5) * 12);
     rx.set(-((e.clientY - r.top) / r.height - 0.5) * 12);
@@ -307,7 +329,7 @@ function ToTop() {
         <motion.button className="totop" aria-label="Revenir en haut de la page" onClick={() => scrollTo({ top: 0, behavior: 'smooth' })}
           initial={{ opacity: 0, y: 16, scale: 0.8 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 16, scale: 0.8 }}
           whileHover={{ y: -3 }} whileTap={{ scale: 0.92 }}>
-          <I n="arrow" s={20} c="" w={2} />
+          <Icone n="arrow" s={20} c="" w={2} />
         </motion.button>
       )}
     </AnimatePresence>
@@ -332,24 +354,54 @@ function App() {
       const r = parse(); setRoute(r);
       const h = location.hash.slice(1);
       if (r !== 'home' || !h || h === 'top') window.scrollTo({ top: 0 });
-      else setTimeout(() => document.getElementById(h)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 480);
+      else requestAnimationFrame(() => requestAnimationFrame(() => {
+        const el = document.getElementById(h);
+        if (el) el.scrollIntoView({ block: 'start', behavior: 'auto' });
+      }));
     };
     window.addEventListener('hashchange', on); return () => window.removeEventListener('hashchange', on);
   }, []);
   const page = route === 'contact' ? <ContactPage /> : route === 'carrieres' ? <CarrieresPage /> : route === 'actualites' ? <ActualitesPage /> : route === 'approche' ? <ApprochePage />
-    : route === 'expertises-toutes' ? <AllExpertises I={I} icons={ICONS} /> : route.startsWith('expertise-') ? <ExpertisePage k={route.slice(10)} I={I} icons={ICONS} /> : route.startsWith('entite-') ? <EntitePage k={route.slice(7)} /> : null;
+    : route === 'expertises-toutes' ? <AllExpertises I={Icone} icons={ICONS} /> : route.startsWith('expertise-') ? <ExpertisePage k={route.slice(10)} I={Icone} icons={ICONS} /> : route.startsWith('entite-') ? <EntitePage k={route.slice(7)} /> : null;
+  useEffect(() => {
+    const m = meta(route);
+    document.title = m.t;
+    const set = (sel, attr, val) => { const el = document.head.querySelector(sel); if (el) el.setAttribute(attr, val); };
+    set('meta[name="description"]', 'content', m.d);
+    set('meta[property="og:title"]', 'content', m.t);
+    set('meta[property="og:description"]', 'content', m.d);
+    set('link[rel="canonical"]', 'href', SITE.url + (route === 'home' ? '' : '#' + route));
+  }, [route]);
+
   const [zoom, setZoom] = useState(null);
-  useEffect(() => { const k = (e) => e.key === 'Escape' && setZoom(null); window.addEventListener('keydown', k); return () => window.removeEventListener('keydown', k); }, []);
+  const lb = useRef(null), ouvreur = useRef(null);
+  useEffect(() => {
+    if (zoom === null) return;
+    ouvreur.current = document.activeElement;
+    lb.current?.querySelector('.lbx')?.focus();
+    const k = (e) => {
+      if (e.key === 'Escape') { setZoom(null); return; }
+      if (e.key !== 'Tab') return;
+      const f = lb.current?.querySelectorAll('button');
+      if (!f || !f.length) return;
+      const [a, z] = [f[0], f[f.length - 1]];
+      if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); }
+      else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); }
+    };
+    document.addEventListener('keydown', k);
+    return () => { document.removeEventListener('keydown', k); ouvreur.current?.focus?.(); };
+  }, [zoom]);
   return (
     <MotionConfig reducedMotion="user">
+      <a className="skip" href="#contenu">Aller au contenu</a>
       <Header />
       <ToTop />
-      <main>
+      <main id="contenu" tabIndex={-1}>
         <AnimatePresence mode="wait" initial={false}>
         {page ? (
-        <motion.div key={route} initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -18 }} transition={{ duration: 0.38, ease }}>{page}</motion.div>
+        <motion.div key={route} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.22, ease }}>{page}</motion.div>
         ) : (
-        <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, y: -18 }} transition={{ duration: 0.32, ease }}>
+        <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.22, ease }}>
         <section className="hero screen" id="top">
           <div className="wrap">
             <div className="hero-grid">
@@ -359,25 +411,25 @@ function App() {
                 <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ ...spring, delay: 0.55 }}>
                   <p className="lead">ESN agile à taille humaine, spécialisée en ingénierie, R&amp;D et services numériques, du conseil à la réalisation.</p>
                   <div className="acts">
-                    <a className="btn" href="#expertises">Découvrir nos expertises <I n="arrow" s={18} c="" w={2} /></a>
+                    <a className="btn" href="#expertises">Découvrir nos expertises <Icone n="arrow" s={18} c="" w={2} /></a>
                     <a className="btn out" href="#approche"><span className="play"><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l7 4-7 4z" fill="currentColor" /></svg></span>Notre approche</a>
                   </div>
                 </motion.div>
               </div>
               <div className="visual">
                 <HandVisual />
-                <motion.div className="since" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: [0, -6, 0] }} transition={{ opacity: { delay: 0.9 }, y: { delay: 1, duration: 5, repeat: Infinity, ease: 'easeInOut' } }}>
-                  <I n="rocket" s={40} />
+                <motion.div className="since" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.7, ease }}>
+                  <Icone n="rocket" s={40} />
                   <div><b>Depuis 2018</b><span>Innovation, expertise<br />et proximité</span></div>
                 </motion.div>
               </div>
             </div>
             <div className="stats" id="qui">
-              <div className="stat"><I n="users" /><div><Count to={90} prefix="+" /><span>collaborateurs</span></div></div>
-              <div className="stat"><I n="pin" /><div><Count to={3} /><span>implantations</span><small>Sophia-Antipolis · Aix-en-Provence · Monaco</small></div></div>
-              <div className="stat"><I n="layers" /><div><Count to={3} /><span>entités</span><small>Inov Team · Inov Team Labs · DigiTeam</small></div></div>
-              <div className="stat"><I n="cube" /><div><Count to={8} /><span>pôles d’expertise</span></div></div>
-              <div className="stat"><I n="trend" /><div><Count to={40} prefix="+" /><span>recrutements / an</span></div></div>
+              <div className="stat"><Icone n="users" /><div><Count to={90} prefix="+" /><span>collaborateurs</span></div></div>
+              <div className="stat"><Icone n="pin" /><div><Count to={3} /><span>implantations</span><small>Sophia-Antipolis · Aix-en-Provence · Monaco</small></div></div>
+              <div className="stat"><Icone n="layers" /><div><Count to={3} /><span>entités</span><small>Inov Team · Inov Team Labs · DigiTeam</small></div></div>
+              <div className="stat"><Icone n="cube" /><div><Count to={8} /><span>pôles d’expertise</span></div></div>
+              <div className="stat"><Icone n="trend" /><div><Count to={40} prefix="+" /><span>recrutements / an</span></div></div>
             </div>
           </div>
         </section>
@@ -386,7 +438,7 @@ function App() {
           <div className="wrap">
             <div className="head">
               <div><div className="eyebrow">Nos expertises</div><h2>Un haut niveau d’expertise<br />au service de <span className="g">vos projets.</span></h2><p className="hsub">8 pôles, une même exigence : des consultants seniors et un manager technique dédié à chaque mission.</p></div>
-              <a className="btn out-v" href="#expertises-toutes">Voir toutes nos expertises <I n="arrow" s={18} c="" w={2} /></a>
+              <a className="btn out-v" href="#expertises-toutes">Voir toutes nos expertises <Icone n="arrow" s={18} c="" w={2} /></a>
             </div>
             <ExpertiseExplorer sel={sel} setSel={setSel} />
           </div>
@@ -413,7 +465,7 @@ function App() {
             <div className="ent-cards">
               {ENT.map(([a, b, d], k) => (
                 <Reveal key={a + b} k={k}>
-                  <Tilt className="ecard" href={'#entite-' + ENTITES[k].k}><img className="elg" src={`assets/${ENTITES[k].logo}.webp`} alt={a + b} /><span>{d}</span><span className="arr"><I n="arrow" s={18} c="" w={2} /></span></Tilt>
+                  <Tilt className="ecard" href={'#entite-' + ENTITES[k].k}><img className="elg" src={`assets/${ENTITES[k].logo}.webp`} alt={a + b} /><span>{d}</span><span className="arr"><Icone n="arrow" s={18} c="" w={2} /></span></Tilt>
                 </Reveal>
               ))}
             </div>
@@ -445,7 +497,7 @@ function App() {
               <p>Chez Inov Team, nous croyons à la force du collectif, à l’innovation utile et à des relations durables, au service de projets à fort impact.</p>
             </Reveal>
             <div className="vcards">
-              {VALS.map(([ic, t, d], k) => <Reveal key={t} k={k} className="vcard"><I n={ic} s={44} /><h3>{t}</h3><p>{d}</p></Reveal>)}
+              {VALS.map(([ic, t, d], k) => <Reveal key={t} k={k} className="vcard"><Icone n={ic} s={44} /><h3>{t}</h3><p>{d}</p></Reveal>)}
             </div>
           </div>
         </section>
@@ -470,7 +522,7 @@ function App() {
           </div>
           <AnimatePresence>
             {zoom !== null && (
-              <motion.div className="lb" role="dialog" aria-modal="true" aria-label={GAL[zoom][2]} onClick={() => setZoom(null)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <motion.div className="lb" ref={lb} role="dialog" aria-modal="true" aria-label={GAL[zoom][2]} onClick={() => setZoom(null)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.18, ease }}>
                 <motion.img src={`assets/${GAL[zoom][0]}.webp`} alt={GAL[zoom][2]} initial={{ scale: 0.94 }} animate={{ scale: 1 }} exit={{ scale: 0.96 }} transition={spring} />
                 <p>{GAL[zoom][2]}</p>
                 <button className="lbx" onClick={() => setZoom(null)} aria-label="Fermer">×</button>
@@ -487,7 +539,7 @@ function App() {
               <h2>Rejoignez une équipe engagée<br />et des projets à <span className="g">fort impact.</span></h2>
               <div className="row">
                 <p>Développez votre expertise dans un environnement stimulant, bienveillant et en constante évolution.</p>
-                <a className="btn" href="#carrieres">Voir nos offres <I n="arrow" s={18} c="" w={2} /></a>
+                <a className="btn" href="#carrieres">Voir nos offres <Icone n="arrow" s={18} c="" w={2} /></a>
               </div>
             </div>
           </Reveal>
@@ -502,7 +554,7 @@ function App() {
           <svg className="beams" viewBox="0 0 1200 160" preserveAspectRatio="none" aria-hidden="true">{[0, 1, 2, 3].map((k) => <motion.path key={k} d={`M-20 ${150 - k * 8} C 300 ${100 + k * 10}, 800 ${170 - k * 12}, 1220 ${20 + k * 14}`} fill="none" stroke="#f1b5ff" strokeOpacity={0.35 - k * 0.06} strokeWidth="1.2" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 2, delay: k * 0.15 }} />)}</svg>
           <div className="wrap">
             <h2>Construisons ensemble<br />vos projets <span>de demain.</span></h2>
-            <a className="btn white" href="#contact"><I n="cal" s={20} c="" w={1.8} />Échanger avec nos équipes</a>
+            <a className="btn white" href="#contact"><Icone n="cal" s={20} c="" w={1.8} />Échanger avec nos équipes</a>
           </div>
         </section>
       <footer className="ft">
@@ -512,7 +564,7 @@ function App() {
             <div><h4>Le Groupe</h4><ul><li><a href="#qui">Qui sommes-nous ?</a></li><li><a href="#entites">Nos entités</a></li><li><a href="#valeurs">Nos valeurs</a></li></ul></div>
             <div><h4>Expertises</h4><ul>{EXP.slice(0, 4).map(([, t]) => <li key={t}><a href={'#expertise-' + slug(t)}>{t}</a></li>)}<li><a href="#expertises-toutes">Toutes nos expertises</a></li></ul></div>
             <div><h4>Carrières</h4><ul><li><a href="#carrieres">Nos offres</a></li><li><a href="#approche">Notre culture</a></li><li><a href="#carrieres">Processus de recrutement</a></li><li><a href="#actualites">Actualités</a></li></ul></div>
-            <div><h4>Contact</h4><ul><li><I n="pin" s={16} c="" />Sophia-Antipolis · Aix-en-Provence · Monaco</li><li><I n="mail" s={16} c="" /><a href="mailto:contact@inov-team.fr">contact@inov-team.fr</a></li><li><a href="https://www.linkedin.com/company/inov-team" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm3 7v8h2.5v-8H7zm1.2-4a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zM11 10v8h2.5v-4.2c0-1.1.6-1.8 1.5-1.8s1.3.6 1.3 1.8V18H19v-4.8c0-2.4-1.3-3.4-3-3.4-1.2 0-2 .6-2.4 1.2V10H11z" /></svg></a></li></ul></div>
+            <div><h4>Contact</h4><ul><li><Icone n="pin" s={16} c="" />Sophia-Antipolis · Aix-en-Provence · Monaco</li><li><Icone n="mail" s={16} c="" /><a href="mailto:contact@inov-team.fr">contact@inov-team.fr</a></li><li><a href="https://www.linkedin.com/company/inov-team" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm3 7v8h2.5v-8H7zm1.2-4a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zM11 10v8h2.5v-4.2c0-1.1.6-1.8 1.5-1.8s1.3.6 1.3 1.8V18H19v-4.8c0-2.4-1.3-3.4-3-3.4-1.2 0-2 .6-2.4 1.2V10H11z" /></svg></a></li></ul></div>
           </div>
           <div className="bot"><span>© 2026 Inov Team Group</span><span style={{ display: 'flex', gap: 18 }}><a href="https://inov-team.fr/mentions">Mentions légales</a><a href="https://inov-team.fr/cgu">CGU</a></span></div>
         </div>
