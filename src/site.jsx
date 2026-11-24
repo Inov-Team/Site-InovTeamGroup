@@ -282,42 +282,17 @@ function ExpertiseExplorer({ sel, setSel }) {
 }
 
 function HandVisual() {
-  const mx = useMotionValue(0), my = useMotionValue(0);
-  const x = useSpring(useTransform(mx, [-1, 1], [-14, 14]), { stiffness: 60, damping: 16 });
-  const y = useSpring(useTransform(my, [-1, 1], [-10, 10]), { stiffness: 60, damping: 16 });
-  const reduce = useReducedMotion();
-  useEffect(() => {
-    if (reduce || !fine()) return;
-    const on = (e) => { mx.set((e.clientX / innerWidth) * 2 - 1); my.set((e.clientY / innerHeight) * 2 - 1); };
-    window.addEventListener('pointermove', on, { passive: true });
-    return () => window.removeEventListener('pointermove', on);
-  }, [reduce]);
   return (
-    <motion.div className="hand-wrap" style={{ x, y }}>
-      <motion.img className="hand" src="assets/hand-cut.webp" alt="Une main tient des fils de lumière, visuel de marque Inov Team"
-        initial={{ opacity: 0, scale: 1.06, filter: 'blur(8px)' }}
-        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-        transition={{ opacity: { duration: 0.6, ease }, scale: { duration: 0.7, ease }, filter: { duration: 0.6, ease } }} />
-    </motion.div>
+    <div className="hand-wrap">
+      <motion.img className="hand" src="assets/hand-cut.webp" width="1292" height="935"
+        alt="Une main tient des fils de lumière, visuel de marque Inov Team" fetchPriority="high"
+        initial={{ opacity: 0, scale: 1.03 }} animate={{ opacity: 1, scale: 1 }}
+        transition={{ opacity: { duration: 0.6, ease }, scale: { duration: 0.7, ease } }} />
+    </div>
   );
 }
 
-function Tilt({ className, href, children }) {
-  const rx = useMotionValue(0), ry = useMotionValue(0);
-  const rotateX = useSpring(rx, { stiffness: 200, damping: 18 });
-  const rotateY = useSpring(ry, { stiffness: 200, damping: 18 });
-  const reduce = useReducedMotion();
-  const move = (e) => {
-    if (reduce || !fine()) return;
-    const r = e.currentTarget.getBoundingClientRect();
-    ry.set(((e.clientX - r.left) / r.width - 0.5) * 12);
-    rx.set(-((e.clientY - r.top) / r.height - 0.5) * 12);
-  };
-  return (
-    <motion.a className={className} href={href} onPointerMove={move} onPointerLeave={() => { rx.set(0); ry.set(0); }}
-      style={{ rotateX, rotateY, transformPerspective: 700 }} whileTap={{ scale: 0.98 }}>{children}</motion.a>
-  );
-}
+const Tilt = ({ className, href, children }) => <a className={className} href={href}>{children}</a>;
 
 function ToTop() {
   const { scrollY } = useScroll();
@@ -444,11 +419,7 @@ function App() {
           </div>
         </section>
 
-        <section className="screen ent-screen" id="entites"><div className="ent" onPointerMove={(e) => {
-          const r = e.currentTarget.getBoundingClientRect();
-          e.currentTarget.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-          e.currentTarget.style.setProperty('--my', (e.clientY - r.top) + 'px');
-        }}>
+        <section className="screen ent-screen" id="entites"><div className="ent">
           <svg className="beams" viewBox="0 0 1200 260" preserveAspectRatio="none" aria-hidden="true">
             <defs><linearGradient id="bm" x1="0" x2="1"><stop offset="0" stopColor="#7b5cff" stopOpacity="0" /><stop offset=".5" stopColor="#b98cff" stopOpacity=".8" /><stop offset="1" stopColor="#ff7ae0" stopOpacity=".2" /></linearGradient></defs>
             {[0, 1, 2, 3, 4].map((k) => (
