@@ -1,0 +1,215 @@
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { POLES } from './poles.js';
+
+export const slug = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const ease = [0.2, 0.7, 0.2, 1];
+const up = (k = 0) => ({ initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.55, delay: k * 0.06, ease } });
+
+export const ENTITES = [
+  { k: 'inov-team', logo: 'logo-inovteam', t: 'Inov Team', em: '', d: 'Conseil & ingénierie IT',
+    intro: 'Filiale IT & Digital du groupe, Inov Team accompagne les entreprises dans la conception, le développement et l’exploitation de leurs solutions numériques.',
+    pts: [['Chez nos clients ou sur nos plateaux', 'Nos équipes interviennent sur site ou depuis des plateaux externalisés, en build comme en run.'], ['Applications critiques', 'Nous prenons en charge des applications à fort enjeu pour les grands comptes du territoire.'], ['Agilité, proximité, innovation', 'Un fonctionnement à taille humaine et des interlocuteurs qui connaissent vos enjeux.']] },
+  { k: 'inov-team-labs', logo: 'logo-labs', t: 'Inov Team', em: ' Labs', d: 'R&D & Innovation',
+    intro: 'Laboratoire d’innovation et de R&D du groupe, Inov Team Labs développe et expérimente des solutions pour nos clients et pour nos projets internes.',
+    pts: [['Des idées aux applications', 'Notre mission : transformer les idées en applications concrètes.'], ['Crédit d’Impôt Recherche', 'Inov Team Labs est accrédité au CIR.'], ['Jeune Entreprise Innovante', 'Le groupe est labellisé JEI pour ses activités de recherche.']] },
+  { k: 'digiteam', logo: 'logo-digiteam', t: 'DigiTeam', em: '', d: 'Delivery & Services',
+    intro: 'Filiale dédiée au marché monégasque, DigiTeam est ancrée à Monaco et propose des solutions sur mesure.',
+    pts: [['Conseil et expertise', 'Un accompagnement de proximité pour les acteurs de la Principauté.'], ['Développement et infrastructures', 'Développement applicatif et gestion d’infrastructures.'], ['Projets stratégiques', 'Pilotage de projets à fort enjeu, de bout en bout.']] }
+];
+
+const MODES = [['Assistance technique', 'Un consultant intégré à vos équipes, suivi par un manager technique.'], ['Forfait', 'Un projet livré depuis nos plateaux Inov Team Labs, avec engagement de résultat.'], ['Squad dédiée', 'Une équipe constituée autour d’un lead, du cadrage à la mise en production.']];
+
+const Hero = ({ crumb, title, em, lead, children, logo }) => (
+  <section className="phero">
+    <div className="wrap">
+      <motion.nav className="crumb" aria-label="Fil d’Ariane" {...up(0)}><a href="#top">Accueil</a><span>/</span>{crumb}</motion.nav>
+      {logo && <motion.img className="plogo" src={`assets/${logo}.webp`} alt="" {...up(1)} />}
+      <motion.h1 {...up(1)}>{title}{em && <> <span className="g">{em}</span></>}</motion.h1>
+      {lead && <motion.p className="plead" {...up(2)}>{lead}</motion.p>}
+      {children && <motion.div className="pacts" {...up(3)}>{children}</motion.div>}
+    </div>
+  </section>
+);
+
+export function ExpertisePage({ k, I, icons }) {
+  const i = POLES.findIndex((p) => slug(p.t) === k);
+  const p = POLES[i];
+  const others = POLES.filter((_, j) => j !== i);
+  return (
+    <>
+      <Hero crumb={<><a href="#expertises-toutes">Nos expertises</a><span>/</span>{p.t}</>} title={p.t} lead={p.s}>
+        <a className="btn" href="#contact">Parler de votre projet</a>
+        <a className="btn out" href="#carrieres">Rejoindre ce pôle</a>
+      </Hero>
+      <section className="psec"><div className="wrap pgrid">
+        <div><h2>Ce que nous prenons en charge</h2></div>
+        <ul className="plist">{p.a.map((x, j) => <motion.li key={x} {...up(j)}><I n="check" s={22} />{x}</motion.li>)}</ul>
+      </div></section>
+      {p.p.length > 0 && <section className="psec soft"><div className="wrap pgrid">
+        <div><h2>Profils mobilisés</h2><p>Des consultants confirmés, recrutés avec exigence et accompagnés par un manager technique dédié.</p></div>
+        <div className="chips">{p.p.map((x) => <span key={x}>{x}</span>)}</div>
+      </div></section>}
+      <section className="psec"><div className="wrap">
+        <h2>Comment nous intervenons</h2>
+        <div className="tri">{MODES.map(([t, d]) => <div key={t}><h3>{t}</h3><p>{d}</p></div>)}</div>
+      </div></section>
+      <section className="psec soft"><div className="wrap">
+        <h2>Nos autres expertises</h2>
+        <div className="olist">{others.map((o) => <a key={o.t} href={'#expertise-' + slug(o.t)}><I n={icons[o.t]} s={26} />{o.t}<I n="arrow" s={18} c="arr" w={2} /></a>)}</div>
+      </div></section>
+    </>
+  );
+}
+
+export function AllExpertises({ I, icons }) {
+  return (
+    <>
+      <Hero crumb="Nos expertises" title="Nos 8 pôles" em="d’expertise." lead="Choisissez un pôle pour découvrir ce que nous prenons en charge, les profils que nous mobilisons et nos modes d’intervention." />
+      <section className="psec"><div className="wrap">
+        <div className="cards">{POLES.map((p, k) => (
+          <motion.a key={p.t} className="card" href={'#expertise-' + slug(p.t)} {...up(k)}>
+            <I n={icons[p.t]} s={42} /><div><h3>{p.t}</h3><p>{p.s}</p></div>
+          </motion.a>
+        ))}</div>
+      </div></section>
+    </>
+  );
+}
+
+export function EntitePage({ k }) {
+  const e = ENTITES.find((x) => x.k === k);
+  const others = ENTITES.filter((x) => x.k !== k);
+  return (
+    <>
+      <Hero crumb={<><a href="#entites">Nos entités</a><span>/</span>{e.t + e.em}</>} title={e.t} em={e.em.trim() || null} lead={e.intro} logo={e.logo}>
+        <a className="btn" href="#contact">Contacter {e.t + e.em}</a>
+      </Hero>
+      <section className="psec"><div className="wrap">
+        <div className="tri">{e.pts.map(([t, d], j) => <motion.div key={t} {...up(j)}><h3>{t}</h3><p>{d}</p></motion.div>)}</div>
+      </div></section>
+      <section className="psec soft"><div className="wrap">
+        <h2>Les autres entités du groupe</h2>
+        <div className="olist">{others.map((o) => <a key={o.k} className="elogo" href={'#entite-' + o.k}><img src={`assets/${o.logo}.webp`} alt={o.t + o.em} /><small>{o.d}</small></a>)}</div>
+      </div></section>
+    </>
+  );
+}
+
+export function ApprochePage() {
+  const R = [
+    ['Curiosity Break', 'Un collaborateur présente un sujet technique qui le passionne à une audience curieuse, dans une ambiance détendue, autour de pizzas.'],
+    ['Inov Night', 'Sorties hors du bureau : soirées jeux, restaurants et activités sportives comme le canyoning, le ski ou la randonnée.'],
+    ['Ambassadeurs', 'Des représentants d’Inov Team dans les écoles, les universités et auprès des clients, qui animent la vie du groupe toute l’année.'],
+    ['Mentorat des managers', 'Nos managers sont des experts techniques qui pratiquent eux-mêmes les technologies qu’ils encadrent.'],
+    ['Projets internes R&D', 'Un véritable laboratoire d’idées pour monter en compétence sur les technologies récentes.']
+  ];
+  return (
+    <>
+      <Hero crumb="Notre approche" title="Une ESN à taille humaine," em="exigeante et proche." lead="Expertise senior, management de proximité et partenariats directs avec les grands comptes du territoire : notre façon de travailler tient en quelques engagements simples." />
+      <section className="psec"><div className="wrap">
+        <div className="tri">
+          <div><h3>Un recrutement sélectif</h3><p>Des consultants confirmés, souvent cooptés, choisis pour leur expertise et leur état d’esprit.</p></div>
+          <div><h3>Un manager technique dédié</h3><p>Chaque consultant est suivi tout au long de sa mission par un manager qui connaît son métier.</p></div>
+          <div><h3>Des communautés d’experts</h3><p>Veille, partage et montée en compétence entre consultants d’un même métier.</p></div>
+        </div>
+      </div></section>
+      <section className="psec soft"><div className="wrap">
+        <h2>Nos rituels</h2>
+        <div className="rits">{R.map(([t, d], j) => <motion.div key={t} {...up(j)}><h3>{t}</h3><p>{d}</p></motion.div>)}</div>
+      </div></section>
+    </>
+  );
+}
+
+export function ActualitesPage() {
+  return (
+    <>
+      <Hero crumb="Actualités" title="Nos" em="actualités." lead="Recrutements, événements, nouveaux projets : nous partageons la vie d’Inov Team au quotidien sur LinkedIn.">
+        <a className="btn" href="https://www.linkedin.com/company/inov-team">Suivre Inov Team sur LinkedIn</a>
+      </Hero>
+      <section className="psec"><div className="wrap">
+        <div className="empty"><h3>Les articles arrivent bientôt ici.</h3><p>En attendant, retrouvez nos dernières nouvelles sur notre page LinkedIn.</p></div>
+      </div></section>
+    </>
+  );
+}
+
+const Field = ({ id, label, err, children }) => (
+  <label className="fld2" data-err={!!err}>{label}{children}{err && <span className="err2">{err}</span>}</label>
+);
+
+function useForm(init, check) {
+  const [v, setV] = useState(init); const [e, setE] = useState({}); const [ok, setOk] = useState(false);
+  const set = (k) => (ev) => setV({ ...v, [k]: ev.target.value });
+  const submit = (ev) => { ev.preventDefault(); const x = check(v); setE(x); setOk(!Object.keys(x).length); };
+  return { v, e, ok, set, submit };
+}
+
+export function ContactPage() {
+  const f = useForm({ nom: '', soc: '', mail: '', sujet: 'Un projet', msg: '' }, (v) => {
+    const x = {};
+    if (!v.nom.trim()) x.nom = 'Indiquez votre nom.';
+    if (!/^\S+@\S+\.\S+$/.test(v.mail)) x.mail = 'Indiquez une adresse e-mail valide.';
+    if (v.msg.trim().length < 10) x.msg = 'Décrivez votre besoin en quelques mots.';
+    return x;
+  });
+  return (
+    <>
+      <Hero crumb="Contact" title="Échangeons sur" em="vos projets." lead="Un besoin de renfort, un projet au forfait ou une candidature : une personne de l’équipe vous répond." />
+      <section className="psec"><div className="wrap cgrid">
+        <div className="sites2">
+          <div><b>Sophia-Antipolis</b><span>Siège</span></div>
+          <div><b>Aix-en-Provence</b><span>Agence</span></div>
+          <div><b>Monaco</b><span>DigiTeam</span></div>
+          <div><b>E-mail</b><span>contact@inov-team.fr</span></div>
+        </div>
+        <form className="form2" noValidate onSubmit={f.submit}>
+          <Field label="Nom" err={f.e.nom}><input value={f.v.nom} onChange={f.set('nom')} autoComplete="name" /></Field>
+          <Field label="Société"><input value={f.v.soc} onChange={f.set('soc')} autoComplete="organization" /></Field>
+          <Field label="E-mail" err={f.e.mail}><input type="email" value={f.v.mail} onChange={f.set('mail')} autoComplete="email" /></Field>
+          <Field label="Objet"><select value={f.v.sujet} onChange={f.set('sujet')}><option>Un projet</option><option>Une candidature</option><option>Un partenariat</option><option>Autre</option></select></Field>
+          <Field label="Votre message" err={f.e.msg}><textarea rows="5" value={f.v.msg} onChange={f.set('msg')} /></Field>
+          <AnimatePresence mode="wait">{f.ok
+            ? <motion.div key="ok" className="sent2" role="status" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}><b>Message prêt.</b> Ce formulaire n’est pas encore relié à une boîte de réception : il n’a pas été transmis. Écrivez-nous à contact@inov-team.fr.</motion.div>
+            : <motion.button key="b" className="btn" type="submit" exit={{ opacity: 0 }}>Envoyer le message</motion.button>}</AnimatePresence>
+        </form>
+      </div></section>
+    </>
+  );
+}
+
+export function CarrieresPage() {
+  const f = useForm({ moi: '', nom: '', metier: '' }, (v) => {
+    const x = {};
+    if (!v.moi.trim()) x.moi = 'Indiquez votre nom.';
+    if (!v.nom.trim()) x.nom = 'Indiquez le nom de la personne recommandée.';
+    if (!v.metier) x.metier = 'Choisissez un métier.';
+    return x;
+  });
+  return (
+    <>
+      <Hero crumb="Carrières" title="Rejoignez une équipe" em="engagée." lead="Développez votre expertise dans un environnement stimulant, bienveillant et en constante évolution.">
+        <a className="btn" href="https://inov-team.fr/offres">Voir nos offres</a>
+        <a className="btn out" href="#approche">Découvrir notre culture</a>
+      </Hero>
+      <section className="psec"><div className="wrap">
+        <h2>Notre processus de recrutement</h2>
+        <ol className="steps2">
+          {[['Premier échange', 'Un appel pour faire connaissance et comprendre votre projet.'], ['Entretien RH', 'Votre parcours, vos envies, vos attentes.'], ['Entretien technique', 'Avec un manager expert de votre métier.'], ['Proposition et intégration', 'Un accompagnement jusqu’à votre arrivée en mission.']].map(([t, d], j) => <motion.li key={t} {...up(j)}><span>{j + 1}</span><div><h3>{t}</h3><p>{d}</p></div></motion.li>)}
+        </ol>
+      </div></section>
+      <section className="psec soft"><div className="wrap cgrid">
+        <div><h2>Cooptation</h2><p style={{ marginTop: 12 }}>Vous connaissez un profil qui aurait sa place chez nous ? Présentez-le nous.</p></div>
+        <form className="form2" noValidate onSubmit={f.submit}>
+          <Field label="Votre nom" err={f.e.moi}><input value={f.v.moi} onChange={f.set('moi')} /></Field>
+          <Field label="Nom de la personne" err={f.e.nom}><input value={f.v.nom} onChange={f.set('nom')} /></Field>
+          <Field label="Son métier" err={f.e.metier}><select value={f.v.metier} onChange={f.set('metier')}><option value="">Choisir un pôle</option>{POLES.map((p) => <option key={p.t}>{p.t}</option>)}</select></Field>
+          <AnimatePresence mode="wait">{f.ok
+            ? <motion.div key="ok" className="sent2" role="status" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}><b>Recommandation prête.</b> Ce formulaire n’est pas encore relié à l’équipe recrutement : elle n’a pas été transmise.</motion.div>
+            : <motion.button key="b" className="btn" type="submit" exit={{ opacity: 0 }}>Recommander</motion.button>}</AnimatePresence>
+        </form>
+      </div></section>
+    </>
+  );
+}
