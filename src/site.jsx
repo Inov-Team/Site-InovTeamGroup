@@ -281,14 +281,23 @@ function ExpertiseExplorer({ sel, setSel }) {
   );
 }
 
+// Le visuel de marque en trois poses : des fondus enchaînés sur l'opacité,
+// la seule propriété qui ne coûte ni calcul de mise en page ni repeinte.
+const POSES = [
+  'La main de la marque Inov Team, les fils de lumière passant entre les doigts',
+  'La même main, les doigts refermés sur les fils de lumière',
+  'La même main, l’index tendu vers les fils de lumière'
+];
 function HandVisual() {
   return (
-    <div className="hand-wrap">
-      <motion.img className="hand" src="assets/hand-panel.webp" width="680" height="450"
-        alt="Une main tient des fils de lumière, visuel de marque Inov Team" fetchPriority="high"
-        initial={{ opacity: 0, scale: 1.03 }} animate={{ opacity: 1, scale: 1 }}
-        transition={{ opacity: { duration: 0.6, ease }, scale: { duration: 0.7, ease } }} />
-    </div>
+    <motion.div className="hand-wrap" initial={{ opacity: 0, scale: 1.02 }} animate={{ opacity: 1, scale: 1 }}
+      transition={{ opacity: { duration: 0.6, ease }, scale: { duration: 0.7, ease } }}>
+      {POSES.map((alt, i) => (
+        <img key={i} className={'hand hand-' + (i + 1)} src={`assets/hand-${i + 1}.webp`}
+          width="900" height="585" alt={i ? '' : alt} aria-hidden={i ? 'true' : undefined}
+          fetchPriority={i ? undefined : 'high'} decoding="async" />
+      ))}
+    </motion.div>
   );
 }
 

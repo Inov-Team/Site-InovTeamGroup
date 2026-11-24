@@ -459,3 +459,11 @@ main:focus{outline:none}
  .mq-track{animation:none;transform:none}
  .marquee{-webkit-mask-image:none;mask-image:none;overflow-x:auto}
 }
+
+/* Le hero respire : trois poses du visuel de marque en fondu, 13,5 s de cycle.
+   Uniquement de l'opacité, donc composité par le GPU. */
+.hand-2,.hand-3{opacity:0;animation:pose 13.5s linear infinite}
+.hand-2{animation-delay:-9s}
+.hand-3{animation-delay:-4.5s}
+@keyframes pose{0%{opacity:0}6%{opacity:1}33%{opacity:1}39%{opacity:0}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.hand-2,.hand-3{animation:none;opacity:0}}
