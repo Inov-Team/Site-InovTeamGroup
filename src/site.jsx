@@ -284,7 +284,7 @@ function ExpertiseExplorer({ sel, setSel }) {
 function HandVisual() {
   return (
     <div className="hand-wrap">
-      <motion.img className="hand" src="assets/hand-cut.webp" width="1292" height="935"
+      <motion.img className="hand" src="assets/hand-panel.webp" width="680" height="450"
         alt="Une main tient des fils de lumière, visuel de marque Inov Team" fetchPriority="high"
         initial={{ opacity: 0, scale: 1.03 }} animate={{ opacity: 1, scale: 1 }}
         transition={{ opacity: { duration: 0.6, ease }, scale: { duration: 0.7, ease } }} />

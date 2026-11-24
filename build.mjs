@@ -63,7 +63,7 @@ writeFileSync('dist/index.html', `<!DOCTYPE html>
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/hand-cut.webp" as="image" fetchpriority="high">
+<link rel="preload" href="assets/hand-panel.webp" as="image" fetchpriority="high">
 <script type="application/ld+json">${JSON.stringify(jsonld)}</script>
 <style>
 ${css}
