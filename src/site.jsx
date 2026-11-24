@@ -294,7 +294,7 @@ function HandVisual() {
       {POSES.map((alt, i) => (
         <img key={i} className={'hand hand-' + (i + 1)} src={`assets/hand-${i + 1}.webp`}
           width="900" height="585" alt={alt} aria-hidden={i ? 'true' : undefined}
-          fetchPriority={i ? 'low' : 'high'} decoding="async" />
+          fetchPriority={i ? "low" : "high"} decoding="async" />
       ))}
     </motion.div>
   );
