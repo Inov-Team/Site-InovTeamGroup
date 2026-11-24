@@ -462,21 +462,22 @@ main:focus{outline:none}
 
 /* Le hero bouge : six poses de la main classées par proximité visuelle,
    jouées en aller-retour pour que le geste revienne sur ses pas au lieu de
-   sauter. 0,62 s par pose, 0,22 s de fondu, 6,2 s de boucle. Rien que de
-   l'opacité, donc composité par le GPU. */
-.hand-1,.hand-2,.hand-3,.hand-4,.hand-5,.hand-6{opacity:0;animation:6.2s linear infinite}
+   sauter. 3,2 s par pose dont 1,6 s de fondu : la transition occupe la
+   moitié du temps, donc l'image glisse d'une pose à l'autre au lieu de
+   clignoter. 32 s de boucle. Rien que de l'opacité, composité par le GPU. */
+.hand-1,.hand-2,.hand-3,.hand-4,.hand-5,.hand-6{opacity:0;animation:32s linear infinite}
 .hand-1{animation-name:p1}
 .hand-2{animation-name:p2}
 .hand-3{animation-name:p3}
 .hand-4{animation-name:p4}
 .hand-5{animation-name:p5}
 .hand-6{animation-name:p6}
-@keyframes p1{0%{opacity:1} 10%{opacity:1} 13.5%{opacity:0} 96.5%{opacity:0} 100%{opacity:1}}
-@keyframes p2{0%{opacity:1} 3.5%{opacity:0} 6.5%{opacity:0} 10%{opacity:1} 20%{opacity:1} 23.5%{opacity:0} 86.5%{opacity:0} 90%{opacity:1} 100%{opacity:1}}
-@keyframes p3{0%{opacity:0} 16.5%{opacity:0} 20%{opacity:1} 30%{opacity:1} 33.5%{opacity:0} 76.5%{opacity:0} 80%{opacity:1} 90%{opacity:1} 93.5%{opacity:0} 100%{opacity:0}}
-@keyframes p4{0%{opacity:0} 26.5%{opacity:0} 30%{opacity:1} 40%{opacity:1} 43.5%{opacity:0} 66.5%{opacity:0} 70%{opacity:1} 80%{opacity:1} 83.5%{opacity:0} 100%{opacity:0}}
-@keyframes p5{0%{opacity:0} 36.5%{opacity:0} 40%{opacity:1} 50%{opacity:1} 53.5%{opacity:0} 56.5%{opacity:0} 60%{opacity:1} 70%{opacity:1} 73.5%{opacity:0} 100%{opacity:0}}
-@keyframes p6{0%{opacity:0} 46.5%{opacity:0} 50%{opacity:1} 60%{opacity:1} 63.5%{opacity:0} 100%{opacity:0}}
+@keyframes p1{0%{opacity:1} 10%{opacity:1} 15%{opacity:0} 95%{opacity:0} 100%{opacity:1}}
+@keyframes p2{0%{opacity:1} 5%{opacity:0} 10%{opacity:1} 20%{opacity:1} 25%{opacity:0} 85%{opacity:0} 90%{opacity:1} 100%{opacity:1}}
+@keyframes p3{0%{opacity:0} 15%{opacity:0} 20%{opacity:1} 30%{opacity:1} 35%{opacity:0} 75%{opacity:0} 80%{opacity:1} 90%{opacity:1} 95%{opacity:0} 100%{opacity:0}}
+@keyframes p4{0%{opacity:0} 25%{opacity:0} 30%{opacity:1} 40%{opacity:1} 45%{opacity:0} 65%{opacity:0} 70%{opacity:1} 80%{opacity:1} 85%{opacity:0} 100%{opacity:0}}
+@keyframes p5{0%{opacity:0} 35%{opacity:0} 40%{opacity:1} 50%{opacity:1} 55%{opacity:0} 60%{opacity:1} 70%{opacity:1} 75%{opacity:0} 100%{opacity:0}}
+@keyframes p6{0%{opacity:0} 45%{opacity:0} 50%{opacity:1} 60%{opacity:1} 65%{opacity:0} 100%{opacity:0}}
 @media (prefers-reduced-motion:reduce){
  .hand-1,.hand-2,.hand-3,.hand-4,.hand-5,.hand-6{animation:none;opacity:0}
  .hand-1{opacity:1}
