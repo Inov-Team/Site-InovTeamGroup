@@ -62,6 +62,7 @@ const GAL = [
   ['evenement', 'g-ev', 'Inov Team en événement', '50% 45%'],
   ['bureaux-2', 'g-c', 'Le salon Be brilliant together', '50% 50%']
 ];
+const CLIENTS = [['orange', 'Orange', 'sq'], ['amadeus', 'Amadeus'], ['air-france', 'Air France'], ['docaposte', 'Docaposte'], ['pro-btp', 'PRO BTP Groupe'], ['kappa', 'Kappa Engineering', 'sq']];
 const VALS = [['hands', 'Proximité', 'Des relations durables et de confiance.'], ['bulb', 'Innovation', 'Une culture R&D au cœur de notre ADN.'], ['team', 'Esprit d’équipe', 'Une aventure humaine et collective.'], ['leaf', 'Engagement', 'Des impacts concrets et responsables.']];
 
 function Count({ to, prefix = '' }) {
@@ -82,8 +83,15 @@ function Header() {
   const [open, setOpen] = useState(false);
   const [dd, setDd] = useState(null);
   const [sc, setSc] = useState(false);
-  const { scrollY } = useScroll();
-  useMotionValueEvent(scrollY, 'change', (y) => setSc(y > 10));
+  const [hide, setHide] = useState(false);
+  const { scrollY, scrollYProgress } = useScroll();
+  const prog = useSpring(scrollYProgress, { stiffness: 200, damping: 40 });
+  useMotionValueEvent(scrollY, 'change', (y) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    setSc(y > 10);
+    setHide(y > 300 && y > prev + 4 && !open);
+    if (y < prev - 4) setHide(false);
+  });
   const menus = {
     exp: EXP.map(([, t]) => [t, '#expertise-' + slug(t)]),
     ent: ENTITES.map((e) => [e.t + e.em, '#entite-' + e.k, e.d])
@@ -101,7 +109,7 @@ function Header() {
     </div>
   );
   return (
-    <header className={'hd' + (sc ? ' sc' : '')}>
+    <motion.header className={'hd' + (sc ? ' sc' : '')} animate={{ y: hide ? '-100%' : '0%' }} transition={{ duration: 0.35, ease }}>
       <div className="wrap">
         <a className="brand" href="#top" aria-label="Inov Team Group, accueil"><img src="assets/logo-group.webp" alt="Inov Team Group" /></a>
         <nav className="nav" aria-label="Navigation principale">
@@ -129,7 +137,8 @@ function Header() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+      <motion.div className="prog" style={{ scaleX: prog }} aria-hidden="true" />
+    </motion.header>
   );
 }
 
@@ -253,6 +262,58 @@ function ExpertiseExplorer({ sel, setSel }) {
   );
 }
 
+function HandVisual() {
+  const mx = useMotionValue(0), my = useMotionValue(0);
+  const x = useSpring(useTransform(mx, [-1, 1], [-14, 14]), { stiffness: 60, damping: 16 });
+  const y = useSpring(useTransform(my, [-1, 1], [-10, 10]), { stiffness: 60, damping: 16 });
+  useEffect(() => {
+    const on = (e) => { mx.set((e.clientX / innerWidth) * 2 - 1); my.set((e.clientY / innerHeight) * 2 - 1); };
+    window.addEventListener('pointermove', on);
+    return () => window.removeEventListener('pointermove', on);
+  }, []);
+  return (
+    <motion.div className="hand-wrap" style={{ x, y }}>
+      <motion.img className="hand" src="assets/hand-cut.webp" alt="Une main tient des fils de lumière, visuel de marque Inov Team"
+        initial={{ opacity: 0, scale: 1.06, filter: 'blur(8px)' }}
+        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)', y: [0, -12, 0] }}
+        transition={{ opacity: { duration: 1.1, ease }, scale: { duration: 1.2, ease }, filter: { duration: 1 }, y: { duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1.2 } }} />
+      <span className="spark s1" /><span className="spark s2" /><span className="spark s3" />
+    </motion.div>
+  );
+}
+
+function Tilt({ className, href, children }) {
+  const rx = useMotionValue(0), ry = useMotionValue(0);
+  const rotateX = useSpring(rx, { stiffness: 200, damping: 18 });
+  const rotateY = useSpring(ry, { stiffness: 200, damping: 18 });
+  const move = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    ry.set(((e.clientX - r.left) / r.width - 0.5) * 12);
+    rx.set(-((e.clientY - r.top) / r.height - 0.5) * 12);
+  };
+  return (
+    <motion.a className={className} href={href} onPointerMove={move} onPointerLeave={() => { rx.set(0); ry.set(0); }}
+      style={{ rotateX, rotateY, transformPerspective: 700 }} whileTap={{ scale: 0.98 }}>{children}</motion.a>
+  );
+}
+
+function ToTop() {
+  const { scrollY } = useScroll();
+  const [on, setOn] = useState(false);
+  useMotionValueEvent(scrollY, 'change', (y) => setOn(y > 900));
+  return (
+    <AnimatePresence>
+      {on && (
+        <motion.button className="totop" aria-label="Revenir en haut de la page" onClick={() => scrollTo({ top: 0, behavior: 'smooth' })}
+          initial={{ opacity: 0, y: 16, scale: 0.8 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 16, scale: 0.8 }}
+          whileHover={{ y: -3 }} whileTap={{ scale: 0.92 }}>
+          <I n="arrow" s={20} c="" w={2} />
+        </motion.button>
+      )}
+    </AnimatePresence>
+  );
+}
+
 function App() {
   const [sel, setSel] = useState(0);
   const PAGES = ['contact', 'carrieres', 'actualites', 'approche', 'expertises-toutes'];
@@ -271,7 +332,7 @@ function App() {
       const r = parse(); setRoute(r);
       const h = location.hash.slice(1);
       if (r !== 'home' || !h || h === 'top') window.scrollTo({ top: 0 });
-      else setTimeout(() => document.getElementById(h)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+      else setTimeout(() => document.getElementById(h)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 480);
     };
     window.addEventListener('hashchange', on); return () => window.removeEventListener('hashchange', on);
   }, []);
@@ -282,8 +343,13 @@ function App() {
   return (
     <MotionConfig reducedMotion="user">
       <Header />
+      <ToTop />
       <main>
-        {page ? <motion.div key={route} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>{page}</motion.div> : (<>
+        <AnimatePresence mode="wait" initial={false}>
+        {page ? (
+        <motion.div key={route} initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -18 }} transition={{ duration: 0.38, ease }}>{page}</motion.div>
+        ) : (
+        <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, y: -18 }} transition={{ duration: 0.32, ease }}>
         <section className="hero screen" id="top">
           <div className="wrap">
             <div className="hero-grid">
@@ -299,7 +365,7 @@ function App() {
                 </motion.div>
               </div>
               <div className="visual">
-                <motion.img className="hand" src="assets/hand-cut.webp" alt="Une main tient des fils de lumière, visuel de marque Inov Team" initial={{ opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, ease }} />
+                <HandVisual />
                 <motion.div className="since" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: [0, -6, 0] }} transition={{ opacity: { delay: 0.9 }, y: { delay: 1, duration: 5, repeat: Infinity, ease: 'easeInOut' } }}>
                   <I n="rocket" s={40} />
                   <div><b>Depuis 2018</b><span>Innovation, expertise<br />et proximité</span></div>
@@ -326,7 +392,11 @@ function App() {
           </div>
         </section>
 
-        <section className="screen ent-screen" id="entites"><div className="ent">
+        <section className="screen ent-screen" id="entites"><div className="ent" onPointerMove={(e) => {
+          const r = e.currentTarget.getBoundingClientRect();
+          e.currentTarget.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+          e.currentTarget.style.setProperty('--my', (e.clientY - r.top) + 'px');
+        }}>
           <svg className="beams" viewBox="0 0 1200 260" preserveAspectRatio="none" aria-hidden="true">
             <defs><linearGradient id="bm" x1="0" x2="1"><stop offset="0" stopColor="#7b5cff" stopOpacity="0" /><stop offset=".5" stopColor="#b98cff" stopOpacity=".8" /><stop offset="1" stopColor="#ff7ae0" stopOpacity=".2" /></linearGradient></defs>
             {[0, 1, 2, 3, 4].map((k) => (
@@ -343,7 +413,7 @@ function App() {
             <div className="ent-cards">
               {ENT.map(([a, b, d], k) => (
                 <Reveal key={a + b} k={k}>
-                  <a className="ecard" href={'#entite-' + ENTITES[k].k}><img className="elg" src={`assets/${ENTITES[k].logo}.webp`} alt={a + b} /><span>{d}</span><span className="arr"><I n="arrow" s={18} c="" w={2} /></span></a>
+                  <Tilt className="ecard" href={'#entite-' + ENTITES[k].k}><img className="elg" src={`assets/${ENTITES[k].logo}.webp`} alt={a + b} /><span>{d}</span><span className="arr"><I n="arrow" s={18} c="" w={2} /></span></Tilt>
                 </Reveal>
               ))}
             </div>
@@ -355,12 +425,14 @@ function App() {
         <section className="clients" aria-label="Ils nous font confiance">
           <div className="wrap">
             <div className="eyebrow">Ils nous font confiance</div>
-            <div className="logos">
-              <img className="sq" src="assets/orange.webp" alt="Orange" />
-              <img src="assets/amadeus.webp" alt="Amadeus" />
-              <img src="assets/air-france.webp" alt="Air France" />
-              <img src="assets/docaposte.webp" alt="Docaposte" />
-              <img src="assets/pro-btp.webp" alt="PRO BTP Groupe" />
+            <div className="marquee" aria-label="Logos clients">
+              <div className="mq-track">
+                {[0, 1].map((set) => (
+                  <div className="mq-set" key={set} aria-hidden={set === 1}>
+                    {CLIENTS.map(([f, nom, sq]) => <img key={f} className={sq || ''} src={`assets/${f}.webp`} alt={set === 1 ? '' : nom} />)}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -422,7 +494,9 @@ function App() {
         </div>
         </section>
 
-        </>)}
+        </motion.div>
+        )}
+        </AnimatePresence>
         <div className="screen end-screen">
         <section className="band" id="cta">
           <svg className="beams" viewBox="0 0 1200 160" preserveAspectRatio="none" aria-hidden="true">{[0, 1, 2, 3].map((k) => <motion.path key={k} d={`M-20 ${150 - k * 8} C 300 ${100 + k * 10}, 800 ${170 - k * 12}, 1220 ${20 + k * 14}`} fill="none" stroke="#f1b5ff" strokeOpacity={0.35 - k * 0.06} strokeWidth="1.2" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 2, delay: k * 0.15 }} />)}</svg>

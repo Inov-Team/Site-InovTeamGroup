@@ -385,3 +385,46 @@ a.card{color:inherit}
 @media (max-width:980px){.visual{aspect-ratio:1300/871}}
 @media (min-width:981px){.hero-grid{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}.hero .visual .hand{inset:-8% -10% -2% -4%!important;width:114%!important;height:110%!important}}
 @media (min-width:981px){.hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.hero .visual .hand{inset:-16% -16% -6% -10%!important;width:126%!important;height:122%!important}}
+
+/* ===== animations & correctifs ===== */
+.hd{will-change:transform}
+.prog{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:linear-gradient(90deg,#2b4bff,#7b3fe4,#c935a6);transform-origin:0 50%}
+.hand-wrap{position:absolute;inset:0;pointer-events:none;filter:drop-shadow(0 0 1.5px #7b3fe4) drop-shadow(0 0 1.5px #7b3fe4) drop-shadow(0 0 10px rgba(155,107,255,.75)) drop-shadow(0 0 26px rgba(201,53,166,.35)) drop-shadow(0 28px 40px rgba(60,40,200,.22))}
+.hero .visual .hand-wrap .hand{filter:none}
+.spark{position:absolute;width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 0 12px 4px rgba(185,140,255,.9),0 0 30px 10px rgba(201,53,166,.4);opacity:0;animation:spark 3.6s ease-in-out infinite}
+.s1{left:52%;top:30%}.s2{left:72%;top:14%;animation-delay:1.2s}.s3{left:30%;top:36%;animation-delay:2.4s}
+@keyframes spark{0%,100%{opacity:0;transform:scale(.4)}45%{opacity:1;transform:scale(1)}70%{opacity:0;transform:scale(1.6)}}
+/* défilé logos */
+.marquee{overflow:hidden;border-block:1px solid var(--line);padding:26px 0;margin-top:18px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.mq-track{display:flex;width:max-content;animation:mq 32s linear infinite}
+.marquee:hover .mq-track{animation-play-state:paused}
+.mq-set{display:flex;align-items:center;gap:clamp(48px,7vw,110px);padding-right:clamp(48px,7vw,110px)}
+.mq-set img{height:auto;max-height:34px;max-width:160px;width:auto;filter:grayscale(1);opacity:.65;transition:filter .3s,opacity .3s}
+.mq-set img.sq{max-height:48px}
+.mq-set img:hover{filter:none;opacity:1}
+@keyframes mq{to{transform:translateX(-50%)}}
+/* cartes entités */
+.ecard{transform-style:preserve-3d;will-change:transform}
+.ecard .arr{transition:transform .25s}.ecard:hover .arr{transform:translateX(5px)}
+.ent{position:relative}
+.ent::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(185,140,255,.22),transparent 60%);opacity:0;transition:opacity .3s}
+.ent:hover::after{opacity:1}
+.ent>*{position:relative;z-index:1}
+/* boutons */
+.btn{position:relative;overflow:hidden}
+.btn svg{transition:transform .25s ease}
+.btn:hover svg{transform:translateX(4px)}
+.btn:not(.out):not(.out-v):not(.white)::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);transition:left .6s ease}
+.btn:not(.out):not(.out-v):not(.white):hover::after{left:120%}
+/* cartes et liens */
+.card,.olist a,.tri>div,.rits>div,.plist li,.steps2 li{transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s,border-color .3s}
+.tri>div:hover,.rits>div:hover,.plist li:hover,.steps2 li:hover{transform:translateY(-4px);border-color:#c9b6f7;box-shadow:0 14px 30px rgba(123,63,228,.12)}
+.ft a{transition:color .2s}
+.menu a{transition:background .15s,color .15s,padding-left .2s}.menu a:hover{padding-left:16px}
+/* haut de page */
+.totop{position:fixed;right:22px;bottom:22px;z-index:45;width:52px;height:52px;border-radius:50%;border:0;cursor:pointer;color:#fff;background:linear-gradient(135deg,#6a3df0,#c935a6);box-shadow:0 12px 28px rgba(123,63,228,.35);display:grid;place-items:center}
+.totop svg{transform:rotate(-90deg)}
+/* correctifs mobile */
+@media (max-width:700px){.ent-screen .ecard img.elg{max-height:72px;max-width:70%}.ent-screen .ecard{padding:18px}.hero .since{bottom:-10px}.totop{right:14px;bottom:14px;width:46px;height:46px}}
+@media (prefers-reduced-motion:reduce){.mq-track,.spark{animation:none}.spark{display:none}.btn::after{display:none}}
+
