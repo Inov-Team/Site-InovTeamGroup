@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { POLES } from './poles.js';
+import { OFFRES, LIEN_OFFRES } from './offres.js';
 
 export const slug = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const ease = [0.2, 0.7, 0.2, 1];
@@ -190,10 +191,25 @@ export function CarrieresPage() {
   return (
     <>
       <Hero crumb="Carrières" title="Rejoignez une équipe" em="engagée." lead="Développez votre expertise dans un environnement stimulant, bienveillant et en constante évolution.">
-        <a className="btn" href="https://inov-team.fr/offres">Voir nos offres</a>
+        <a className="btn" href="#nos-offres">Voir nos offres</a>
         <a className="btn out" href="#approche">Découvrir notre culture</a>
       </Hero>
-      <section className="psec"><div className="wrap">
+      <section className="psec" id="nos-offres"><div className="wrap">
+        <div className="off-hd">
+          <div><h2>Nos offres</h2><p style={{ marginTop: 10 }}>Sophia-Antipolis, Aix-en-Provence et Monaco.</p></div>
+          <span className="off-n">{OFFRES.length} postes ouverts</span>
+        </div>
+        <div className="offres">
+          {OFFRES.map(([t, pole, lieu, c], j) => (
+            <motion.a key={t} href={LIEN_OFFRES} {...up(j)}>
+              <span><b>{t}</b><s>{pole}</s></span>
+              <span className="off-m"><em>{lieu}</em><em>{c}</em></span>
+              <svg className="off-a" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg>
+            </motion.a>
+          ))}
+        </div>
+      </div></section>
+      <section className="psec soft"><div className="wrap">
         <h2>Notre processus de recrutement</h2>
         <ol className="steps2">
           {[['Premier échange', 'Un appel pour faire connaissance et comprendre votre projet.'], ['Entretien RH', 'Votre parcours, vos envies, vos attentes.'], ['Entretien technique', 'Avec un manager expert de votre métier.'], ['Proposition et intégration', 'Un accompagnement jusqu’à votre arrivée en mission.']].map(([t, d], j) => <motion.li key={t} {...up(j)}><span>{j + 1}</span><div><h3>{t}</h3><p>{d}</p></div></motion.li>)}

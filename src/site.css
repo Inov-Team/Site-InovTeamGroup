@@ -683,3 +683,26 @@ main:focus{outline:none}
   .wheel{max-width:min(516px,calc(100svh - 336px))}
   .xp-cols{margin-top:10px;padding-top:10px}
 }
+
+/* offres d'emploi, page Carrières */
+.off-hd{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:26px}
+.off-n{flex:none;font:800 14px "Plus Jakarta Sans",sans-serif;color:var(--violet)}
+.offres{border-top:1px solid var(--line)}
+.offres a{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:28px;align-items:center;
+  padding:22px 8px;border-bottom:1px solid var(--line);
+  transition:padding-left .28s var(--eo),background .28s var(--eo)}
+.offres b{display:block;font:800 clamp(19px,1.8vw,23px)/1.2 "Plus Jakarta Sans",sans-serif;letter-spacing:-.02em}
+.offres s{display:block;margin-top:5px;text-decoration:none;color:var(--muted);font-size:14.5px}
+.off-m{display:flex;gap:8px}
+.off-m em{font-style:normal;border-radius:999px;padding:5px 12px;font:700 12.5px "Plus Jakarta Sans",sans-serif;
+  background:var(--soft);color:var(--muted);box-shadow:inset 0 0 0 1px var(--line);white-space:nowrap}
+.off-a{flex:none;color:var(--violet);transition:transform .24s var(--eo)}
+@media (hover:hover) and (pointer:fine){
+  .offres a:hover{padding-left:18px;background:linear-gradient(90deg,var(--soft),transparent 72%)}
+  .offres a:hover .off-a{transform:translateX(5px)}
+}
+@media (max-width:720px){
+  .offres a{grid-template-columns:minmax(0,1fr) auto;gap:10px 16px;padding:18px 4px}
+  .off-m{grid-column:1;flex-wrap:wrap}
+  .off-a{grid-row:1;grid-column:2}
+}
