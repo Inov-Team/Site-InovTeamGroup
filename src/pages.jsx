@@ -220,37 +220,37 @@ export function CarrieresPage() {
 
 // Les tuiles du bandeau : photos réelles et emplacements de portraits à fournir.
 const BANDE_A = [
-  { f: 'equipe', pos: '50% 55%', alt: 'Toute l’équipe Inov Team réunie' },
-  null,
-  { f: 'equipe-commerciale', pos: '50% 45%', alt: 'L’équipe commerciale' },
-  null,
-  { f: 'evenement', pos: '50% 42%', alt: 'Inov Team en événement' },
-  null,
-  { f: 'bureaux-3', pos: '50% 50%', alt: 'Les bureaux de Sophia-Antipolis' }
+  { f: 'photo-soiree-groupe', pos: '50% 45%', alt: 'La soirée annuelle du groupe, toutes entités réunies' },
+  { f: 'photo-forum-monaco', pos: '50% 35%', alt: 'Le stand Inov Team au forum Monaco pour l’Emploi' },
+  { f: 'photo-petanque', pos: '50% 40%', alt: 'Le tournoi de pétanque du groupe' },
+  { f: 'photo-stand-digiteam-2', pos: '50% 45%', alt: 'Le stand DigiTeam au forum du recrutement' },
+  { f: 'photo-dejeuner-equipe', pos: '50% 50%', alt: 'Un déjeuner d’équipe en terrasse' },
+  { f: 'photo-mur-inovteam', pos: '50% 40%', alt: 'Trois collaborateurs devant le mur lumineux Inov Team' },
+  { f: 'photo-basket-trophee', pos: '50% 40%', alt: 'L’équipe de basket et son trophée' }
 ];
 const BANDE_B = [
-  null,
-  { f: 'equipe-commerciale', pos: '30% 45%', alt: '' },
-  null,
-  { f: 'equipe', pos: '70% 55%', alt: '' },
-  null,
-  { f: 'evenement', pos: '30% 42%', alt: '' },
-  null,
-  { f: 'bureaux-1', pos: '50% 50%', alt: '' }
+  { f: 'photo-hache-groupe', pos: '50% 35%', alt: '' },
+  { f: 'photo-salon-emploi', pos: '50% 55%', alt: '' },
+  { f: 'photo-afterwork-terrasse', pos: '50% 45%', alt: '' },
+  { f: 'photo-stand-ecole', pos: '50% 45%', alt: '' },
+  { f: 'photo-basket-match', pos: '50% 40%', alt: '' },
+  { f: 'photo-salon-isen', pos: '50% 50%', alt: '' },
+  { f: 'photo-stand-digiteam-1', pos: '50% 35%', alt: '' },
+  { f: 'photo-hache-solo', pos: '50% 40%', alt: '' }
 ];
 
 // La mosaïque : chaque fiche porte sa largeur et sa hauteur en colonnes de grille.
 const MOSAIQUE = [
-  { c: 4, r: 3, cat: 'Direction', role: 'Président, vision et développement du groupe', sombre: true },
-  { c: 3, r: 2, role: 'Directrice des opérations' },
-  { c: 5, r: 2, cat: 'Ambassadeurs', img: 'equipe-commerciale', pos: '50% 45%', nom: 'L’équipe commerciale', role: 'Les relais internes qui animent la vie du groupe toute l’année' },
-  { c: 3, r: 2, cat: 'Management', role: 'Business Manager, aéronautique' },
-  { c: 2, r: 2, role: 'Manager technique, Cloud' },
-  { c: 3, r: 2, cat: 'Expertise', role: 'Référent technique, Data et architecture' },
-  { c: 4, r: 2, img: 'evenement', pos: '50% 42%', nom: 'Les ambassadeurs en événement', role: 'Écoles, universités et salons, toute l’année' },
-  { c: 3, r: 2, role: 'Responsable recrutement' },
-  { c: 2, r: 2, role: 'Consultante QA, DigiTeam' },
-  { c: 3, r: 2, cat: 'Labs', role: 'Ingénieur R&D, IA appliquée' }
+  { c: 4, r: 3, img: 'photo-soiree-groupe', pos: '50% 45%', cat: 'Toute l’équipe', nom: 'Le groupe au complet', role: 'La soirée annuelle, les trois entités réunies' },
+  { c: 3, r: 2, cat: 'Direction', role: 'Président, vision et développement du groupe' },
+  { c: 5, r: 2, img: 'photo-petanque', pos: '50% 40%', cat: 'Esprit d’équipe', nom: 'Le tournoi de pétanque', role: 'Un après-midi hors du bureau, t-shirts obligatoires' },
+  { c: 3, r: 2, img: 'photo-forum-monaco', pos: '50% 30%', cat: 'Ambassadeurs', nom: 'Monaco pour l’Emploi', role: 'Le forum du recrutement en Principauté' },
+  { c: 2, r: 2, cat: 'Management', role: 'Business Manager, aéronautique' },
+  { c: 3, r: 2, img: 'photo-basket-trophee', pos: '50% 40%', nom: 'Le tournoi de basket', role: 'Troisième place, et le trophée en vitrine' },
+  { c: 4, r: 2, img: 'photo-stand-digiteam-2', pos: '50% 45%', cat: 'DigiTeam', nom: 'Le stand DigiTeam', role: 'Notre filiale monégasque au forum du recrutement' },
+  { c: 3, r: 2, img: 'photo-hache-groupe', pos: '50% 35%', nom: 'Inov Night', role: 'Lancer de hache, et personne n’a été blessé' },
+  { c: 2, r: 2, img: 'photo-salon-isen', pos: '50% 50%', cat: 'Écoles', nom: 'Salon ISEN', role: 'À la rencontre des futurs ingénieurs' },
+  { c: 3, r: 2, img: 'photo-dejeuner-equipe', pos: '50% 50%', nom: 'Le déjeuner d’équipe', role: 'Entre deux missions, en terrasse' }
 ];
 
 const EQUIPES = ['Tout le monde', 'Direction', 'Management', 'Ambassadeurs', 'Expertise & delivery'];
@@ -344,9 +344,9 @@ export function EquipePage({ I }) {
             <p>Quatre rendez-vous qui reviennent dans l’année, et qui font que les consultants se connaissent vraiment.</p>
           </div>
           <div className="eq-photos">
-            <figure><img src="assets/equipe.webp" alt="Toute l’équipe Inov Team réunie" width="600" height="260" loading="lazy" style={{ objectPosition: '50% 58%' }} /></figure>
-            <figure><img src="assets/bureaux-3.webp" alt="Les bureaux d’Inov Team à Sophia-Antipolis" width="480" height="260" loading="lazy" /></figure>
-            <figure><img src="assets/evenement.webp" alt="Inov Team lors d’un événement" width="360" height="260" loading="lazy" style={{ objectPosition: '50% 42%' }} /></figure>
+            <figure><img src="assets/photo-afterwork-terrasse.webp" alt="Un afterwork en terrasse au coucher du soleil" width="600" height="260" loading="lazy" style={{ objectPosition: '50% 45%' }} /></figure>
+            <figure><img src="assets/photo-salon-emploi.webp" alt="Inov Team sur un salon de l’emploi" width="480" height="260" loading="lazy" style={{ objectPosition: '50% 55%' }} /></figure>
+            <figure><img src="assets/photo-basket-match.webp" alt="Un match du tournoi de basket" width="360" height="260" loading="lazy" style={{ objectPosition: '50% 40%' }} /></figure>
           </div>
           <div className="eq-rituels">
             {[['Curiosity Break', 'Un collaborateur présente un sujet technique qui le passionne, autour de pizzas.'],
