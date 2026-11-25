@@ -213,3 +213,158 @@ export function CarrieresPage() {
     </>
   );
 }
+
+// ============================================================
+// Ceux qui font Inov Team
+// ============================================================
+
+// Les tuiles du bandeau : photos réelles et emplacements de portraits à fournir.
+const BANDE_A = [
+  { f: 'equipe', pos: '50% 55%', alt: 'Toute l’équipe Inov Team réunie' },
+  null,
+  { f: 'equipe-commerciale', pos: '50% 45%', alt: 'L’équipe commerciale' },
+  null,
+  { f: 'evenement', pos: '50% 42%', alt: 'Inov Team en événement' },
+  null,
+  { f: 'bureaux-3', pos: '50% 50%', alt: 'Les bureaux de Sophia-Antipolis' }
+];
+const BANDE_B = [
+  null,
+  { f: 'equipe-commerciale', pos: '30% 45%', alt: '' },
+  null,
+  { f: 'equipe', pos: '70% 55%', alt: '' },
+  null,
+  { f: 'evenement', pos: '30% 42%', alt: '' },
+  null,
+  { f: 'bureaux-1', pos: '50% 50%', alt: '' }
+];
+
+// La mosaïque : chaque fiche porte sa largeur et sa hauteur en colonnes de grille.
+const MOSAIQUE = [
+  { c: 4, r: 3, cat: 'Direction', role: 'Président, vision et développement du groupe', sombre: true },
+  { c: 3, r: 2, role: 'Directrice des opérations' },
+  { c: 5, r: 2, cat: 'Ambassadeurs', img: 'equipe-commerciale', pos: '50% 45%', nom: 'L’équipe commerciale', role: 'Les relais internes qui animent la vie du groupe toute l’année' },
+  { c: 3, r: 2, cat: 'Management', role: 'Business Manager, aéronautique' },
+  { c: 2, r: 2, role: 'Manager technique, Cloud' },
+  { c: 3, r: 2, cat: 'Expertise', role: 'Référent technique, Data et architecture' },
+  { c: 4, r: 2, img: 'evenement', pos: '50% 42%', nom: 'Les ambassadeurs en événement', role: 'Écoles, universités et salons, toute l’année' },
+  { c: 3, r: 2, role: 'Responsable recrutement' },
+  { c: 2, r: 2, role: 'Consultante QA, DigiTeam' },
+  { c: 3, r: 2, cat: 'Labs', role: 'Ingénieur R&D, IA appliquée' }
+];
+
+const EQUIPES = ['Tout le monde', 'Direction', 'Management', 'Ambassadeurs', 'Expertise & delivery'];
+
+const Tuile = ({ t, h }) => (
+  t
+    ? <img src={`assets/${t.f}.webp`} alt={t.alt} style={{ objectPosition: t.pos }} width="300" height={h} />
+    : <span className="tuile-vide">Portrait à venir</span>
+);
+
+// L'éclat du logo, repris comme fond des fiches sans portrait.
+const Eclat = () => (
+  <svg width="46" height="46" viewBox="0 0 40 40" aria-hidden="true">
+    <defs><linearGradient id="eq-g" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stopColor="#2b4bff" /><stop offset="1" stopColor="#c935a6" /></linearGradient></defs>
+    {[0, 45, 90, 135, 180, 225, 270, 315].map((a, k) => (
+      <line key={a} x1="20" y1={k % 2 ? 6 : 4} x2="20" y2={k % 2 ? 10 : 11} stroke="url(#eq-g)" strokeWidth="3" strokeLinecap="round" transform={`rotate(${a} 20 20)`} opacity={k % 3 ? 1 : 0.55} />
+    ))}
+  </svg>
+);
+
+export function EquipePage({ I }) {
+  const [filtre, setFiltre] = useState(0);
+  return (
+    <>
+      <Hero crumb="L’équipe" title="Ceux qui font" em="Inov Team."
+        lead="Cent personnes réparties sur trois sites. Des managers qui pratiquent encore leur métier, des recruteurs qui le connaissent, et des consultants qui restent." />
+
+      <section className="defile-sec" aria-label="Les visages du groupe">
+        <div className="defile">
+          <div className="piste piste-g">
+            {[0, 1].map((n) => (
+              <div className="jeu" key={n} aria-hidden={n === 1 ? 'true' : undefined}>
+                {BANDE_A.map((t, i) => <span className="tuile grande" key={i}><Tuile t={t} h={196} /></span>)}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="defile">
+          <div className="piste piste-d">
+            {[0, 1].map((n) => (
+              <div className="jeu" key={n} aria-hidden={n === 1 ? 'true' : undefined}>
+                {BANDE_B.map((t, i) => <span className="tuile petite" key={i}><Tuile t={t} h={148} /></span>)}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="psec eq-sec">
+        <div className="wrap">
+          <div className="eq-barre">
+            <div className="eq-filtres" role="group" aria-label="Filtrer par équipe">
+              {EQUIPES.map((e, i) => (
+                <button type="button" key={e} className={'eq-f' + (filtre === i ? ' on' : '')}
+                  aria-pressed={filtre === i} onClick={() => setFiltre(i)}>
+                  {e}{i === 0 && <span className="eq-n">100</span>}
+                </button>
+              ))}
+            </div>
+            <p className="eq-aide">Survolez une fiche pour lire son métier</p>
+          </div>
+
+          <div className="mosa">
+            {MOSAIQUE.map((m, i) => (
+              <article className={'fiche' + (m.sombre ? ' sombre' : '')} key={i}
+                style={{ gridColumn: `span ${m.c}`, gridRow: `span ${m.r}` }} tabIndex={0}>
+                {m.img
+                  ? <img src={`assets/${m.img}.webp`} alt={m.nom} style={{ objectPosition: m.pos }} width="600" height={m.r * 150} loading="lazy" />
+                  : <span className="fond"><Eclat /></span>}
+                {m.cat && <span className="fiche-cat">{m.cat}</span>}
+                <span className="voile">
+                  <b>{m.nom || 'Portrait à venir'}</b>
+                  <span>{m.role}</span>
+                </span>
+              </article>
+            ))}
+          </div>
+          <p className="eq-note">Dix fiches sur cent. La grille s’étend sans changer de rythme dès que les portraits et les noms sont fournis.</p>
+        </div>
+      </section>
+
+      <section className="eq-vie">
+        <div className="wrap">
+          <div className="head">
+            <h2>Ce qui se passe entre deux missions.</h2>
+            <p>Quatre rendez-vous qui reviennent dans l’année, et qui font que les consultants se connaissent vraiment.</p>
+          </div>
+          <div className="eq-photos">
+            <figure><img src="assets/equipe.webp" alt="Toute l’équipe Inov Team réunie" width="600" height="260" loading="lazy" style={{ objectPosition: '50% 58%' }} /></figure>
+            <figure><img src="assets/bureaux-3.webp" alt="Les bureaux d’Inov Team à Sophia-Antipolis" width="480" height="260" loading="lazy" /></figure>
+            <figure><img src="assets/evenement.webp" alt="Inov Team lors d’un événement" width="360" height="260" loading="lazy" style={{ objectPosition: '50% 42%' }} /></figure>
+          </div>
+          <div className="eq-rituels">
+            {[['Curiosity Break', 'Un collaborateur présente un sujet technique qui le passionne, autour de pizzas.'],
+              ['Inov Night', 'Soirées jeux, restaurants, canyoning, ski ou randonnée. Hors des bureaux.'],
+              ['Ambassadeurs', 'Des représentants dans les écoles, les universités et chez les clients.'],
+              ['Projets internes R&D', 'Un laboratoire d’idées pour monter en compétence sur les technologies récentes.']
+            ].map(([t, d]) => <div key={t}><h3>{t}</h3><p>{d}</p></div>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="psec">
+        <div className="wrap eq-rejoindre">
+          <div>
+            <h2>Rejoindre l’aventure.</h2>
+            <p>Plus de quarante recrutements par an. La plupart de nos consultants sont arrivés par cooptation : si quelqu’un vous vient en tête, présentez-le nous.</p>
+          </div>
+          <div className="pacts">
+            <a className="btn" href="#carrieres">Voir nos offres <I n="arrow" s={18} c="" w={2} /></a>
+            <a className="btn out" href="#carrieres">Coopter un profil</a>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

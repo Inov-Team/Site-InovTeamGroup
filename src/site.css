@@ -488,3 +488,83 @@ main:focus{outline:none}
  .hand-1,.hand-2,.hand-3,.hand-4,.hand-5,.hand-6{animation:none;opacity:0}
  .hand-1{opacity:1}
 }
+
+/* ===== Ceux qui font Inov Team ===== */
+/* Deux bandeaux de portraits qui glissent en sens contraires. Translation
+   seule, donc composée par le GPU, et mise en pause au survol. */
+.defile-sec{padding:8px 0 0}
+.defile{overflow:hidden;padding:7px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.piste{display:flex;width:max-content;gap:14px}
+.piste-g{animation:glisse 52s linear infinite}
+.piste-d{animation:glisse 66s linear infinite reverse}
+.defile:hover .piste,.defile:focus-within .piste{animation-play-state:paused}
+.jeu{display:flex;gap:14px}
+@keyframes glisse{to{transform:translateX(-50%)}}
+.tuile{display:block;border-radius:16px;overflow:hidden;background:var(--soft)}
+.tuile.grande{width:168px;height:196px}
+.tuile.petite{width:148px;height:148px}
+.tuile img{width:100%;height:100%;object-fit:cover}
+.tuile-vide{display:grid;place-items:center;width:100%;height:100%;background:linear-gradient(160deg,#eee8fb,#f8f1fb);font:600 12px "Plus Jakarta Sans",sans-serif;color:#8b82b8;text-align:center;padding:0 10px}
+
+/* Barre de filtres */
+.eq-sec{padding-top:44px}
+.eq-barre{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-bottom:18px;border-bottom:2px solid var(--ink);margin-bottom:24px}
+.eq-filtres{display:flex;flex-wrap:wrap;gap:8px}
+.eq-f{min-height:44px;padding:0 20px;border-radius:999px;border:0;background:#fff;box-shadow:inset 0 0 0 1px var(--line);color:var(--ink);font:600 14px "Plus Jakarta Sans",sans-serif;cursor:pointer;transition:box-shadow .16s var(--eo),color .16s var(--eo)}
+.eq-f:hover{box-shadow:inset 0 0 0 1px #b89cf5;color:var(--violet)}
+.eq-f.on{background:var(--ink);color:#fff;box-shadow:none;font-weight:700}
+.eq-n{margin-left:8px;opacity:.6}
+.eq-aide{font-size:13px}
+
+/* Mosaïque irrégulière : la fiche révèle le métier au survol et au focus. */
+.mosa{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:136px;gap:14px}
+.fiche{position:relative;overflow:hidden;border-radius:18px;background:var(--soft)}
+.fiche img{width:100%;height:100%;object-fit:cover}
+.fiche .fond{display:grid;place-items:center;width:100%;height:100%;background:linear-gradient(160deg,#eee8fb,#f8f1fb)}
+.fiche.sombre .fond{background:linear-gradient(160deg,#1b1446,#3b2aa8)}
+.fiche-cat{position:absolute;left:16px;top:16px;padding:5px 11px;border-radius:6px;background:rgba(255,255,255,.92);font:800 11px "Plus Jakarta Sans",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.voile{position:absolute;left:0;right:0;bottom:0;padding:46px 18px 16px;background:linear-gradient(to top,rgba(12,10,46,.92),rgba(12,10,46,0));transform:translateY(14px);opacity:0;transition:transform .28s var(--eo),opacity .28s var(--eo)}
+.voile b{display:block;font:700 17px "Plus Jakarta Sans",sans-serif;color:#fff}
+.voile span{display:block;margin-top:3px;font-size:13px;color:#d4cff0}
+.fiche img,.fiche .fond{transition:transform .5s var(--eo)}
+.fiche:hover .voile,.fiche:focus-visible .voile{transform:none;opacity:1}
+.fiche:hover img,.fiche:hover .fond{transform:scale(1.04)}
+.eq-note{margin-top:22px;font-size:14px}
+
+/* La vie du groupe, sur fond marine */
+.eq-vie{background:var(--navy);color:#fff;padding:76px 0;margin-top:88px}
+.eq-vie .head h2{font-size:clamp(28px,3vw,42px);color:#fff;max-width:560px}
+.eq-vie .head p{max-width:380px;color:#c9c4e8}
+.eq-photos{display:grid;grid-template-columns:5fr 4fr 3fr;gap:20px;margin:40px 0 44px}
+.eq-photos figure{margin:0;border-radius:18px;overflow:hidden;height:260px}
+.eq-photos img{width:100%;height:100%;object-fit:cover}
+.eq-rituels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px}
+.eq-rituels h3{font-size:19px;color:#fff;margin-bottom:8px}
+.eq-rituels>div{border-top:2px solid rgba(255,255,255,.3);padding-top:20px}
+.eq-rituels p{font-size:14px;line-height:1.6;color:#c9c4e8}
+
+.eq-rejoindre{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:32px;padding-top:28px;border-top:2px solid var(--ink)}
+.eq-rejoindre h2{font-size:clamp(28px,3vw,42px);margin-bottom:10px}
+.eq-rejoindre p{max-width:520px}
+.eq-rejoindre .pacts{margin:0}
+
+@media (max-width:1000px){
+ .mosa{grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:120px}
+ .mosa .fiche{grid-column:span 3!important;grid-row:span 2!important}
+ .eq-photos{grid-template-columns:1fr 1fr;gap:14px}
+ .eq-photos figure:last-child{display:none}
+ .eq-rituels{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+}
+@media (max-width:600px){
+ .mosa{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .mosa .fiche{grid-column:span 1!important}
+ .eq-photos{grid-template-columns:1fr}
+ .eq-photos figure:nth-child(2){display:none}
+ .eq-rituels{grid-template-columns:minmax(0,1fr)}
+ .tuile.grande{width:132px;height:156px}
+ .tuile.petite{width:116px;height:116px}
+}
+@media (prefers-reduced-motion:reduce){
+ .piste{animation:none}
+ .voile{transform:none;opacity:1}
+}

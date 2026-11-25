@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { POLES } from './poles.js';
-import { ExpertisePage, AllExpertises, EntitePage, ApprochePage, ActualitesPage, ContactPage, CarrieresPage, slug, ENTITES } from './pages.jsx';
+import { ExpertisePage, AllExpertises, EntitePage, ApprochePage, ActualitesPage, ContactPage, CarrieresPage, EquipePage, slug, ENTITES } from './pages.jsx';
 import { meta, SITE } from './routes.js';
 import { motion, AnimatePresence, MotionConfig, useInView, animate, useScroll, useMotionValueEvent, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 
@@ -140,6 +140,7 @@ function Header() {
           <a href="#qui">Qui sommes-nous ?</a>
           <Drop id="exp" label="Nos expertises" />
           <Drop id="ent" label="Nos entités" />
+          <a href="#equipe-page">L’équipe</a>
           <a href="#carrieres">Carrières</a>
           <a href="#actualites">Actualités</a>
         </nav>
@@ -155,7 +156,7 @@ function Header() {
         {open && (
           <motion.div id="mnav" className="mnav" initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} transition={spring}>
             <nav aria-label="Menu mobile">
-              {[['#qui', 'Qui sommes-nous ?'], ['#expertises-toutes', 'Nos expertises'], ['#entites', 'Nos entités'], ['#carrieres', 'Carrières'], ['#actualites', 'Actualités']].map(([h, l]) => <a key={h} href={h} onClick={() => setOpen(false)}>{l}</a>)}
+              {[['#qui', 'Qui sommes-nous ?'], ['#expertises-toutes', 'Nos expertises'], ['#entites', 'Nos entités'], ['#equipe-page', 'L’équipe'], ['#carrieres', 'Carrières'], ['#actualites', 'Actualités']].map(([h, l]) => <a key={h} href={h} onClick={() => setOpen(false)}>{l}</a>)}
               <a className="btn" href="#contact" onClick={() => setOpen(false)}>Nous contacter <Icone n="arrow" s={18} c="" w={2} /></a>
             </nav>
           </motion.div>
@@ -335,7 +336,7 @@ function ToTop() {
 
 function App() {
   const [sel, setSel] = useState(0);
-  const PAGES = ['contact', 'carrieres', 'actualites', 'approche', 'expertises-toutes'];
+  const PAGES = ['contact', 'carrieres', 'actualites', 'approche', 'expertises-toutes', 'equipe-page'];
   const parse = () => {
     const h = decodeURIComponent(location.hash.slice(1));
     if (PAGES.includes(h) || h.startsWith('expertise-') || h.startsWith('entite-')) {
@@ -358,7 +359,7 @@ function App() {
     };
     window.addEventListener('hashchange', on); return () => window.removeEventListener('hashchange', on);
   }, []);
-  const page = route === 'contact' ? <ContactPage /> : route === 'carrieres' ? <CarrieresPage /> : route === 'actualites' ? <ActualitesPage /> : route === 'approche' ? <ApprochePage />
+  const page = route === 'contact' ? <ContactPage /> : route === 'carrieres' ? <CarrieresPage /> : route === 'equipe-page' ? <EquipePage I={Icone} /> : route === 'actualites' ? <ActualitesPage /> : route === 'approche' ? <ApprochePage />
     : route === 'expertises-toutes' ? <AllExpertises I={Icone} icons={ICONS} /> : route.startsWith('expertise-') ? <ExpertisePage k={route.slice(10)} I={Icone} icons={ICONS} /> : route.startsWith('entite-') ? <EntitePage k={route.slice(7)} /> : null;
   useEffect(() => {
     const m = meta(route);
@@ -563,7 +564,7 @@ function App() {
         <div className="wrap">
           <div className="ft-grid">
             <div><img src="assets/logo-group-w.webp" alt="Inov Team Group" /><div className="tag">Be brilliant together</div></div>
-            <div><h4>Le Groupe</h4><ul><li><a href="#qui">Qui sommes-nous ?</a></li><li><a href="#entites">Nos entités</a></li><li><a href="#valeurs">Nos valeurs</a></li></ul></div>
+            <div><h4>Le Groupe</h4><ul><li><a href="#qui">Qui sommes-nous ?</a></li><li><a href="#entites">Nos entités</a></li><li><a href="#valeurs">Nos valeurs</a></li><li><a href="#equipe-page">L’équipe</a></li></ul></div>
             <div><h4>Expertises</h4><ul>{EXP.slice(0, 4).map(([, t]) => <li key={t}><a href={'#expertise-' + slug(t)}>{t}</a></li>)}<li><a href="#expertises-toutes">Toutes nos expertises</a></li></ul></div>
             <div><h4>Carrières</h4><ul><li><a href="#carrieres">Nos offres</a></li><li><a href="#approche">Notre culture</a></li><li><a href="#carrieres">Processus de recrutement</a></li><li><a href="#actualites">Actualités</a></li></ul></div>
             <div><h4>Contact</h4><ul><li><Icone n="pin" s={16} c="" />Sophia-Antipolis · Aix-en-Provence · Monaco</li><li><Icone n="mail" s={16} c="" /><a href="mailto:contact@inov-team.fr">contact@inov-team.fr</a></li><li><a href="https://www.linkedin.com/company/inov-team" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm3 7v8h2.5v-8H7zm1.2-4a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zM11 10v8h2.5v-4.2c0-1.1.6-1.8 1.5-1.8s1.3.6 1.3 1.8V18H19v-4.8c0-2.4-1.3-3.4-3-3.4-1.2 0-2 .6-2.4 1.2V10H11z" /></svg></a></li></ul></div>
