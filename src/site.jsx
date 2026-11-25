@@ -500,12 +500,8 @@ function App() {
                   ))}
                 </g>
 
-                {/* échelle et orientation, comme sur un fond de carte */}
+                {/* orientation */}
                 <g className="repere-carte">
-                  <path d="M548 418 H714M548 414 V422M631 415 V421M714 414 V422" />
-                  <text x="548" y="432">0</text>
-                  <text x="631" y="432" textAnchor="middle">10</text>
-                  <text x="714" y="432" textAnchor="end">20 km</text>
                   <path d="M722 74 V50M722 50 l-4 7M722 50 l4 7" />
                   <text x="722" y="42" textAnchor="middle">N</text>
                 </g>
