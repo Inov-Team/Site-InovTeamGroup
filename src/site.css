@@ -638,29 +638,24 @@ main:focus{outline:none}
 .mq-set img.sq{max-height:62px}
 @media (max-width:600px){.mq-set img{max-height:36px}.mq-set img.sq{max-height:48px}}
 
-/* ===== Entités : la Côte d'Azur au trait ===== */
-/* Le littoral est projeté pour de vrai : longitudes en largeur, latitudes en
-   hauteur. Il monte donc vers le nord-est, la mer occupe le sud-est et les
-   reliefs le nord-ouest. */
+/* ===== Entités : la carte des Alpes-Maritimes ===== */
+/* Le contour vient des données départementales de l'IGN, projeté et simplifié
+   au build. Rien n'est dessiné à la main. */
 .ent-in{align-items:center}
 .carte{position:relative;aspect-ratio:760/440;min-height:320px}
-.carte-fond{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}
-.carte-fond path,.carte-fond circle{fill:none}
-.carte-fond .mer path{stroke:rgba(255,255,255,.2);stroke-width:1}
-.carte-fond .cote{stroke:rgba(255,255,255,.82);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.carte-fond .relief path{stroke:rgba(255,255,255,.26);stroke-width:1;stroke-linejoin:round;stroke-linecap:round}
-.carte-fond .mats path{stroke:url(#cg);stroke-width:1.6;stroke-linecap:round}
-.carte-fond .socle circle{stroke:rgba(255,255,255,.55);stroke-width:1}
-.carte-fond .socle .plein{fill:#fff;stroke:none}
-.carte-fond .lieux circle{fill:rgba(255,255,255,.8)}
-.carte-fond .lieux text{fill:rgba(255,255,255,.66);font:600 10px "Plus Jakarta Sans",sans-serif;letter-spacing:.1em}
-.carte-fond .ouest path{stroke:rgba(207,200,255,.5);stroke-width:1;stroke-linecap:round}
+.carte-fond{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.carte-fond .dep{fill:rgba(255,255,255,.045);stroke:rgba(255,255,255,.62);stroke-width:1.2;stroke-linejoin:round}
+.carte-fond .mats path{fill:none;stroke:url(#cg);stroke-width:1.6;stroke-linecap:round}
+.carte-fond .site circle{fill:none;stroke:rgba(255,255,255,.75);stroke-width:1.2}
+.carte-fond .site .plein{fill:#fff;stroke:none}
+.carte-fond .site text{fill:#fff;font:700 11px "Plus Jakarta Sans",sans-serif;letter-spacing:.18em;text-transform:uppercase}
+.carte-fond .lieux circle{fill:rgba(255,255,255,.55)}
+.carte-fond .lieux text{fill:rgba(255,255,255,.55);font:600 10px "Plus Jakarta Sans",sans-serif;letter-spacing:.1em}
+.carte-fond .ouest path{fill:none;stroke:rgba(207,200,255,.55);stroke-width:1;stroke-linecap:round}
+.carte-fond .credit{fill:rgba(255,255,255,.22);font:500 8.5px "Plus Jakarta Sans",sans-serif;letter-spacing:.06em}
 
-.ville{position:absolute;font:700 10.5px "Plus Jakarta Sans",sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#b7b0dd;white-space:nowrap}
-.ville i{display:block;margin-top:4px;font:600 10px "Plus Jakarta Sans",sans-serif;font-style:normal;letter-spacing:.14em;color:#8a83b5}
-.v-sophia{left:7%;top:56%;text-align:right}
-.v-monaco{left:77%;top:33%}
-.v-aix{left:3%;top:85%;color:#cfc8ff}
+.ville{position:absolute;font:700 10.5px "Plus Jakarta Sans",sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#cfc8ff;white-space:nowrap}
+.v-aix{left:4%;top:86%}
 
 .noeud{position:absolute}
 .noeud a{display:flex;align-items:center;gap:14px;background:#fff;color:var(--ink);border-radius:11px;padding:11px 17px;min-height:52px;box-shadow:0 10px 24px rgba(8,6,40,.3),inset 0 0 0 1px rgba(27,20,70,.08);transition:transform .22s var(--eo),box-shadow .22s var(--eo)}
@@ -668,9 +663,9 @@ main:focus{outline:none}
 .noeud img{flex:none;width:auto;height:30px;max-width:108px;object-fit:contain}
 .noeud b{display:block;font:700 14px "Plus Jakarta Sans",sans-serif;white-space:nowrap}
 .noeud span span{display:block;font-size:12px;color:var(--muted);white-space:nowrap}
-.n-inov-team{left:2%;top:21%}
-.n-inov-team-labs{left:30%;top:10%}
-.n-digiteam{left:64%;top:55%}
+.n-inov-team{left:0;top:58%}
+.n-inov-team-labs{left:28%;top:40%}
+.n-digiteam{left:58%;top:22%}
 
 @media (max-width:980px){
  .carte{aspect-ratio:auto;min-height:0;display:grid;gap:12px}
