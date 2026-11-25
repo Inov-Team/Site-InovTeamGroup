@@ -19,15 +19,15 @@ const P = {
   layers: [['rect', { x: 3, y: 13, width: 7, height: 8, rx: 2, className: 'f' }], ['rect', { x: 3, y: 13, width: 7, height: 8, rx: 2 }], ['rect', { x: 14, y: 13, width: 7, height: 8, rx: 2 }], ['rect', { x: 8.5, y: 3, width: 7, height: 7, rx: 2 }], ['path', { d: 'M12 10v2M6.5 13v-1h11v1' }]],
   cube: [['path', { d: 'M12 3 20 7.5v9L12 21 4 16.5v-9z' }], ['path', { d: 'M12 3 20 7.5 12 12 4 7.5z', className: 'f' }], ['path', { d: 'M12 3 20 7.5 12 12 4 7.5z' }], ['path', { d: 'M12 12v9' }]],
   trend: [['path', { d: 'M3 17.5 9 11l4 3.6L21 6v6l-8 8-4-3.6L3 20z', className: 'f' }], ['path', { d: 'M3 17.5 9 11l4 3.6L20.5 6' }], ['path', { d: 'M15.5 6H21v5.5' }]],
-  code: [['path', { d: 'm16 18 6-6-6-6' }], ['path', { d: 'm8 6-6 6 6 6' }], ['path', { d: 'm14.5 4-5 16' }]],
+  code: [['rect', { x: 2.5, y: 4, width: 19, height: 16, rx: 3, className: 'f' }], ['rect', { x: 2.5, y: 4, width: 19, height: 16, rx: 3 }], ['path', { d: 'M9 10.5 6.5 13 9 15.5' }], ['path', { d: 'm15 10.5 2.5 2.5-2.5 2.5' }], ['path', { d: 'm13 9.5-2 7' }]],
   cloud: [['path', { d: 'M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z' }]],
-  infini: [['path', { d: 'M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Z' }], ['path', { d: 'M12 12c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z' }]],
-  cadenas: [['path', { d: 'M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1Z' }], ['path', { d: 'm9 12 2 2 4-4' }]],
-  barres: [['path', { d: 'M3 3v16a2 2 0 0 0 2 2h16' }], ['path', { d: 'M7 16v-4' }], ['path', { d: 'M12 16V8' }], ['path', { d: 'M17 16v-7' }]],
-  recette: [['rect', { x: 8, y: 2, width: 8, height: 4, rx: 1 }], ['path', { d: 'M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2' }], ['path', { d: 'm9 14 2 2 4-4' }]],
-  a11y: [['circle', { cx: 16, cy: 4, r: 1 }], ['path', { d: 'm18 19 1-7-5.87.94' }], ['path', { d: 'm5 8 3-3 5.5 3-2.21 3.1' }], ['path', { d: 'M4.24 14.5a5 5 0 0 0 6.88 6' }], ['path', { d: 'M13.76 17.5a5 5 0 0 0-6.88-6' }]],
-  pouls: [['path', { d: 'M22 12h-3.5a1 1 0 0 0-.95.68l-2.4 7.2a.5.5 0 0 1-.95 0L9.3 3.62a.5.5 0 0 0-.95 0l-2.4 7.2A1 1 0 0 1 5 11.5H2' }]],
-  boussole: [['circle', { cx: 12, cy: 12, r: 10 }], ['path', { d: 'm16.24 7.76-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12Z' }]],
+  infini: [['path', { d: 'M12 12c1.8-2.6 3.1-4 5-4a4 4 0 0 1 0 8c-1.9 0-3.2-1.4-5-4-1.8-2.6-3.1-4-5-4a4 4 0 0 0 0 8c1.9 0 3.2-1.4 5-4z', className: 'f' }], ['path', { d: 'M12 12c1.8-2.6 3.1-4 5-4a4 4 0 0 1 0 8c-1.9 0-3.2-1.4-5-4-1.8-2.6-3.1-4-5-4a4 4 0 0 0 0 8c1.9 0 3.2-1.4 5-4z' }]],
+  cadenas: [['rect', { x: 4, y: 10.5, width: 16, height: 10.5, rx: 3, className: 'f' }], ['rect', { x: 4, y: 10.5, width: 16, height: 10.5, rx: 3 }], ['path', { d: 'M8 10.5V7a4 4 0 0 1 8 0v3.5' }], ['path', { d: 'M12 14.5v2.5' }]],
+  barres: [['path', { d: 'M4 20V12h4v8zM10 20V7h4v13zM16 20v-5h4v5z', className: 'f' }], ['path', { d: 'M4 20V12h4v8zM10 20V7h4v13zM16 20v-5h4v5z' }], ['path', { d: 'M2.5 20.5h19' }]],
+  recette: [['path', { d: 'M5 5.5A2.5 2.5 0 0 1 7.5 3h9A2.5 2.5 0 0 1 19 5.5v13A2.5 2.5 0 0 1 16.5 21h-9A2.5 2.5 0 0 1 5 18.5z', className: 'f' }], ['path', { d: 'M5 5.5A2.5 2.5 0 0 1 7.5 3h9A2.5 2.5 0 0 1 19 5.5v13A2.5 2.5 0 0 1 16.5 21h-9A2.5 2.5 0 0 1 5 18.5z' }], ['path', { d: 'm8.5 9.5 1.6 1.6 3.4-3.4' }], ['path', { d: 'M8.5 15.5h7' }]],
+  a11y: [['circle', { cx: 12, cy: 12, r: 9, className: 'f' }], ['circle', { cx: 12, cy: 12, r: 9 }], ['circle', { cx: 12, cy: 6.8, r: 1.3 }], ['path', { d: 'M7.5 10h9' }], ['path', { d: 'M12 10v4.5M12 14.5 9.5 18M12 14.5 14.5 18' }]],
+  pouls: [['circle', { cx: 12, cy: 12, r: 9, className: 'f' }], ['circle', { cx: 12, cy: 12, r: 9 }], ['path', { d: 'M4 12h3l2-4 3 8 2-5 1.5 2.5H20' }]],
+  boussole: [['circle', { cx: 12, cy: 12, r: 9, className: 'f' }], ['circle', { cx: 12, cy: 12, r: 9 }], ['path', { d: 'm15.6 8.4-2 5.2-5.2 2 2-5.2z' }]],
   rocket: [['path', { d: 'M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91 0Z' }], ['path', { d: 'm12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z' }], ['path', { d: 'M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0' }], ['path', { d: 'M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5' }]],
   hands: [['path', { d: 'M12 20.5 4.5 13A4.6 4.6 0 0 1 12 7.6 4.6 4.6 0 0 1 19.5 13z', className: 'f' }], ['path', { d: 'M12 20.5 4.5 13A4.6 4.6 0 0 1 12 7.6 4.6 4.6 0 0 1 19.5 13z' }]],
   bulb: [['path', { d: 'M12 3a6 6 0 0 1 3.6 10.8L15 16H9l-.6-2.2A6 6 0 0 1 12 3z', className: 'f' }], ['path', { d: 'M12 3a6 6 0 0 1 3.6 10.8L15 16H9l-.6-2.2A6 6 0 0 1 12 3z' }], ['path', { d: 'M9.5 19h5M10.5 21.5h3' }]],
@@ -220,7 +220,7 @@ function Wheel({ sel, pick }) {
         <circle cx={C} cy={C} r="70" fill="#f6f1ff" />
         <AnimatePresence mode="wait">
           <motion.g key={sel} initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.6 }} transition={{ duration: 0.22 }} style={{ originX: '50%', originY: '50%' }}>
-            <svg x={C - 26} y={C - 26} width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="url(#wg)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">{P[ic].map(([T, a], i) => React.createElement(T, { key: i, ...a, fill: a.fill ? 'url(#wg)' : 'none' }))}</svg>
+            <svg x={C - 26} y={C - 26} width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="url(#wg)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">{P[ic].map(([T, a], i) => React.createElement(T, { key: i, ...a, fill: a.className === 'f' ? 'url(#wg)' : 'none', fillOpacity: a.className === 'f' ? 0.2 : undefined, stroke: a.className === 'f' ? 'none' : undefined }))}</svg>
           </motion.g>
         </AnimatePresence>
       </svg>
