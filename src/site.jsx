@@ -447,80 +447,66 @@ function App() {
             <div className="carte">
               <svg className="carte-fond" viewBox="0 0 760 440" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
                 <defs>
-                  <linearGradient id="cg" x1="0" y1="440" x2="0" y2="120" gradientUnits="userSpaceOnUse">
+                  <linearGradient id="cg" x1="0" y1="440" x2="0" y2="80" gradientUnits="userSpaceOnUse">
                     <stop offset="0" stopColor="#ff7ae0" /><stop offset="1" stopColor="#8b6bff" />
-                  </linearGradient>
-                  <linearGradient id="cf" x1="0" y1="440" x2="0" y2="300" gradientUnits="userSpaceOnUse">
-                    <stop offset="0" stopColor="#fff" stopOpacity=".2" /><stop offset="1" stopColor="#fff" stopOpacity="0" />
                   </linearGradient>
                 </defs>
 
-                {/* la mer, en grille fuyante */}
+                {/* La côte est tracée sur une projection réelle : longitudes 6,75 à
+                    7,62 E sur la largeur, latitudes 43,40 à 43,85 N sur la hauteur.
+                    D'où le littoral qui monte vers le nord-est, les deux presqu'îles
+                    du cap d'Antibes et du cap Ferrat, et la mer au sud-est. */}
                 <g className="mer">
-                  {[-260, -80, 90, 250, 400, 545, 690, 840, 1010].map((x) => <path key={x} d={`M${x} 440 L385 352`} />)}
-                  {[438, 420, 404, 390, 378, 368, 360].map((y, k) => <path key={y} d={`M${20 + k * 26} ${y} H${740 - k * 26}`} />)}
+                  <path d="M20 442 C 58 432, 112 398, 176 358 C 202 341, 224 330, 243 325 C 258 321, 272 314, 285 311 C 297 314, 308 319, 318 323 C 326 326, 334 328, 338 321 C 341 315, 339 305, 337 298 C 341 273, 346 250, 351 235 C 366 229, 380 227, 392 226 C 420 220, 448 210, 467 201 C 480 204, 492 209, 502 214 C 506 207, 506 197, 505 190 C 512 185, 519 182, 525 180 C 541 175, 559 170, 574 167 C 586 162, 598 158, 608 154 C 619 147, 631 139, 641 133 C 670 128, 702 123, 740 120" />
+                  <path d="M60 470 C 110 440, 150 410, 212 368 C 250 342, 290 330, 330 322 C 352 318, 366 312, 378 304 C 392 292, 398 276, 404 262 C 430 250, 462 240, 496 228 C 520 220, 540 214, 560 208 C 590 198, 620 186, 648 174 C 680 162, 712 152, 744 144" style={{ opacity: .6 }} />
+                  <path d="M140 500 C 200 460, 262 420, 330 382 C 380 354, 424 340, 462 324 C 496 310, 520 294, 544 276 C 580 252, 620 234, 660 218 C 692 206, 720 196, 748 188" style={{ opacity: .35 }} />
                 </g>
 
-                {/* le trait de côte : Cannes, cap d'Antibes, baie des Anges, Nice,
-                    cap Ferrat, Monaco, Menton */}
-                <path className="cote" d="M20 346 C 52 341, 78 349, 104 345 C 122 342, 134 352, 152 353 C 172 355, 186 371, 196 377 C 204 381, 210 370, 214 360 C 240 331, 302 322, 352 337 C 376 343, 396 344, 408 352 C 416 358, 422 368, 430 364 C 438 360, 440 352, 448 350 C 478 344, 512 351, 540 356 C 566 360, 586 352, 606 347 C 646 338, 694 334, 740 329" />
+                {/* le trait de côte, de l'Esterel à la frontière italienne */}
+                <path className="cote" d="M20 412 C 58 402, 112 368, 176 328 C 202 311, 224 300, 243 295 C 258 291, 272 284, 285 281 C 297 284, 308 289, 318 293 C 326 296, 334 298, 338 291 C 341 285, 339 275, 337 268 C 341 243, 346 220, 351 205 C 366 199, 380 197, 392 196 C 420 190, 448 180, 467 171 C 480 174, 492 179, 502 184 C 506 177, 506 167, 505 160 C 512 155, 519 152, 525 150 C 541 145, 559 140, 574 137 C 586 132, 598 128, 608 124 C 619 117, 631 109, 641 103 C 670 98, 702 93, 740 90" />
 
-                {/* les reliefs qui montent vers l'arrière-pays */}
+                {/* l'arrière-pays, qui monte vers les Préalpes */}
                 <g className="relief">
-                  <path d="M20 310 C 90 300, 140 312, 196 300 C 250 288, 300 296, 352 286 C 410 276, 470 292, 530 284 C 610 274, 680 288, 740 278" />
-                  <path d="M20 272 C 86 252, 136 276, 192 258 C 252 238, 302 262, 356 244 C 416 224, 472 254, 534 240 C 614 222, 682 252, 740 238" style={{ opacity: .8 }} />
-                  <path d="M20 236 C 80 204, 132 240, 188 212 C 250 182, 300 226, 358 198 C 420 168, 474 216, 536 194 C 618 166, 684 212, 740 192" style={{ opacity: .6 }} />
-                  <path d="M20 202 C 76 160, 128 206, 184 170 C 248 130, 298 190, 360 154 C 424 118, 476 180, 538 150 C 620 112, 686 170, 740 148" style={{ opacity: .4 }} />
-                  <path d="M20 172 C 72 122, 124 176, 180 134 C 246 86, 296 158, 362 116 C 428 74, 478 146, 540 110 C 622 64, 688 134, 740 108" style={{ opacity: .22 }} />
+                  <path d="M20 372 C 70 356, 120 326, 180 292 C 230 266, 290 254, 340 236 C 400 216, 460 196, 524 172" />
+                  <path d="M20 334 C 68 314, 118 286, 178 252 C 232 222, 288 212, 338 192 C 392 170, 440 154, 486 138" style={{ opacity: .74 }} />
+                  <path d="M20 294 C 66 268, 116 242, 176 208 C 230 178, 282 168, 330 148 C 378 128, 410 116, 444 104" style={{ opacity: .5 }} />
+                  <path d="M20 252 C 64 224, 112 198, 172 166 C 224 138, 272 128, 316 110 C 350 96, 374 88, 398 80" style={{ opacity: .28 }} />
                 </g>
 
-                {/* les deux sites, et les mâts qui montent vers les fiches */}
+                {/* les deux sites, et les hampes qui portent les fiches */}
                 <g className="mats">
-                  <motion.path d="M236 318 V 252 C 236 232, 150 228, 150 200 V 162"
+                  <motion.path d="M268 234 V 206 C 268 186, 152 186, 152 164 V 148"
                     initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1.1, ease }} />
-                  <motion.path d="M236 318 V 252 C 236 232, 330 228, 330 200 V 120"
+                  <motion.path d="M268 234 V 206 C 268 186, 356 186, 356 162 V 116"
                     initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1.1, delay: 0.12, ease }} />
-                  <motion.path d="M540 355 V 236"
+                  <motion.path d="M574 137 V 176 C 574 202, 630 202, 630 222 V 242"
                     initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.24, ease }} />
                 </g>
                 <g className="socle">
-                  <ellipse cx="236" cy="318" rx="22" ry="7.5" /><circle cx="236" cy="318" r="3.4" className="plein" />
-                  <ellipse cx="540" cy="355" rx="20" ry="7" /><circle cx="540" cy="355" r="3.4" className="plein" />
+                  <circle cx="268" cy="234" r="12" /><circle cx="268" cy="234" r="3.4" className="plein" />
+                  <circle cx="574" cy="137" r="11" /><circle cx="574" cy="137" r="3.4" className="plein" />
                 </g>
 
-                {/* les villes du littoral, en repères discrets */}
+                {/* les villes du littoral */}
                 <g className="lieux">
-                  {[[104, 345, 'Cannes', 6], [214, 360, 'Antibes', 6], [352, 337, 'Nice', 4],
-                    [606, 347, 'Menton', 6]].map(([x, y, nom, dx]) => (
+                  {[[243, 295, 'Cannes'], [337, 299, 'Antibes'], [467, 171, 'Nice'], [641, 103, 'Menton']].map(([x, y, nom]) => (
                     <g key={nom}>
-                      <circle cx={x} cy={y} r="1.6" />
-                      <path d={`M${x} ${y} l${dx} ${dx + 3}`} />
-                      <text x={x + dx + 5} y={y + dx + 11}>{nom}</text>
+                      <circle cx={x} cy={y} r="1.8" />
+                      <text x={x + 7} y={y + 13}>{nom}</text>
                     </g>
                   ))}
                 </g>
 
-                {/* orientation */}
-                <g className="repere-carte">
-                  <path d="M722 74 V50M722 50 l-4 7M722 50 l4 7" />
-                  <text x="722" y="42" textAnchor="middle">N</text>
-                </g>
-
-                {/* coins de planche */}
-                <g className="coins">
-                  <path d="M8 26 V8 H26M734 8 H752 V26M752 414 V432 H734M26 432 H8 V414" />
-                </g>
-
                 {/* Aix, hors cadre à l'ouest */}
                 <g className="ouest">
-                  <path d="M96 404 H26" />
-                  <path d="M34 398 L24 404 L34 410" />
+                  <path d="M92 366 H26" />
+                  <path d="M34 360 L24 366 L34 372" />
                 </g>
               </svg>
 
               <span className="ville v-sophia">Sophia-Antipolis<i>2 entités</i></span>
               <span className="ville v-monaco">Monaco</span>
-              <span className="ville v-aix">Aix-en-Provence · 150 km</span>
+              <span className="ville v-aix">Aix-en-Provence</span>
 
               {ENTITES.map((e, k) => (
                 <Reveal key={e.k} k={k} className={'noeud n-' + e.k}>
