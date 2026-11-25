@@ -517,10 +517,6 @@ function App() {
                 </Reveal>
               ))}
             </div>
-            <div className="vie-qr">
-              <p className="vie-q">« Est-ce qu’on choisit ses missions ? »</p>
-              <p className="vie-r">Oui. Le manager technique présente le contexte, l’équipe et la stack avant toute décision, et personne n’est envoyé sur un projet qu’il ne veut pas.</p>
-            </div>
           </div>
         </section>
 
