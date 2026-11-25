@@ -463,7 +463,7 @@ function App() {
 
                 {/* le trait de côte : Cannes, cap d'Antibes, baie des Anges, Nice,
                     cap Ferrat, Monaco, Menton */}
-                <path className="cote" d="M20 344 C 64 340, 112 350, 152 352 C 174 355, 194 384, 206 360 C 232 330, 300 322, 352 338 C 394 345, 418 372, 432 350 C 470 343, 506 352, 540 355 C 600 350, 680 338, 740 330" />
+                <path className="cote" d="M20 346 C 52 341, 78 349, 104 345 C 122 342, 134 352, 152 353 C 172 355, 186 371, 196 377 C 204 381, 210 370, 214 360 C 240 331, 302 322, 352 337 C 376 343, 396 344, 408 352 C 416 358, 422 368, 430 364 C 438 360, 440 352, 448 350 C 478 344, 512 351, 540 356 C 566 360, 586 352, 606 347 C 646 338, 694 334, 740 329" />
 
                 {/* les reliefs qui montent vers l'arrière-pays */}
                 <g className="relief">
@@ -486,6 +486,33 @@ function App() {
                 <g className="socle">
                   <ellipse cx="236" cy="318" rx="22" ry="7.5" /><circle cx="236" cy="318" r="3.4" className="plein" />
                   <ellipse cx="540" cy="355" rx="20" ry="7" /><circle cx="540" cy="355" r="3.4" className="plein" />
+                </g>
+
+                {/* les villes du littoral, en repères discrets */}
+                <g className="lieux">
+                  {[[104, 345, 'Cannes', 6], [214, 360, 'Antibes', 6], [352, 337, 'Nice', 4],
+                    [606, 347, 'Menton', 6]].map(([x, y, nom, dx]) => (
+                    <g key={nom}>
+                      <circle cx={x} cy={y} r="1.6" />
+                      <path d={`M${x} ${y} l${dx} ${dx + 3}`} />
+                      <text x={x + dx + 5} y={y + dx + 11}>{nom}</text>
+                    </g>
+                  ))}
+                </g>
+
+                {/* échelle et orientation, comme sur un fond de carte */}
+                <g className="repere-carte">
+                  <path d="M548 418 H714M548 414 V422M631 415 V421M714 414 V422" />
+                  <text x="548" y="432">0</text>
+                  <text x="631" y="432" textAnchor="middle">10</text>
+                  <text x="714" y="432" textAnchor="end">20 km</text>
+                  <path d="M722 74 V50M722 50 l-4 7M722 50 l4 7" />
+                  <text x="722" y="42" textAnchor="middle">N</text>
+                </g>
+
+                {/* coins de planche */}
+                <g className="coins">
+                  <path d="M8 26 V8 H26M734 8 H752 V26M752 414 V432 H734M26 432 H8 V414" />
                 </g>
 
                 {/* Aix, hors cadre à l'ouest */}
