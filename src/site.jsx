@@ -441,7 +441,7 @@ function App() {
                 initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 2, delay: k * 0.15, ease }} />
             ))}
           </svg>
-          <div className="ent-in">
+          <div className="ent-in trio-in">
             <div>
               <div className="eyebrow">Nos entités</div>
               <h2>Un groupe, des expertises<br /><span className="g" style={{ backgroundImage: 'linear-gradient(95deg,#d96bff,#ff7ad0)' }}>complémentaires.</span></h2>
@@ -450,31 +450,17 @@ function App() {
                 <defs><linearGradient id="rg" x1="0" y1="0" x2="64" y2="0" gradientUnits="userSpaceOnUse"><stop stopColor="#8b6bff" /><stop offset="1" stopColor="#ff7ae0" /></linearGradient></defs>
               </svg>
             </div>
-            <div className="satel">
-              <svg className="satel-fils" viewBox="0 0 600 300" preserveAspectRatio="none" aria-hidden="true">
-                {[52, 150, 248].map((y, k) => (
-                  <motion.path key={y} d={`M104 150 C 230 150, 300 ${y}, 470 ${y}`} fill="none" stroke="url(#bm)" strokeWidth="1.6" strokeDasharray="4 6" strokeLinecap="round"
-                    initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: k * 0.18, ease }} />
-                ))}
-              </svg>
-              <div className="satel-c">
-                <HandVisual />
-                <div className="satel-badge">
-                  <img src="assets/logo-group-w.webp" alt="Inov Team Group" width="120" height="74" />
-                  <span>Le groupe</span>
-                </div>
-              </div>
-              <ul className="satel-l">
-                {ENTITES.map((e, k) => (
-                  <Reveal key={e.k} k={k} as="li">
-                    <a href={'#entite-' + e.k}>
-                      <img src={`assets/${e.logo}.webp`} alt={(e.t + e.em).trim()} />
-                      <span className="satel-d">{e.d}</span>
-                      <Icone n="arrow" s={17} c="satel-a" w={2} />
-                    </a>
-                  </Reveal>
-                ))}
-              </ul>
+            <div className="trio">
+              {ENTITES.map((e, k) => (
+                <Reveal key={e.k} k={k} className="tuileE">
+                  <a href={'#entite-' + e.k}>
+                    <img src={`assets/${e.logo}.webp`} alt={(e.t + e.em).trim()} />
+                    <b>{(e.t + e.em).trim()}</b>
+                    <span>{e.d}</span>
+                    <Icone n="arrow" s={17} c="tuileE-a" w={2} />
+                  </a>
+                </Reveal>
+              ))}
             </div>
           </div>
         </div>

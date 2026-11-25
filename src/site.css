@@ -637,28 +637,26 @@ main:focus{outline:none}
 .mq-set img.sq{max-height:62px}
 @media (max-width:600px){.mq-set img{max-height:36px}.mq-set img.sq{max-height:48px}}
 
-/* ===== Entités : le groupe et ses trois satellites ===== */
-.satel{position:relative;display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1fr);gap:clamp(20px,4vw,56px);align-items:center;min-height:300px}
-.satel-fils{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.satel-c{position:relative;overflow:hidden;isolation:isolate;justify-self:center;border-radius:50%;aspect-ratio:1;width:min(246px,100%);background:radial-gradient(circle,rgba(123,63,228,.42),rgba(255,255,255,.05) 70%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.22)}
-.satel-c .hand-wrap{position:absolute;inset:0}
-.satel-c .hand{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:52% 46%}
-.satel-c::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 50% 38%,transparent 38%,rgba(10,7,48,.72) 100%)}
-.satel-badge{position:absolute;left:0;right:0;bottom:16%;z-index:1;display:grid;justify-items:center;gap:8px}
-.satel-badge img{width:auto;height:40px;object-fit:contain}
-.satel-badge span{font:700 11px "Plus Jakarta Sans",sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#e4def8}
-.satel-l{position:relative;list-style:none;margin:0;padding:0;display:grid;gap:14px}
-.satel-l a{display:flex;align-items:center;gap:18px;background:#fff;color:var(--ink);border-radius:14px;padding:14px 20px;min-height:56px;transition:transform .24s var(--eo),box-shadow .24s var(--eo)}
-.satel-l a:hover{transform:translateX(5px);box-shadow:0 14px 30px rgba(0,0,0,.26)}
-.satel-l img{flex:none;width:auto;height:38px;max-width:132px;object-fit:contain}
-.satel-d{flex:1;min-width:0;font:700 15px "Plus Jakarta Sans",sans-serif}
-.satel-a{flex:none;color:var(--violet);transition:transform .24s var(--eo)}
-.satel-l a:hover .satel-a{transform:translateX(4px)}
+/* ===== Entités : trois vignettes ===== */
+.trio-in{grid-template-columns:minmax(0,1fr);gap:clamp(22px,3vw,34px);align-items:stretch}
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.6vw,20px)}
+.tuileE a{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:7px;height:100%;
+  min-height:clamp(175px,25svh,260px);border-radius:18px;padding:24px;
+  background:linear-gradient(165deg,rgba(255,255,255,.11),rgba(255,255,255,.03));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.2);
+  transition:transform .26s var(--eo),background .26s var(--eo),box-shadow .26s var(--eo)}
+.tuileE a:hover{transform:translateY(-5px);background:linear-gradient(165deg,rgba(255,255,255,.17),rgba(255,255,255,.05));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.42),0 18px 38px rgba(8,6,40,.34)}
+.tuileE img{width:auto;height:clamp(30px,2.6vw,38px);max-width:140px;object-fit:contain;
+  filter:brightness(0) invert(1);margin-bottom:auto}
+.tuileE b{font:800 clamp(18px,1.7vw,22px)/1.2 "Plus Jakarta Sans",sans-serif;letter-spacing:-.02em}
+.tuileE span{color:#c9c4e8;font-size:14.5px;line-height:1.45}
+.tuileE-a{position:absolute;right:22px;top:24px;color:#fff;opacity:.65;transition:transform .24s var(--eo),opacity .24s var(--eo)}
+.tuileE a:hover .tuileE-a{transform:translateX(4px);opacity:1}
 @media (max-width:860px){
- .satel{grid-template-columns:minmax(0,1fr);gap:24px;min-height:0}
- .satel-fils{display:none}
- .satel-c{width:min(200px,100%)}
- .satel-badge img{height:34px}
+ .trio{grid-template-columns:minmax(0,1fr)}
+ .tuileE a{min-height:0;padding:20px}
+ .tuileE img{margin-bottom:10px}
 }
 
 /* Écrans courts : la section expertises tient dans une vue au lieu de
