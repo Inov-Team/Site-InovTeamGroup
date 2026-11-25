@@ -406,7 +406,7 @@ function App() {
             </div>
             <dl className="stats" id="qui">
               {[
-                ['users', 100, '', 'collaborateurs', 'sur trois sites'],
+                ['users', 100, '+', 'collaborateurs', 'sur trois sites'],
                 ['layers', 3, '', 'entités', 'Inov Team · Labs · DigiTeam'],
                 ['cube', 8, '', 'pôles d’expertise', 'du conseil au run'],
                 ['trend', 40, '+', 'recrutements / an', 'et nous continuons']
