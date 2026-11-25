@@ -647,7 +647,7 @@ main:focus{outline:none}
   transition:transform .26s var(--eo),background .26s var(--eo),box-shadow .26s var(--eo)}
 .tuileE a:hover{transform:translateY(-5px);background:linear-gradient(165deg,rgba(255,255,255,.17),rgba(255,255,255,.05));
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.42),0 18px 38px rgba(8,6,40,.34)}
-.tuileE img{width:auto;height:clamp(30px,2.6vw,38px);max-width:140px;object-fit:contain;
+.tuileE img{width:auto;height:clamp(44px,3.8vw,58px);max-width:min(200px,86%);object-fit:contain;
   filter:brightness(0) invert(1);margin-bottom:auto}
 .tuileE b{font:800 clamp(18px,1.7vw,22px)/1.2 "Plus Jakarta Sans",sans-serif;letter-spacing:-.02em}
 .tuileE span{color:#c9c4e8;font-size:14.5px;line-height:1.45}

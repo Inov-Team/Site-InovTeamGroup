@@ -444,7 +444,7 @@ function App() {
           <div className="ent-in trio-in">
             <div>
               <div className="eyebrow">Nos entités</div>
-              <h2>Un groupe, des expertises<br /><span className="g" style={{ backgroundImage: 'linear-gradient(95deg,#d96bff,#ff7ad0)' }}>complémentaires.</span></h2>
+              <h2>1 groupe, 3 entités,<br /><span className="g" style={{ backgroundImage: 'linear-gradient(95deg,#d96bff,#ff7ad0)' }}>un ancrage local.</span></h2>
               <svg className="rule" width="64" height="12" viewBox="0 0 64 12" fill="none" aria-hidden="true">
                 <path d="M3 6h10M23 6h15M48 6h13" stroke="url(#rg)" strokeWidth="6" strokeLinecap="round" />
                 <defs><linearGradient id="rg" x1="0" y1="0" x2="64" y2="0" gradientUnits="userSpaceOnUse"><stop stopColor="#8b6bff" /><stop offset="1" stopColor="#ff7ae0" /></linearGradient></defs>
