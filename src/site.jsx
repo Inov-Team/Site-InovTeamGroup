@@ -294,7 +294,7 @@ function ExpertiseExplorer({ sel, setSel }) {
 // bouge : le GPU compose, rien n'est recalculé ni repeint.
 const POSES = [
   'La main de la marque Inov Team, des fils de lumière passant entre les doigts',
-  '', '', '', '', ''
+  '', '', '', '', '', ''
 ];
 function HandVisual() {
   return (

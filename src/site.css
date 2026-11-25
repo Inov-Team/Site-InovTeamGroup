@@ -466,27 +466,67 @@ main:focus{outline:none}
  .marquee{-webkit-mask-image:none;mask-image:none;overflow-x:auto}
 }
 
-/* Le hero bouge : six poses de la main classées par proximité visuelle,
-   jouées en aller-retour pour que le geste revienne sur ses pas au lieu de
-   sauter. 3,2 s par pose dont 1,6 s de fondu : la transition occupe la
-   moitié du temps, donc l'image glisse d'une pose à l'autre au lieu de
-   clignoter. 32 s de boucle. Rien que de l'opacité, composité par le GPU. */
-.hand-1,.hand-2,.hand-3,.hand-4,.hand-5,.hand-6{opacity:0;animation:32s linear infinite}
+/* Le hero bouge : sept poses du visuel de marque classées par proximité
+   visuelle, jouées en aller-retour pour que le geste revienne sur ses pas au
+   lieu de sauter. 3,2 s par pose dont 1,6 s de fondu, 38,4 s de boucle. Rien
+   que de l'opacité, donc composité par le GPU. */
+.hand-1,.hand-2,.hand-3,.hand-4,.hand-5,.hand-6,.hand-7{opacity:0;animation:38.4s linear infinite}
 .hand-1{animation-name:p1}
 .hand-2{animation-name:p2}
 .hand-3{animation-name:p3}
 .hand-4{animation-name:p4}
 .hand-5{animation-name:p5}
 .hand-6{animation-name:p6}
-@keyframes p1{0%{opacity:1} 10%{opacity:1} 15%{opacity:0} 95%{opacity:0} 100%{opacity:1}}
-@keyframes p2{0%{opacity:1} 5%{opacity:0} 10%{opacity:1} 20%{opacity:1} 25%{opacity:0} 85%{opacity:0} 90%{opacity:1} 100%{opacity:1}}
-@keyframes p3{0%{opacity:0} 15%{opacity:0} 20%{opacity:1} 30%{opacity:1} 35%{opacity:0} 75%{opacity:0} 80%{opacity:1} 90%{opacity:1} 95%{opacity:0} 100%{opacity:0}}
-@keyframes p4{0%{opacity:0} 25%{opacity:0} 30%{opacity:1} 40%{opacity:1} 45%{opacity:0} 65%{opacity:0} 70%{opacity:1} 80%{opacity:1} 85%{opacity:0} 100%{opacity:0}}
-@keyframes p5{0%{opacity:0} 35%{opacity:0} 40%{opacity:1} 50%{opacity:1} 55%{opacity:0} 60%{opacity:1} 70%{opacity:1} 75%{opacity:0} 100%{opacity:0}}
-@keyframes p6{0%{opacity:0} 45%{opacity:0} 50%{opacity:1} 60%{opacity:1} 65%{opacity:0} 100%{opacity:0}}
+.hand-7{animation-name:p7}
+@keyframes p1{0%{opacity:1} 8.33%{opacity:1} 12.5%{opacity:0} 95.83%{opacity:0} 100%{opacity:1}}
+@keyframes p2{0%{opacity:1} 4.16%{opacity:0} 4.17%{opacity:0} 8.33%{opacity:1} 16.67%{opacity:1} 20.84%{opacity:0} 87.5%{opacity:0} 91.67%{opacity:1} 100%{opacity:1}}
+@keyframes p3{0%{opacity:0} 12.5%{opacity:0} 16.67%{opacity:1} 25%{opacity:1} 29.17%{opacity:0} 79.16%{opacity:0} 83.33%{opacity:1} 91.67%{opacity:1} 95.84%{opacity:0} 100%{opacity:0}}
+@keyframes p4{0%{opacity:0} 20.83%{opacity:0} 25%{opacity:1} 33.33%{opacity:1} 37.5%{opacity:0} 70.83%{opacity:0} 75%{opacity:1} 83.33%{opacity:1} 87.5%{opacity:0} 100%{opacity:0}}
+@keyframes p5{0%{opacity:0} 29.16%{opacity:0} 33.33%{opacity:1} 41.67%{opacity:1} 45.84%{opacity:0} 62.5%{opacity:0} 66.67%{opacity:1} 75%{opacity:1} 79.17%{opacity:0} 100%{opacity:0}}
+@keyframes p6{0%{opacity:0} 37.5%{opacity:0} 41.67%{opacity:1} 50%{opacity:1} 54.16%{opacity:0} 54.17%{opacity:0} 58.33%{opacity:1} 66.67%{opacity:1} 70.84%{opacity:0} 100%{opacity:0}}
+@keyframes p7{0%{opacity:0} 45.83%{opacity:0} 50%{opacity:1} 58.33%{opacity:1} 62.5%{opacity:0} 100%{opacity:0}}
 @media (prefers-reduced-motion:reduce){
- .hand-1,.hand-2,.hand-3,.hand-4,.hand-5,.hand-6{animation:none;opacity:0}
+ .hand-1,.hand-2,.hand-3,.hand-4,.hand-5,.hand-6,.hand-7{animation:none;opacity:0}
  .hand-1{opacity:1}
+}
+
+/* ===== finitions : courbes, survol au doigt, accessibilité ===== */
+/* Les durées suivent l'échelle : survol 160 ms, menus 180 ms, cartes 240 ms. */
+.btn{transition:transform .16s var(--eo),box-shadow .16s var(--eo)}
+.card,.vcard,.olist a,.tri>div,.rits>div,.plist li,.steps2 li{transition:transform .24s var(--eo),box-shadow .24s var(--eo),border-color .24s var(--eo)}
+.gi img{transition:transform .5s var(--eo)}
+.menu a{transition:background .15s var(--eo),color .15s var(--eo),padding-left .18s var(--eo)}
+.menu{transform-origin:top left}
+
+/* Le survol est une intention de souris : au doigt, il reste collé après le tap. */
+@media (hover:none),(pointer:coarse){
+ .btn:hover,.card:hover,.vcard:hover,.ecard:hover,.olist a:hover,.tri>div:hover,.rits>div:hover,.plist li:hover,.steps2 li:hover{transform:none;box-shadow:0 6px 20px rgba(27,20,70,.04)}
+ .btn::after{display:none}
+ .gi:hover img{transform:none}
+ .mq-set img{filter:none;opacity:1}
+}
+
+/* Lien d'évitement : premier élément focalisable de la page. */
+.skip{position:fixed;top:10px;left:10px;z-index:100;transform:translateY(-200%);background:#fff;color:var(--ink);font-weight:700;padding:12px 18px;border-radius:10px;box-shadow:0 10px 30px rgba(27,20,70,.2);transition:transform .18s var(--eo)}
+.skip:focus{transform:none}
+main:focus{outline:none}
+
+/* Contrôle du défilement automatique de la roue (WCAG 2.2.2). */
+.whint{position:absolute;left:0;right:0;bottom:-10px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;justify-content:center;font-size:13px;color:var(--muted)}
+.wpause{display:inline-flex;align-items:center;gap:7px;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink);font:600 13px "Plus Jakarta Sans",sans-serif;cursor:pointer}
+.wpause:hover{border-color:#b89cf5;color:var(--violet)}
+
+/* Cibles tactiles : 44 px au doigt, partout où on clique. */
+@media (pointer:coarse){
+ .ft ul a,.menu a,.mnav a,.bot a{display:inline-flex;align-items:center;min-height:44px}
+ .ft li{min-height:44px}
+}
+
+/* Mouvement réduit : on garde les fondus, on enlève les déplacements. */
+@media (prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+ .mq-track{animation:none;transform:none}
+ .marquee{-webkit-mask-image:none;mask-image:none;overflow-x:auto}
 }
 
 /* ===== Ceux qui font Inov Team ===== */
