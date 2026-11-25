@@ -32,6 +32,12 @@ const P = {
   cal: 'M4 6h16v14H4zM4 10h16M8 3v5M16 3v5',
   mail: 'M3 6h18v12H3zM3 7l9 6 9-6',
   chev: 'M6 9l6 6 6-6',
+  infini: 'M12 12c-2-2.7-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.3 6-4zm0 0c2 2.7 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.3-6 4z',
+  cadenas: 'M12 3l8 3v6c0 4.6-3.4 8.3-8 9-4.6-.7-8-4.4-8-9V6l8-3zM10 12.5v-1a2 2 0 0 1 4 0v1M9.2 12.5h5.6v4H9.2z',
+  barres: 'M3 3v16a2 2 0 0 0 2 2h16M7 16v-3M12 16V8M17 16v-6',
+  recette: 'M9 4h6v3H9zM9 5.5H7a1 1 0 0 0-1 1V20a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6.5a1 1 0 0 0-1-1h-2M8.5 14l2.2 2.2L15.5 11',
+  boussole: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM15.6 8.4l-2.1 5.1-5.1 2.1 2.1-5.1z',
+  pouls: 'M3 12h3.5l2-6 4.5 12 2.2-6H21',
   pause: 'M9 5v14M15 5v14',
   play: 'M7 4l12 8-12 8z'
 };
@@ -57,7 +63,16 @@ const EXP = [
   ['layers', 'Consulting & Innovation', 'Conseil, R&D et accélération de vos projets.'],
   ['sliders', 'Delivery & Opérations', 'TMA, support et continuité de service.']
 ];
-const ICONS = { 'Ingénierie Logicielle': 'code', 'DevOps & Cloud': 'cloud', 'Cybersécurité': 'shield', 'Data & Analytics': 'db', 'Tests & Validation': 'check', 'Accessibilité Numérique': 'a11y', 'Consulting & Innovation': 'layers', 'Delivery & Opérations': 'sliders' };
+const ICONS = {
+  'Ingénierie Logicielle': 'code',        // les chevrons du code
+  'DevOps & Cloud': 'infini',             // la boucle, symbole du DevOps
+  'Cybersécurité': 'cadenas',             // bouclier avec cadenas
+  'Data & Analytics': 'barres',           // histogramme sur deux axes
+  'Tests & Validation': 'recette',        // procès-verbal de recette coché
+  'Accessibilité Numérique': 'a11y',      // le pictogramme universel
+  'Consulting & Innovation': 'boussole',  // donner le cap
+  'Delivery & Opérations': 'pouls'        // la supervision du run
+};
 const ENT = [['Inov Team', '', 'Conseil & ingénierie IT'], ['Inov Team', ' Labs', 'R&D & Innovation'], ['DigiTeam', '', 'Delivery & Services']];
 const GAL = [
   ['equipe', 'g-team', 'Toute l’équipe : commerce, recrutement et support', '50% 62%'],
@@ -210,8 +225,7 @@ function Wheel({ sel, pick }) {
         <circle cx={C} cy={C} r="70" fill="#f6f1ff" />
         <AnimatePresence mode="wait">
           <motion.g key={sel} initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.6 }} transition={{ duration: 0.22 }} style={{ originX: '50%', originY: '50%' }}>
-            <svg x={C - 22} y={C - 34} width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="url(#wg)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d={P[ic]} /></svg>
-            <text x={C} y={C + 30} textAnchor="middle" fontSize="12" fontWeight="700" fill="#7b3fe4" fontFamily="Plus Jakarta Sans, sans-serif">{String(sel + 1).padStart(2, '0')} / 08</text>
+            <svg x={C - 26} y={C - 26} width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="url(#wg)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d={P[ic]} /></svg>
           </motion.g>
         </AnimatePresence>
       </svg>
@@ -407,13 +421,22 @@ function App() {
                 </motion.div>
               </div>
             </div>
-            <div className="stats" id="qui">
-              <div className="stat"><Icone n="users" /><div><Count to={90} prefix="+" /><span>collaborateurs</span></div></div>
-              <div className="stat"><Icone n="pin" /><div><Count to={3} /><span>implantations</span><small>Sophia-Antipolis · Aix-en-Provence · Monaco</small></div></div>
-              <div className="stat"><Icone n="layers" /><div><Count to={3} /><span>entités</span><small>Inov Team · Inov Team Labs · DigiTeam</small></div></div>
-              <div className="stat"><Icone n="cube" /><div><Count to={8} /><span>pôles d’expertise</span></div></div>
-              <div className="stat"><Icone n="trend" /><div><Count to={40} prefix="+" /><span>recrutements / an</span></div></div>
-            </div>
+            <dl className="stats" id="qui">
+              {[
+                ['users', 100, '', 'collaborateurs', 'sur trois sites'],
+                ['layers', 3, '', 'entités', 'Inov Team · Labs · DigiTeam'],
+                ['cube', 8, '', 'pôles d’expertise', 'du conseil au run'],
+                ['trend', 40, '+', 'recrutements / an', 'et nous continuons']
+              ].map(([ico, n, pre, label, sous]) => (
+                <div className="stat" key={label}>
+                  <span className="stat-i"><Icone n={ico} s={22} /></span>
+                  <div>
+                    <dt className="stat-n"><Count to={n} prefix={pre} /></dt>
+                    <dd><span>{label}</span><small>{sous}</small></dd>
+                  </div>
+                </div>
+              ))}
+            </dl>
           </div>
         </section>
 
