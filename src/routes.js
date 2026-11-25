@@ -13,7 +13,7 @@ export const SITE = {
 const sl = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 export const ACCUEIL = {
-  t: 'Inov Team Group — ESN à Sophia-Antipolis, Aix-en-Provence et Monaco',
+  t: 'Inov Team Group',
   d: 'ESN agile à taille humaine : ingénierie logicielle, DevOps & Cloud, cybersécurité, data et accessibilité numérique. 90 collaborateurs, 3 entités, 8 pôles d’expertise.'
 };
 

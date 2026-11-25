@@ -1,1 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><defs><linearGradient id="g" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#2b4bff"/><stop offset="1" stop-color="#c935a6"/></linearGradient></defs><rect width="40" height="40" rx="9" fill="#141a4a"/><g stroke="url(#g)" stroke-width="3.4" stroke-linecap="round"><line x1="20" y1="7" x2="20" y2="13"/><line x1="20" y1="27" x2="20" y2="33"/><line x1="7" y1="20" x2="13" y2="20"/><line x1="27" y1="20" x2="33" y2="20"/><line x1="11.5" y1="11.5" x2="15" y2="15"/><line x1="25" y1="25" x2="28.5" y2="28.5"/><line x1="28.5" y1="11.5" x2="25" y2="15"/><line x1="15" y1="25" x2="11.5" y2="28.5"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Inov Team Group">
+  <defs>
+    <linearGradient id="g" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2b4bff"/>
+      <stop offset=".55" stop-color="#6a3df0"/>
+      <stop offset="1" stop-color="#a32fc0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="#fbfafe"/>
+  <g stroke="url(#g)" stroke-linecap="round" fill="none">
+    <g stroke-width="4.4">
+      <path d="M32 7v6"/><path d="M32 51v6"/><path d="M7 32h6"/><path d="M51 32h6"/>
+      <path d="M14.3 14.3l4.3 4.3"/><path d="M45.4 45.4l4.3 4.3"/><path d="M49.7 14.3l-4.3 4.3"/><path d="M18.6 45.4l-4.3 4.3"/>
+    </g>
+    <g stroke-width="4.4">
+      <path d="M32 17.5v2.6"/><path d="M32 43.9v2.6"/><path d="M17.5 32h2.6"/><path d="M43.9 32h2.6"/>
+      <path d="M22.1 22.1l1.9 1.9"/><path d="M40 40l1.9 1.9"/><path d="M41.9 22.1L40 24"/><path d="M24 40l-1.9 1.9"/>
+    </g>
+  </g>
+  <g fill="url(#g)">
+    <rect x="22.6" y="24.4" width="5.4" height="15.2" rx="2.7"/>
+    <rect x="31" y="24.4" width="13.4" height="5.3" rx="2.65"/>
+    <rect x="35" y="24.4" width="5.4" height="15.2" rx="2.7"/>
+  </g>
+</svg>
