@@ -443,6 +443,7 @@ function App() {
           </svg>
           <div className="ent-in trio-in">
             <div>
+              <img className="ent-logo" src="assets/logo-group-w.webp" alt="Inov Team Group" width="150" height="92" />
               <div className="eyebrow">Nos entités</div>
               <h2>1 groupe, 3 entités,<br /><span className="g" style={{ backgroundImage: 'linear-gradient(95deg,#d96bff,#ff7ad0)' }}>un ancrage local.</span></h2>
               <svg className="rule" width="64" height="12" viewBox="0 0 64 12" fill="none" aria-hidden="true">
