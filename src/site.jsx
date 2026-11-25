@@ -74,14 +74,6 @@ const ICONS = {
   'Delivery & Opérations': 'pouls'        // la supervision du run
 };
 const ENT = [['Inov Team', '', 'Conseil & ingénierie IT'], ['Inov Team', ' Labs', 'R&D & Innovation'], ['DigiTeam', '', 'Delivery & Services']];
-const GAL = [
-  ['equipe', 'g-team', 'Toute l’équipe : commerce, recrutement et support', '50% 62%'],
-  ['equipe-commerciale', 'g-com', 'L’équipe commerciale', '50% 52%'],
-  ['bureaux-3', 'g-a', 'Nos bureaux', '50% 50%'],
-  ['bureaux-1', 'g-b', 'L’espace d’accueil', '30% 55%'],
-  ['evenement', 'g-ev', 'Inov Team en événement', '50% 45%'],
-  ['bureaux-2', 'g-c', 'Le salon Be brilliant together', '50% 50%']
-];
 const CLIENTS = [['orange', 'Orange', 'sq'], ['amadeus', 'Amadeus'], ['air-france', 'Air France'], ['docaposte', 'Docaposte'], ['pro-btp', 'PRO BTP Groupe'], ['kappa', 'Kappa Engineering', 'sq']];
 const VALS = [['hands', 'Proximité', 'Des relations durables et de confiance.'], ['bulb', 'Innovation', 'Une culture R&D au cœur de notre ADN.'], ['team', 'Esprit d’équipe', 'Une aventure humaine et collective.'], ['leaf', 'Engagement', 'Des impacts concrets et responsables.']];
 
@@ -371,24 +363,7 @@ function App() {
     set('link[rel="canonical"]', 'href', SITE.url + (route === 'home' ? '' : '#' + route));
   }, [route]);
 
-  const [zoom, setZoom] = useState(null);
-  const lb = useRef(null), ouvreur = useRef(null);
-  useEffect(() => {
-    if (zoom === null) return;
-    ouvreur.current = document.activeElement;
-    lb.current?.querySelector('.lbx')?.focus();
-    const k = (e) => {
-      if (e.key === 'Escape') { setZoom(null); return; }
-      if (e.key !== 'Tab') return;
-      const f = lb.current?.querySelectorAll('button');
-      if (!f || !f.length) return;
-      const [a, z] = [f[0], f[f.length - 1]];
-      if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); }
-      else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); }
-    };
-    document.addEventListener('keydown', k);
-    return () => { document.removeEventListener('keydown', k); ouvreur.current?.focus?.(); };
-  }, [zoom]);
+
   return (
     <MotionConfig reducedMotion="user">
       <a className="skip" href="#contenu">Aller au contenu</a>
@@ -465,10 +440,23 @@ function App() {
               <h2>Un groupe, des expertises<br /><span className="g" style={{ backgroundImage: 'linear-gradient(95deg,#d96bff,#ff7ad0)' }}>complémentaires.</span></h2>
               <span className="rule" />
             </div>
-            <div className="ent-cards">
-              {ENT.map(([a, b, d], k) => (
-                <Reveal key={a + b} k={k}>
-                  <Tilt className="ecard" href={'#entite-' + ENTITES[k].k}><img className="elg" src={`assets/${ENTITES[k].logo}.webp`} alt={a + b} /><span>{d}</span><span className="arr"><Icone n="arrow" s={18} c="" w={2} /></span></Tilt>
+            <div className="chaine">
+              <svg className="chaine-fil" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true">
+                <motion.path d="M40 20 H960" fill="none" stroke="url(#bm)" strokeWidth="2" strokeDasharray="5 7" strokeLinecap="round"
+                  initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1.4, ease }} />
+              </svg>
+              {[['Cadrer', 'Le besoin devient un périmètre, une équipe et un calendrier.'],
+                ['Prototyper', 'L’idée est maquettée, mesurée, et abandonnée si elle ne tient pas.'],
+                ['Exploiter', 'Le produit vit : mises en production, supervision, maintien en condition.']
+              ].map(([etape, texte], k) => (
+                <Reveal key={etape} k={k} className="maillon">
+                  <a className="maillon-l" href={'#entite-' + ENTITES[k].k}>
+                    <span className="maillon-n">0{k + 1}<i>{etape}</i></span>
+                    <img className="elg" src={`assets/${ENTITES[k].logo}.webp`} alt={ENT[k][0] + ENT[k][1]} />
+                    <span className="maillon-d">{ENT[k][2]}</span>
+                    <span className="maillon-t">{texte}</span>
+                    <span className="arr">Découvrir <Icone n="arrow" s={16} c="" w={2} /></span>
+                  </a>
                 </Reveal>
               ))}
             </div>
@@ -516,26 +504,24 @@ function App() {
           <BandeauPortraits />
           <div className="wrap">
             <a className="btn out-v eq-lien" href="#equipe-page">Découvrir l’équipe <Icone n="arrow" s={18} c="" w={2} /></a>
-            <div className="gal">
-              {GAL.map(([f, c, cap, pos], k) => (
-                <Reveal key={f} k={k} className={'gi ' + c}>
-                  <button className="gbtn" onClick={() => setZoom(k)} aria-label={'Agrandir : ' + cap}>
-                    <img src={`assets/${f}.webp`} alt={cap} style={{ objectPosition: pos }} loading="lazy" />
-                    <span className="cap">{cap}</span>
-                  </button>
+            <div className="vie">
+              {[['bulb', 'Curiosity Break', 'Un collaborateur présente un sujet technique qui le passionne, autour de pizzas. Une fois par mois, sans slides obligatoires.'],
+                ['team', 'Inov Night', 'Soirées jeux, restaurants, canyoning, ski ou randonnée. Hors des bureaux, et sans obligation de parler boutique.'],
+                ['hands', 'Ambassadeurs', 'Des représentants dans les écoles, les universités et chez nos clients, qui animent la vie du groupe toute l’année.'],
+                ['rocket', 'Projets internes R&D', 'Un laboratoire d’idées où passer du temps sur les technologies récentes, et porter les vôtres jusqu’au prototype.']
+              ].map(([ic, t, d], k) => (
+                <Reveal key={t} k={k} className="vie-c">
+                  <Icone n={ic} s={30} />
+                  <h3>{t}</h3>
+                  <p>{d}</p>
                 </Reveal>
               ))}
             </div>
+            <div className="vie-qr">
+              <p className="vie-q">« Est-ce qu’on choisit ses missions ? »</p>
+              <p className="vie-r">Oui. Le manager technique présente le contexte, l’équipe et la stack avant toute décision, et personne n’est envoyé sur un projet qu’il ne veut pas.</p>
+            </div>
           </div>
-          <AnimatePresence>
-            {zoom !== null && (
-              <motion.div className="lb" ref={lb} role="dialog" aria-modal="true" aria-label={GAL[zoom][2]} onClick={() => setZoom(null)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.18, ease }}>
-                <motion.img src={`assets/${GAL[zoom][0]}.webp`} alt={GAL[zoom][2]} initial={{ scale: 0.94 }} animate={{ scale: 1 }} exit={{ scale: 0.96 }} transition={spring} />
-                <p>{GAL[zoom][2]}</p>
-                <button className="lbx" onClick={() => setZoom(null)} aria-label="Fermer">×</button>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </section>
 
         <section className="screen car-screen" id="rejoindre"><div className="wrap">
