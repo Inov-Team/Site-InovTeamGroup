@@ -458,8 +458,11 @@ function App() {
                 ))}
               </svg>
               <div className="satel-c">
-                <img src="assets/logo-group-w.webp" alt="Inov Team Group" width="120" height="74" />
-                <span>Le groupe</span>
+                <HandVisual />
+                <div className="satel-badge">
+                  <img src="assets/logo-group-w.webp" alt="Inov Team Group" width="120" height="74" />
+                  <span>Le groupe</span>
+                </div>
               </div>
               <ul className="satel-l">
                 {ENTITES.map((e, k) => (
