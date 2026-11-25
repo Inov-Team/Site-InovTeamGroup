@@ -438,7 +438,8 @@ function App() {
           <div className="ent-in">
             <div>
               <div className="eyebrow">Nos entités</div>
-              <h2>Trois entités,<br /><span className="g" style={{ backgroundImage: 'linear-gradient(95deg,#d96bff,#ff7ad0)' }}>trois ancrages.</span></h2>
+              <h2>3 entités,<br /><span className="g" style={{ backgroundImage: 'linear-gradient(95deg,#d96bff,#ff7ad0)' }}>1 ancrage local.</span></h2>
+              <p className="ent-p">Conseil, recherche et delivery tiennent dans les Alpes-Maritimes, de Sophia-Antipolis à Monaco. Vos interlocuteurs sont sur le même territoire que vos équipes.</p>
               <svg className="rule" width="64" height="12" viewBox="0 0 64 12" fill="none" aria-hidden="true">
                 <path d="M3 6h10M23 6h15M48 6h13" stroke="url(#rg)" strokeWidth="6" strokeLinecap="round" />
                 <defs><linearGradient id="rg" x1="0" y1="0" x2="64" y2="0" gradientUnits="userSpaceOnUse"><stop stopColor="#8b6bff" /><stop offset="1" stopColor="#ff7ae0" /></linearGradient></defs>
@@ -463,14 +464,14 @@ function App() {
                 </g>
 
                 {/* le trait de côte, de l'Esterel à la frontière italienne */}
-                <path className="cote" d="M20 412 C 58 402, 112 368, 176 328 C 202 311, 224 300, 243 295 C 258 291, 272 284, 285 281 C 297 284, 308 289, 318 293 C 326 296, 334 298, 338 291 C 341 285, 339 275, 337 268 C 341 243, 346 220, 351 205 C 366 199, 380 197, 392 196 C 420 190, 448 180, 467 171 C 480 174, 492 179, 502 184 C 506 177, 506 167, 505 160 C 512 155, 519 152, 525 150 C 541 145, 559 140, 574 137 C 586 132, 598 128, 608 124 C 619 117, 631 109, 641 103 C 670 98, 702 93, 740 90" />
+                <path className="cote" d="M20 412 C 44 404, 68 392, 92 378 C 116 362, 146 342, 176 328 C 196 318, 218 302, 243 295 C 256 292, 268 286, 278 282 C 288 285, 296 290, 304 293 C 314 297, 324 300, 331 297 C 338 293, 340 283, 338 274 C 337 268, 336 262, 337 256 C 342 236, 347 218, 352 204 C 366 199, 380 197, 394 195 C 420 189, 446 180, 466 171 C 474 174, 480 178, 486 174 C 492 178, 498 181, 502 184 C 506 176, 506 166, 505 159 C 512 155, 519 152, 526 150 C 542 145, 560 140, 574 137 C 584 139, 594 143, 600 141 C 610 133, 622 118, 632 110 C 636 106, 639 104, 641 103 C 672 98, 706 93, 740 90" />
 
                 {/* l'arrière-pays, qui monte vers les Préalpes */}
                 <g className="relief">
-                  <path d="M20 372 C 70 356, 120 326, 180 292 C 230 266, 290 254, 340 236 C 400 216, 460 196, 524 172" />
-                  <path d="M20 334 C 68 314, 118 286, 178 252 C 232 222, 288 212, 338 192 C 392 170, 440 154, 486 138" style={{ opacity: .74 }} />
-                  <path d="M20 294 C 66 268, 116 242, 176 208 C 230 178, 282 168, 330 148 C 378 128, 410 116, 444 104" style={{ opacity: .5 }} />
-                  <path d="M20 252 C 64 224, 112 198, 172 166 C 224 138, 272 128, 316 110 C 350 96, 374 88, 398 80" style={{ opacity: .28 }} />
+                  <path d="M20 357 L60 325 L100 336 L140 300 L180 300 L220 272 L260 265 L300 233 L340 229 L380 197 L420 193 L460 161 L500 158 L540 126 L580 122 L620 90 L660 86" />
+                  <path d="M20 302 L56 262 L92 281 L132 239 L172 253 L212 213 L252 227 L292 187 L332 201 L372 161 L412 175 L452 135 L492 149 L532 109 L572 123" style={{ opacity: .72 }} />
+                  <path d="M20 247 L60 199 L100 220 L144 172 L188 192 L232 144 L276 164 L320 116 L364 136 L408 88 L452 108" style={{ opacity: .48 }} />
+                  <path d="M20 197 L64 145 L108 168 L156 116 L204 138 L252 86 L300 108 L344 60" style={{ opacity: .28 }} />
                 </g>
 
                 {/* les deux sites, et les hampes qui portent les fiches */}

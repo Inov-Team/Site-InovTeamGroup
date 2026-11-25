@@ -94,6 +94,7 @@ p{margin:0;color:var(--muted)}
 .ent .eyebrow{color:#cfc8ff}
 .ent h2{font-size:clamp(26px,2.4vw,32px);line-height:1.1;margin-top:14px;font-weight:800}
 .ent .rule{display:block;margin-top:24px}
+.ent-p{margin:18px 0 0;max-width:330px;font-size:15.5px;line-height:1.65;color:#c9c4e8}
 .ent-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .ecard{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.94);color:var(--ink);border-radius:14px;padding:20px 18px;position:relative;min-height:96px;transition:transform .25s,box-shadow .25s}
 .ecard:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(0,0,0,.25)}
@@ -647,7 +648,7 @@ main:focus{outline:none}
 .carte-fond path,.carte-fond circle{fill:none}
 .carte-fond .mer path{stroke:rgba(255,255,255,.2);stroke-width:1}
 .carte-fond .cote{stroke:rgba(255,255,255,.82);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.carte-fond .relief path{stroke:rgba(255,255,255,.24);stroke-width:1;stroke-linecap:round}
+.carte-fond .relief path{stroke:rgba(255,255,255,.26);stroke-width:1;stroke-linejoin:round;stroke-linecap:round}
 .carte-fond .mats path{stroke:url(#cg);stroke-width:1.6;stroke-linecap:round}
 .carte-fond .socle circle{stroke:rgba(255,255,255,.55);stroke-width:1}
 .carte-fond .socle .plein{fill:#fff;stroke:none}
