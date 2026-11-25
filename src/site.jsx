@@ -42,7 +42,7 @@ const P = {
   play: 'M7 4l12 8-12 8z'
 };
 const Icone = ({ n, s = 24, c = 'ico', w = 1.6 }) => (
-  <svg className={c} width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={w} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={P[n]} /></svg>
+  <svg className={c} width={s} height={s} viewBox="-2 -2 28 28" fill="none" stroke="currentColor" strokeWidth={w} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={P[n]} /></svg>
 );
 const Burst = () => (
   <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true">
@@ -378,7 +378,13 @@ function App() {
           <div className="wrap">
             <div className="hero-grid">
               <div>
-                <motion.div className="eyebrow line" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>Be brilliant together</motion.div>
+                <motion.div className="eyebrow line" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
+                  Be brilliant together
+                  <svg className="traits" width="52" height="10" viewBox="0 0 52 10" fill="none" aria-hidden="true">
+                    <path d="M3 5h8M19 5h12M39 5h10" stroke="url(#tg)" strokeWidth="5" strokeLinecap="round" />
+                    <defs><linearGradient id="tg" x1="0" y1="0" x2="52" y2="0" gradientUnits="userSpaceOnUse"><stop stopColor="#2b4bff" /><stop offset=".55" stopColor="#7b3fe4" /><stop offset="1" stopColor="#c935a6" /></linearGradient></defs>
+                  </svg>
+                </motion.div>
                 <h1><Words text="Ensemble, changeons" delay={0.15} cls="nw" /><br /><Words text="de perspective." delay={0.3} cls="g" /></h1>
                 <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ ...spring, delay: 0.55 }}>
                   <p className="lead">ESN agile à taille humaine, spécialisée en ingénierie, R&amp;D et services numériques, du conseil à la réalisation.</p>
@@ -437,7 +443,10 @@ function App() {
             <div>
               <div className="eyebrow">Nos entités</div>
               <h2>Un groupe, des expertises<br /><span className="g" style={{ backgroundImage: 'linear-gradient(95deg,#d96bff,#ff7ad0)' }}>complémentaires.</span></h2>
-              <span className="rule" />
+              <svg className="rule" width="64" height="12" viewBox="0 0 64 12" fill="none" aria-hidden="true">
+                <path d="M3 6h10M23 6h15M48 6h13" stroke="url(#rg)" strokeWidth="6" strokeLinecap="round" />
+                <defs><linearGradient id="rg" x1="0" y1="0" x2="64" y2="0" gradientUnits="userSpaceOnUse"><stop stopColor="#8b6bff" /><stop offset="1" stopColor="#ff7ae0" /></linearGradient></defs>
+              </svg>
             </div>
             <div className="satel">
               <svg className="satel-fils" viewBox="0 0 600 300" preserveAspectRatio="none" aria-hidden="true">
