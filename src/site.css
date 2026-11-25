@@ -94,7 +94,6 @@ p{margin:0;color:var(--muted)}
 .ent .eyebrow{color:#cfc8ff}
 .ent h2{font-size:clamp(26px,2.4vw,32px);line-height:1.1;margin-top:14px;font-weight:800}
 .ent .rule{display:block;margin-top:24px}
-.ent-p{margin:18px 0 0;max-width:330px;font-size:15.5px;line-height:1.65;color:#c9c4e8}
 .ent-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .ecard{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.94);color:var(--ink);border-radius:14px;padding:20px 18px;position:relative;min-height:96px;transition:transform .25s,box-shadow .25s}
 .ecard:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(0,0,0,.25)}
@@ -638,51 +637,25 @@ main:focus{outline:none}
 .mq-set img.sq{max-height:62px}
 @media (max-width:600px){.mq-set img{max-height:36px}.mq-set img.sq{max-height:48px}}
 
-/* ===== Entités : la carte des Alpes-Maritimes ===== */
-/* Le contour vient des données départementales de l'IGN, projeté et simplifié
-   au build. Rien n'est dessiné à la main. */
-.ent-in{align-items:center}
-.carte{position:relative;aspect-ratio:760/440;min-height:320px}
-.carte-fond{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.carte-fond .dep{fill:rgba(255,255,255,.045);stroke:rgba(255,255,255,.62);stroke-width:1.2;stroke-linejoin:round}
-.carte-fond .mats path{fill:none;stroke:url(#cg);stroke-width:1.6;stroke-linecap:round}
-.carte-fond .site circle{fill:none;stroke:rgba(255,255,255,.75);stroke-width:1.2}
-.carte-fond .site .plein{fill:#fff;stroke:none}
-.carte-fond .site text{fill:#fff;font:700 11px "Plus Jakarta Sans",sans-serif;letter-spacing:.18em;text-transform:uppercase}
-.carte-fond .lieux circle{fill:rgba(255,255,255,.55)}
-.carte-fond .lieux text{fill:rgba(255,255,255,.55);font:600 10px "Plus Jakarta Sans",sans-serif;letter-spacing:.1em}
-.carte-fond .ouest path{fill:none;stroke:rgba(207,200,255,.55);stroke-width:1;stroke-linecap:round}
-.carte-fond .credit{fill:rgba(255,255,255,.22);font:500 8.5px "Plus Jakarta Sans",sans-serif;letter-spacing:.06em}
-
-.ville{position:absolute;font:700 10.5px "Plus Jakarta Sans",sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#cfc8ff;white-space:nowrap}
-.v-aix{left:4%;top:86%}
-
-.noeud{position:absolute}
-.noeud a{display:flex;align-items:center;gap:14px;background:#fff;color:var(--ink);border-radius:11px;padding:11px 17px;min-height:52px;box-shadow:0 10px 24px rgba(8,6,40,.3),inset 0 0 0 1px rgba(27,20,70,.08);transition:transform .22s var(--eo),box-shadow .22s var(--eo)}
-.noeud a:hover{transform:translateY(-2px);box-shadow:0 16px 32px rgba(8,6,40,.42),inset 0 0 0 1px rgba(123,63,228,.3)}
-.noeud img{flex:none;width:auto;height:30px;max-width:108px;object-fit:contain}
-.noeud b{display:block;font:700 14px "Plus Jakarta Sans",sans-serif;white-space:nowrap}
-.noeud span span{display:block;font-size:12px;color:var(--muted);white-space:nowrap}
-.n-inov-team{left:0;top:58%}
-.n-inov-team-labs{left:28%;top:40%}
-.n-digiteam{left:58%;top:22%}
-
-@media (max-width:980px){
- .carte{aspect-ratio:auto;min-height:0;display:grid;gap:12px}
- .carte-fond,.ville{display:none}
- .noeud{position:static}
- .noeud a{box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+/* ===== Entités : le groupe et ses trois satellites ===== */
+.satel{position:relative;display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1fr);gap:clamp(20px,4vw,56px);align-items:center;min-height:300px}
+.satel-fils{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.satel-c{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;justify-self:center;padding:30px 34px;border-radius:50%;aspect-ratio:1;width:min(210px,100%);justify-content:center;background:radial-gradient(circle,rgba(123,63,228,.42),rgba(255,255,255,.05) 70%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.22)}
+.satel-c img{width:auto;height:56px;object-fit:contain}
+.satel-c span{font:700 12px "Plus Jakarta Sans",sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#cfc8ff}
+.satel-l{position:relative;list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.satel-l a{display:flex;align-items:center;gap:18px;background:#fff;color:var(--ink);border-radius:14px;padding:14px 20px;min-height:56px;transition:transform .24s var(--eo),box-shadow .24s var(--eo)}
+.satel-l a:hover{transform:translateX(5px);box-shadow:0 14px 30px rgba(0,0,0,.26)}
+.satel-l img{flex:none;width:auto;height:38px;max-width:132px;object-fit:contain}
+.satel-d{flex:1;min-width:0;font:700 15px "Plus Jakarta Sans",sans-serif}
+.satel-a{flex:none;color:var(--violet);transition:transform .24s var(--eo)}
+.satel-l a:hover .satel-a{transform:translateX(4px)}
+@media (max-width:860px){
+ .satel{grid-template-columns:minmax(0,1fr);gap:24px;min-height:0}
+ .satel-fils{display:none}
+ .satel-c{width:min(168px,100%);padding:22px}
+ .satel-c img{height:44px}
 }
-/* ===== Vie du groupe : un titre et de l'air ===== */
-.vie-t{font-size:clamp(24px,2.4vw,32px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin:46px 0 34px;max-width:620px}
-#equipe .vie{margin-top:0}
-#equipe .head{margin-bottom:26px}
-
-/* Les pictogrammes des valeurs sont cadrés dans une pastille, et le viewBox
-   élargi de deux unités empêche les traits de se faire couper au bord. */
-.vcard .ico{width:52px;height:52px;padding:11px;border-radius:16px;box-sizing:border-box;background:linear-gradient(150deg,#f3edff,#fbf3ff);box-shadow:inset 0 0 0 1px #ece4fb}
-.vie-c .ico{width:46px;height:46px;padding:9px;border-radius:14px;box-sizing:border-box;background:linear-gradient(150deg,#f3edff,#fbf3ff);box-shadow:inset 0 0 0 1px #ece4fb}
-.ico{overflow:visible}
 
 /* Écrans courts : la section expertises tient dans une vue au lieu de
    pousser son titre sous l'en-tête collant. La roue et le panneau se
