@@ -6,7 +6,7 @@ export const SITE = {
   baseline: 'Be brilliant together',
   mail: 'contact@inov-team.fr',
   linkedin: 'https://www.linkedin.com/company/inov-team',
-  url: 'https://alexandretorre2511.github.io/Site-InovTeamGroup/',
+  url: 'https://inov-team.github.io/Site-InovTeamGroup/',
   villes: ['Sophia-Antipolis', 'Aix-en-Provence', 'Monaco']
 };
 
