@@ -10,39 +10,42 @@ const ease = [0.23, 1, 0.32, 1];        // ease-out fort, pour les entrées
 const easeIO = [0.77, 0, 0.175, 1];     // ease-in-out fort, pour les déplacements
 const fine = () => typeof matchMedia === 'function' && matchMedia('(hover: hover) and (pointer: fine)').matches;
 
+// Jeu de pictogrammes : chacun est une vraie figure, composée de plusieurs
+// éléments plutôt que d'un seul tracé. Tout tient entre 2 et 22 sur la grille
+// de 24, donc rien ne touche le bord, quelle que soit l'épaisseur du trait.
 const P = {
-  users: 'M16 20v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6M22 20v-1a4 4 0 0 0-3-3.9M16 5.1a3 3 0 0 1 0 5.8',
-  pin: 'M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21zM12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5',
-  layers: 'M12 3 2 8l10 5 10-5-10-5zM2 13l10 5 10-5M2 17.5l10 5 10-5',
-  cube: 'M12 2 3 7v10l9 5 9-5V7l-9-5zM3 7l9 5 9-5M12 12v10',
-  trend: 'M3 17l6-6 4 4 8-8M15 7h6v6',
-  code: 'M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16',
-  cloud: 'M7 18h10a4.5 4.5 0 0 0 .6-9 6 6 0 0 0-11.4 1.6A3.8 3.8 0 0 0 7 18z',
-  shield: 'M12 3l8 3v6c0 4.6-3.4 8.3-8 9-4.6-.7-8-4.4-8-9V6l8-3zM8.5 12l2.5 2.5 4.5-5',
-  db: 'M12 3c4.4 0 8 1.3 8 3s-3.6 3-8 3-8-1.3-8-3 3.6-3 8-3zM4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6',
-  check: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM8 12l3 3 5-6',
-  a11y: 'M12 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4M4 8l8 2 8-2M12 10v5l-4 7M12 15l4 7',
-  sliders: 'M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0M14 4v4M8 10v4M16 16v4',
-  rocket: 'M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2M9 15l-3-3c1.5-4 5-9 13-9 0 8-5 11.5-9 13zM15 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3',
-  hands: 'M11 17l2 2a1.4 1.4 0 0 0 2-2M14 14l2.5 2.5a1.4 1.4 0 0 0 2-2l-3.5-3.5M8 9l3-3 2 1 3-2 5 5-3 3M3 10l5-5 3 2M3 10l7 7 1-1',
-  bulb: 'M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.5.4.5 1 .5 1.6V16h6v-.5c0-.6 0-1.2.5-1.6A6 6 0 0 0 12 3z',
-  team: 'M12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6M6 12a2.4 2.4 0 1 0 0-4.8M18 12a2.4 2.4 0 1 0 0-4.8M7 20v-1.5A4.5 4.5 0 0 1 11.5 14h1A4.5 4.5 0 0 1 17 18.5V20M2 19v-1a3.5 3.5 0 0 1 3.5-3.5M22 19v-1a3.5 3.5 0 0 0-3.5-3.5',
-  leaf: 'M5 19C5 10 10 5 20 4c-1 10-6 15-15 15zM5 19l8-8',
-  arrow: 'M5 12h14M13 6l6 6-6 6',
-  cal: 'M4 6h16v14H4zM4 10h16M8 3v5M16 3v5',
-  mail: 'M3 6h18v12H3zM3 7l9 6 9-6',
-  chev: 'M6 9l6 6 6-6',
-  infini: 'M12 12c-2-2.7-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.3 6-4zm0 0c2 2.7 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.3-6 4z',
-  cadenas: 'M12 3l8 3v6c0 4.6-3.4 8.3-8 9-4.6-.7-8-4.4-8-9V6l8-3zM10 12.5v-1a2 2 0 0 1 4 0v1M9.2 12.5h5.6v4H9.2z',
-  barres: 'M3 3v16a2 2 0 0 0 2 2h16M7 16v-3M12 16V8M17 16v-6',
-  recette: 'M9 4h6v3H9zM9 5.5H7a1 1 0 0 0-1 1V20a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6.5a1 1 0 0 0-1-1h-2M8.5 14l2.2 2.2L15.5 11',
-  boussole: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM15.6 8.4l-2.1 5.1-5.1 2.1 2.1-5.1z',
-  pouls: 'M3 12h3.5l2-6 4.5 12 2.2-6H21',
-  pause: 'M9 5v14M15 5v14',
-  play: 'M7 4l12 8-12 8z'
+  users: [['path', { d: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' }], ['circle', { cx: 9, cy: 7, r: 4 }], ['path', { d: 'M22 21v-2a4 4 0 0 0-3-3.87' }], ['path', { d: 'M16 3.13a4 4 0 0 1 0 7.75' }]],
+  pin: [['path', { d: 'M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z' }], ['circle', { cx: 12, cy: 10, r: 3 }]],
+  layers: [['path', { d: 'M12.83 2.18a2 2 0 0 0-1.66 0L3.6 5.73a1 1 0 0 0 0 1.83l7.57 3.45a2 2 0 0 0 1.66 0l7.57-3.45a1 1 0 0 0 0-1.83Z' }], ['path', { d: 'M21.3 16.1 13 19.88a2 2 0 0 1-1.66 0L3 16.1' }], ['path', { d: 'M21.3 11.6 13 15.38a2 2 0 0 1-1.66 0L3 11.6' }]],
+  cube: [['path', { d: 'M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z' }], ['path', { d: 'm3.3 7 8.7 5 8.7-5' }], ['path', { d: 'M12 22V12' }]],
+  trend: [['path', { d: 'M22 7 13.5 15.5 8.5 10.5 2 17' }], ['path', { d: 'M16 7h6v6' }]],
+  code: [['path', { d: 'm16 18 6-6-6-6' }], ['path', { d: 'm8 6-6 6 6 6' }], ['path', { d: 'm14.5 4-5 16' }]],
+  cloud: [['path', { d: 'M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z' }]],
+  infini: [['path', { d: 'M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Z' }], ['path', { d: 'M12 12c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z' }]],
+  cadenas: [['path', { d: 'M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1Z' }], ['path', { d: 'm9 12 2 2 4-4' }]],
+  barres: [['path', { d: 'M3 3v16a2 2 0 0 0 2 2h16' }], ['path', { d: 'M7 16v-4' }], ['path', { d: 'M12 16V8' }], ['path', { d: 'M17 16v-7' }]],
+  recette: [['rect', { x: 8, y: 2, width: 8, height: 4, rx: 1 }], ['path', { d: 'M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2' }], ['path', { d: 'm9 14 2 2 4-4' }]],
+  a11y: [['circle', { cx: 16, cy: 4, r: 1 }], ['path', { d: 'm18 19 1-7-5.87.94' }], ['path', { d: 'm5 8 3-3 5.5 3-2.21 3.1' }], ['path', { d: 'M4.24 14.5a5 5 0 0 0 6.88 6' }], ['path', { d: 'M13.76 17.5a5 5 0 0 0-6.88-6' }]],
+  pouls: [['path', { d: 'M22 12h-3.5a1 1 0 0 0-.95.68l-2.4 7.2a.5.5 0 0 1-.95 0L9.3 3.62a.5.5 0 0 0-.95 0l-2.4 7.2A1 1 0 0 1 5 11.5H2' }]],
+  boussole: [['circle', { cx: 12, cy: 12, r: 10 }], ['path', { d: 'm16.24 7.76-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12Z' }]],
+  rocket: [['path', { d: 'M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91 0Z' }], ['path', { d: 'm12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z' }], ['path', { d: 'M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0' }], ['path', { d: 'M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5' }]],
+  hands: [['path', { d: 'm11 17 2 2a1 1 0 1 0 3-3' }], ['path', { d: 'm14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4' }], ['path', { d: 'm21 3 1 11h-2' }], ['path', { d: 'M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3' }], ['path', { d: 'M3 4h8' }]],
+  bulb: [['path', { d: 'M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5' }], ['path', { d: 'M9 18h6' }], ['path', { d: 'M10 22h4' }]],
+  team: [['path', { d: 'M18 21a8 8 0 0 0-16 0' }], ['circle', { cx: 10, cy: 8, r: 5 }], ['path', { d: 'M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3' }]],
+  leaf: [['path', { d: 'M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z' }], ['path', { d: 'M2 21c0-3 1.85-5.36 2.99-6.5' }]],
+  arrow: [['path', { d: 'M5 12h14' }], ['path', { d: 'm12 5 7 7-7 7' }]],
+  cal: [['path', { d: 'M8 2v4' }], ['path', { d: 'M16 2v4' }], ['rect', { x: 3, y: 4, width: 18, height: 18, rx: 2 }], ['path', { d: 'M3 10h18' }]],
+  mail: [['rect', { x: 2, y: 4, width: 20, height: 16, rx: 2 }], ['path', { d: 'm22 7-8.97 5.7a2 2 0 0 1-2.06 0L2 7' }]],
+  chev: [['path', { d: 'm6 9 6 6 6-6' }]],
+  pause: [['rect', { x: 6, y: 4, width: 4, height: 16, rx: 1 }], ['rect', { x: 14, y: 4, width: 4, height: 16, rx: 1 }]],
+  play: [['path', { d: 'M6 3.5 20 12 6 20.5Z', fill: 'currentColor' }]],
+  check: [['circle', { cx: 12, cy: 12, r: 10 }], ['path', { d: 'm8.5 12.5 2.5 2.5 4.5-5' }]]
 };
 const Icone = ({ n, s = 24, c = 'ico', w = 1.6 }) => (
-  <svg className={c} width={s} height={s} viewBox="-2 -2 28 28" fill="none" stroke="currentColor" strokeWidth={w} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={P[n]} /></svg>
+  <svg className={c} width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    strokeWidth={w} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+    {P[n].map(([T, a], i) => React.createElement(T, { key: i, ...a }))}
+  </svg>
 );
 const Burst = () => (
   <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true">
@@ -55,13 +58,13 @@ const Burst = () => (
 
 const EXP = [
   ['code', 'Ingénierie Logicielle', 'Développement, architecture et modernisation.'],
-  ['cloud', 'DevOps & Cloud', 'Industrialisation, automatisation et plateformes cloud.'],
-  ['shield', 'Cybersécurité', 'Sécurisation des systèmes, des données et des applications.'],
-  ['db', 'Data & Analytics', 'Valorisation de la donnée et aide à la décision.'],
-  ['check', 'Tests & Validation', 'Qualité logicielle, automatisation et performance.'],
+  ['infini', 'DevOps & Cloud', 'Industrialisation, automatisation et plateformes cloud.'],
+  ['cadenas', 'Cybersécurité', 'Sécurisation des systèmes, des données et des applications.'],
+  ['barres', 'Data & Analytics', 'Valorisation de la donnée et aide à la décision.'],
+  ['recette', 'Tests & Validation', 'Qualité logicielle, automatisation et performance.'],
   ['a11y', 'Accessibilité Numérique', 'Des solutions inclusives et conformes.'],
-  ['layers', 'Consulting & Innovation', 'Conseil, R&D et accélération de vos projets.'],
-  ['sliders', 'Delivery & Opérations', 'TMA, support et continuité de service.']
+  ['boussole', 'Consulting & Innovation', 'Conseil, R&D et accélération de vos projets.'],
+  ['pouls', 'Delivery & Opérations', 'TMA, support et continuité de service.']
 ];
 const ICONS = {
   'Ingénierie Logicielle': 'code',        // les chevrons du code
@@ -217,7 +220,7 @@ function Wheel({ sel, pick }) {
         <circle cx={C} cy={C} r="70" fill="#f6f1ff" />
         <AnimatePresence mode="wait">
           <motion.g key={sel} initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.6 }} transition={{ duration: 0.22 }} style={{ originX: '50%', originY: '50%' }}>
-            <svg x={C - 26} y={C - 26} width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="url(#wg)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d={P[ic]} /></svg>
+            <svg x={C - 26} y={C - 26} width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="url(#wg)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">{P[ic].map(([T, a], i) => React.createElement(T, { key: i, ...a, fill: a.fill ? 'url(#wg)' : 'none' }))}</svg>
           </motion.g>
         </AnimatePresence>
       </svg>
