@@ -1,5 +1,5 @@
 // Construit le site en un seul fichier dist/index.html (+ dist/assets)
-import { build } from 'esbuild';
+import { build, transform } from 'esbuild';
 import { readFileSync, writeFileSync, mkdirSync, cpSync } from 'node:fs';
 import { ACCUEIL, SITE } from './src/routes.js';
 
@@ -8,7 +8,8 @@ const r = await build({
   define: { 'process.env.NODE_ENV': '"production"' }, write: false
 });
 const js = r.outputFiles[0].text.replace(/<\/script/g, '<\\/script');
-const css = readFileSync('src/fonts.css', 'utf8') + readFileSync('src/site.css', 'utf8');
+const brut = readFileSync('src/fonts.css', 'utf8') + readFileSync('src/site.css', 'utf8');
+const css = (await transform(brut, { loader: 'css', minify: true })).code;
 
 // Fiche d'identité pour les moteurs et les assistants de recherche.
 const jsonld = {
@@ -34,7 +35,7 @@ const jsonld = {
     { '@type': 'Organization', name: 'Inov Team Labs', description: 'R&D & Innovation' },
     { '@type': 'Organization', name: 'DigiTeam', description: 'Delivery & Services' }
   ],
-  knowsAbout: ['Ingénierie logicielle', 'DevOps & Cloud', 'Cybersécurité', 'Data & Analytics', 'Tests & Validation', 'Accessibilité numérique', 'Consulting & Innovation', 'Delivery & Opérations']
+  knowsAbout: ['Ingénierie logicielle', 'DevOps & Cloud', 'Cybersécurité', 'Data & Analytics', 'Tests & Validation', 'Accessibilité numérique', 'Consulting & Innovation', 'Delivery & Opérations', 'Intelligence artificielle', 'IA générative', 'Agents IA']
 };
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');

@@ -69,6 +69,7 @@ const EXP = [
   ['pouls', 'Delivery & Opérations', 'TMA, support et continuité de service.']
 ];
 const ICONS = {
+  'Intelligence Artificielle': 'ia',      // la puce et ses broches
   'Ingénierie Logicielle': 'code',        // les chevrons du code
   'DevOps & Cloud': 'infini',             // la boucle, symbole du DevOps
   'Cybersécurité': 'cadenas',             // bouclier avec cadenas
@@ -302,7 +303,7 @@ function HandVisual() {
       transition={{ opacity: { duration: 0.6, ease }, scale: { duration: 0.7, ease } }}>
       {POSES.map((alt, i) => (
         <img key={i} className={'hand hand-' + (i + 1)} src={`assets/hand-${i + 1}.webp`}
-          width="900" height="585" alt={alt} aria-hidden={i ? 'true' : undefined}
+          width="840" height="546" alt={alt} aria-hidden={i ? 'true' : undefined}
           fetchPriority={i ? "low" : "high"} decoding="async" />
       ))}
     </motion.div>
@@ -405,22 +406,22 @@ function App() {
                 </motion.div>
               </div>
             </div>
-            <dl className="stats" id="qui">
+            <ul className="stats" id="qui">
               {[
                 ['users', 100, '+', 'collaborateurs', 'sur trois sites'],
                 ['layers', 3, '', 'entités', 'Inov Team · Labs · DigiTeam'],
                 ['cube', 9, '', 'pôles d’expertise', 'du conseil au run'],
                 ['trend', 40, '+', 'recrutements / an', 'et nous continuons']
               ].map(([ico, n, pre, label, sous]) => (
-                <div className="stat" key={label}>
+                <li className="stat" key={label}>
                   <span className="stat-i"><Icone n={ico} s={22} /></span>
                   <div>
-                    <dt className="stat-n"><Count to={n} prefix={pre} /></dt>
-                    <dd><span>{label}</span><small>{sous}</small></dd>
+                    <p className="stat-n"><Count to={n} prefix={pre} /></p>
+                    <div className="stat-v"><span>{label}</span><small>{sous}</small></div>
                   </div>
-                </div>
+                </li>
               ))}
-            </dl>
+            </ul>
           </div>
         </section>
 
@@ -483,7 +484,7 @@ function App() {
               {ENTITES.map((e, k) => (
                 <Reveal key={e.k} k={k} className="tuileE">
                   <a href={'#entite-' + e.k}>
-                    <img src={`assets/${e.logo}.webp`} alt={(e.t + e.em).trim()} />
+                    <img src={`assets/${e.logo}.webp`} alt={(e.t + e.em).trim()} width="240" height="98" loading="lazy" decoding="async" />
                     <b>{(e.t + e.em).trim()}</b>
                     <span>{e.d}</span>
                     <Icone n="arrow" s={17} c="tuileE-a" w={2} />
@@ -503,7 +504,7 @@ function App() {
               <div className="mq-track">
                 {[0, 1].map((set) => (
                   <div className="mq-set" key={set} aria-hidden={set === 1}>
-                    {CLIENTS.map(([f, nom, sq]) => <img key={f} className={sq || ''} src={`assets/${f}.webp`} alt={set === 1 ? '' : nom} />)}
+                    {CLIENTS.map(([f, nom, sq]) => <img key={f} className={sq || ''} src={`assets/${f}.webp`} alt={set === 1 ? '' : nom} width="150" height="50" loading="lazy" decoding="async" />)}
                   </div>
                 ))}
               </div>
@@ -555,11 +556,11 @@ function App() {
       <footer className="ft">
         <div className="wrap">
           <div className="ft-grid">
-            <div><img src="assets/logo-group-w.webp" alt="Inov Team Group" /><div className="tag">Be brilliant together</div></div>
-            <div><h4>Le Groupe</h4><ul><li><a href="#qui">Qui sommes-nous ?</a></li><li><a href="#entites">Nos entités</a></li><li><a href="#valeurs">Nos valeurs</a></li><li><a href="#equipe-page">L’équipe</a></li></ul></div>
-            <div><h4>Expertises</h4><ul>{EXP.slice(0, 4).map(([, t]) => <li key={t}><a href={'#expertise-' + slug(t)}>{t}</a></li>)}<li><a href="#expertises-toutes">Toutes nos expertises</a></li></ul></div>
-            <div><h4>Carrières</h4><ul><li><a href="#carrieres">Nos offres</a></li><li><a href="#approche">Notre culture</a></li><li><a href="#carrieres">Processus de recrutement</a></li><li><a href="#actualites">Actualités</a></li></ul></div>
-            <div><h4>Contact</h4><ul><li><Icone n="pin" s={16} c="" />Sophia-Antipolis · Aix-en-Provence · Monaco</li><li><Icone n="mail" s={16} c="" /><a href="mailto:contact@inov-team.fr">contact@inov-team.fr</a></li><li><a href="https://www.linkedin.com/company/inov-team" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm3 7v8h2.5v-8H7zm1.2-4a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zM11 10v8h2.5v-4.2c0-1.1.6-1.8 1.5-1.8s1.3.6 1.3 1.8V18H19v-4.8c0-2.4-1.3-3.4-3-3.4-1.2 0-2 .6-2.4 1.2V10H11z" /></svg></a></li></ul></div>
+            <div><img src="assets/logo-group-w.webp" alt="Inov Team Group" width="320" height="197" loading="lazy" decoding="async" /><div className="tag">Be brilliant together</div></div>
+            <div><h3>Le Groupe</h3><ul><li><a href="#qui">Qui sommes-nous ?</a></li><li><a href="#entites">Nos entités</a></li><li><a href="#valeurs">Nos valeurs</a></li><li><a href="#equipe-page">L’équipe</a></li></ul></div>
+            <div><h3>Expertises</h3><ul>{EXP.slice(0, 4).map(([, t]) => <li key={t}><a href={'#expertise-' + slug(t)}>{t}</a></li>)}<li><a href="#expertises-toutes">Toutes nos expertises</a></li></ul></div>
+            <div><h3>Carrières</h3><ul><li><a href="#carrieres">Nos offres</a></li><li><a href="#approche">Notre culture</a></li><li><a href="#carrieres">Processus de recrutement</a></li><li><a href="#actualites">Actualités</a></li></ul></div>
+            <div><h3>Contact</h3><ul><li><Icone n="pin" s={16} c="" />Sophia-Antipolis · Aix-en-Provence · Monaco</li><li><Icone n="mail" s={16} c="" /><a href="mailto:contact@inov-team.fr">contact@inov-team.fr</a></li><li><a href="https://www.linkedin.com/company/inov-team" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm3 7v8h2.5v-8H7zm1.2-4a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zM11 10v8h2.5v-4.2c0-1.1.6-1.8 1.5-1.8s1.3.6 1.3 1.8V18H19v-4.8c0-2.4-1.3-3.4-3-3.4-1.2 0-2 .6-2.4 1.2V10H11z" /></svg></a></li></ul></div>
           </div>
           <div className="bot"><span>© 2026 Inov Team Group</span><span style={{ display: 'flex', gap: 18 }}><a href="https://inov-team.fr/mentions">Mentions légales</a><a href="https://inov-team.fr/cgu">CGU</a></span></div>
         </div>

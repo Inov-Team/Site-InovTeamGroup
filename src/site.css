@@ -61,14 +61,14 @@ p{margin:0;color:var(--muted)}
 /* Bandeau de chiffres : quatre colonnes égales, l'icône dans une pastille
    teintée, le nombre en chiffres à chasse fixe pour que le compteur ne
    fasse pas danser la ligne pendant qu'il monte. */
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:0;padding:30px 0 42px}
+.stats{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:0;padding:30px 0 42px}
 .stat{display:flex;gap:16px;align-items:center;padding:4px 26px}
 .stat:first-child{padding-left:0}
 .stat+.stat{border-left:1px solid var(--line)}
 .stat-i{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:14px;color:var(--violet);background:linear-gradient(150deg,#f3edff,#fbf3ff);box-shadow:inset 0 0 0 1px #ece4fb}
-.stat-n{margin:0;font:800 34px/1 "Plus Jakarta Sans",sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.stat dd{margin:0}
-.stat dd span{display:block;font-size:14px;font-weight:600;color:var(--ink);margin-top:6px}
+.stat-n{margin:0;color:var(--ink);font:800 34px/1 "Plus Jakarta Sans",sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+
+.stat-v span{display:block;font-size:14px;font-weight:600;color:var(--ink);margin-top:6px}
 .stat small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
 .ico{flex:none;width:34px;height:34px;color:var(--violet)}
 .ico .f{fill:currentColor;fill-opacity:.2;stroke:none}
@@ -145,7 +145,7 @@ p{margin:0;color:var(--muted)}
 .ft-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr 1.4fr;gap:32px}
 .ft img{height:60px;width:auto}
 .ft .tag{margin-top:14px;font:600 14px "Plus Jakarta Sans",sans-serif;letter-spacing:.06em;color:#fff}
-.ft h4{margin:0 0 10px;font:700 15px "Plus Jakarta Sans",sans-serif}
+.ft h3{margin:0 0 10px;font:700 15px "Plus Jakarta Sans",sans-serif}
 .ft ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:14px;color:#c4c1e0}
 .ft ul a:hover{color:#fff}
 .ft li{display:flex;gap:8px;align-items:center}

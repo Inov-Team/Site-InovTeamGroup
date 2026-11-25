@@ -91,7 +91,7 @@ export function EntitePage({ k }) {
       </div></section>
       <section className="psec soft"><div className="wrap">
         <h2>Les autres entités du groupe</h2>
-        <div className="olist">{others.map((o) => <a key={o.k} className="elogo" href={'#entite-' + o.k}><img src={`assets/${o.logo}.webp`} alt={o.t + o.em} /><small>{o.d}</small></a>)}</div>
+        <div className="olist">{others.map((o) => <a key={o.k} className="elogo" href={'#entite-' + o.k}><img src={`assets/${o.logo}.webp`} alt={o.t + o.em} width="240" height="98" loading="lazy" decoding="async" /><small>{o.d}</small></a>)}</div>
       </div></section>
     </>
   );
@@ -273,7 +273,7 @@ const EQUIPES = ['Tout le monde', 'Direction', 'Management', 'Ambassadeurs', 'Ex
 
 const Tuile = ({ t, h }) => (
   t
-    ? <img src={`assets/${t.f}.webp`} alt={t.alt} style={{ objectPosition: t.pos }} width="300" height={h} />
+    ? <img src={`assets/${t.f}.webp`} alt={t.alt} style={{ objectPosition: t.pos }} width="300" height={h} loading="lazy" decoding="async" />
     : <span className="tuile-vide">Portrait à venir</span>
 );
 
