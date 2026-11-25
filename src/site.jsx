@@ -433,6 +433,33 @@ function App() {
           </div>
         </section>
 
+        <section className="sec screen" id="equipe">
+          <div className="wrap">
+            <div className="head">
+              <div><div className="eyebrow">La vie d’Inov Team</div><h2>Ceux qui font <span className="g">Inov Team.</span></h2></div>
+              <p style={{ maxWidth: 420 }}>Commerciaux, recruteurs, équipes support et consultants : voici ceux qui font Inov Team au quotidien, dans nos bureaux et sur le terrain.</p>
+            </div>
+          </div>
+          <BandeauPortraits />
+          <div className="wrap">
+            <a className="btn out-v eq-lien" href="#equipe-page">Découvrir l’équipe <Icone n="arrow" s={18} c="" w={2} /></a>
+            <h3 className="vie-t">Curiosity Break, Inov Night,<br />et bien d’autres choses.</h3>
+            <div className="vie">
+              {[['bulb', 'Curiosity Break', 'Un collaborateur présente un sujet technique qui le passionne, autour de pizzas. Une fois par mois, sans slides obligatoires.'],
+                ['team', 'Inov Night', 'Soirées jeux, restaurants, canyoning, ski ou randonnée. Hors des bureaux, et sans obligation de parler boutique.'],
+                ['hands', 'Ambassadeurs', 'Des représentants dans les écoles, les universités et chez nos clients, qui animent la vie du groupe toute l’année.'],
+                ['rocket', 'Projets internes R&D', 'Un laboratoire d’idées où passer du temps sur les technologies récentes, et porter les vôtres jusqu’au prototype.']
+              ].map(([ic, t, d], k) => (
+                <Reveal key={t} k={k} className="vie-c">
+                  <Icone n={ic} s={30} />
+                  <h3>{t}</h3>
+                  <p>{d}</p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="screen ent-screen" id="entites"><div className="ent">
           <svg className="beams" viewBox="0 0 1200 260" preserveAspectRatio="none" aria-hidden="true">
             <defs><linearGradient id="bm" x1="0" x2="1"><stop offset="0" stopColor="#7b5cff" stopOpacity="0" /><stop offset=".5" stopColor="#b98cff" stopOpacity=".8" /><stop offset="1" stopColor="#ff7ae0" stopOpacity=".2" /></linearGradient></defs>
@@ -497,32 +524,6 @@ function App() {
         </section>
         </div>
 
-        <section className="sec screen" id="equipe">
-          <div className="wrap">
-            <div className="head">
-              <div><div className="eyebrow">La vie d’Inov Team</div><h2>Ceux qui font <span className="g">Inov Team.</span></h2></div>
-              <p style={{ maxWidth: 420 }}>Commerciaux, recruteurs, équipes support et consultants : voici ceux qui font Inov Team au quotidien, dans nos bureaux et sur le terrain.</p>
-            </div>
-          </div>
-          <BandeauPortraits />
-          <div className="wrap">
-            <a className="btn out-v eq-lien" href="#equipe-page">Découvrir l’équipe <Icone n="arrow" s={18} c="" w={2} /></a>
-            <h3 className="vie-t">Curiosity Break, Inov Night,<br />et bien d’autres choses.</h3>
-            <div className="vie">
-              {[['bulb', 'Curiosity Break', 'Un collaborateur présente un sujet technique qui le passionne, autour de pizzas. Une fois par mois, sans slides obligatoires.'],
-                ['team', 'Inov Night', 'Soirées jeux, restaurants, canyoning, ski ou randonnée. Hors des bureaux, et sans obligation de parler boutique.'],
-                ['hands', 'Ambassadeurs', 'Des représentants dans les écoles, les universités et chez nos clients, qui animent la vie du groupe toute l’année.'],
-                ['rocket', 'Projets internes R&D', 'Un laboratoire d’idées où passer du temps sur les technologies récentes, et porter les vôtres jusqu’au prototype.']
-              ].map(([ic, t, d], k) => (
-                <Reveal key={t} k={k} className="vie-c">
-                  <Icone n={ic} s={30} />
-                  <h3>{t}</h3>
-                  <p>{d}</p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
 
         <section className="screen car-screen" id="rejoindre"><div className="wrap">
           <Reveal className="car">
