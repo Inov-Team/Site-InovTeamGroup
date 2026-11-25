@@ -192,6 +192,7 @@ function Wheel({ sel, pick }) {
       <svg viewBox="0 0 520 520" role="tablist" aria-label="Nos 9 pôles d’expertise">
         <defs>
           <linearGradient id="wg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#2b4bff" /><stop offset=".55" stopColor="#7b3fe4" /><stop offset="1" stopColor="#c935a6" /></linearGradient>
+          <linearGradient id="wgf" x1="40" y1="40" x2="480" y2="480" gradientUnits="userSpaceOnUse"><stop offset="0" stopColor="#2b4bff" /><stop offset=".55" stopColor="#7b3fe4" /><stop offset="1" stopColor="#c935a6" /></linearGradient>
           <radialGradient id="wglow"><stop offset="0" stopColor="#9b6bff" stopOpacity=".35" /><stop offset="1" stopColor="#9b6bff" stopOpacity="0" /></radialGradient>
           <filter id="wsh" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" /></filter>
         </defs>
@@ -208,8 +209,8 @@ function Wheel({ sel, pick }) {
               <g key={tt} role="tab" aria-selected={on} aria-label={tt} tabIndex={on ? 0 : -1} className="wray" id={'wr-' + k}
                 onClick={() => pick(k)} onMouseEnter={() => setHov(k)} onMouseLeave={() => setHov(-1)} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), pick(k))}>
                 <line x1={C} y1={C} x2={lx} y2={ly} stroke="transparent" strokeWidth="46" />
-                <motion.line x1={x1} y1={y1} x2={x2} y2={y2} strokeLinecap="round" stroke={on ? 'url(#wg)' : '#c8bdf0'} initial={false} animate={{ strokeWidth: on ? 12 : 10 }} transition={{ duration: 0.28, ease }} />
-                                <motion.line x1={x3} y1={y3} x2={x4} y2={y4} strokeLinecap="round" stroke={on ? 'url(#wg)' : '#b3a7e2'} initial={false} animate={{ strokeWidth: on ? 14 : 12 }} transition={{ duration: 0.28, ease }} />
+                <line x1={x1} y1={y1} x2={x2} y2={y2} strokeLinecap="round" stroke="url(#wgf)" strokeWidth="12" />
+                                <line x1={x3} y1={y3} x2={x4} y2={y4} strokeLinecap="round" stroke="url(#wgf)" strokeWidth="12" />
                 <motion.g animate={{ rotate: -rot, opacity: 1, scale: on ? 1.08 : 1 }} transition={{ type: 'spring', stiffness: 70, damping: 16 }} style={{ originX: `${lx}px`, originY: `${ly}px` }}>
                   <motion.rect x={lx - w / 2} y={ly - 15} width={w} height="30" rx="15" initial={false} animate={{ fill: on ? '#1b1446' : '#ffffff', stroke: on ? '#1b1446' : '#e4dcfa' }} transition={{ duration: 0.28, ease }} strokeWidth="1" />
                   <motion.text x={lx} y={ly + 4.3} textAnchor="middle" fontSize="11.5" fontWeight="700" fontFamily="Plus Jakarta Sans, sans-serif" initial={false} animate={{ fill: on ? '#ffffff' : '#4c4868' }} transition={{ duration: 0.28, ease }}>{tt}</motion.text>
