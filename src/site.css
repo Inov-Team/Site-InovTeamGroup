@@ -637,39 +637,43 @@ main:focus{outline:none}
 .mq-set img.sq{max-height:62px}
 @media (max-width:600px){.mq-set img{max-height:36px}.mq-set img.sq{max-height:48px}}
 
-/* ===== Entités : la carte filaire ===== */
-/* Le fond est un tracé au trait : quadrillage de repères, trait de côte et
-   ses lignes de profondeur, puis les liaisons entre les trois sites qui se
-   dessinent à l'arrivée à l'écran. */
+/* ===== Entités : le relief de la Côte d'Azur, au trait ===== */
+/* La mer est une grille qui fuit vers l'horizon, le trait de côte suit le
+   littoral de Cannes à Menton, et les lignes d'arrière-pays montent vers les
+   Préalpes en s'estompant. Deux mâts partent de Sophia, un de Monaco. */
 .ent-in{align-items:center}
-.carte{position:relative;aspect-ratio:760/430;min-height:300px}
+.carte{position:relative;aspect-ratio:760/440;min-height:320px}
 .carte-fond{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.carte-fond .trame path{stroke:rgba(255,255,255,.07);stroke-width:1;fill:none}
-.carte-fond .cote path{stroke:rgba(255,255,255,.3);stroke-width:1.1;fill:none;stroke-linecap:round}
-.carte-fond .lien{stroke:url(#cg);stroke-width:1.5;fill:none;stroke-dasharray:4 7;stroke-linecap:round}
-.carte-fond .repere circle{fill:none;stroke:rgba(255,255,255,.45);stroke-width:1}
-.carte-fond .repere .plein{fill:#fff;stroke:none}
+.carte-fond path,.carte-fond ellipse,.carte-fond circle{fill:none}
+.carte-fond .mer path{stroke:url(#cf);stroke-width:1}
+.carte-fond .cote{stroke:rgba(255,255,255,.78);stroke-width:1.6;stroke-linecap:round}
+.carte-fond .relief path{stroke:rgba(255,255,255,.17);stroke-width:1;stroke-linecap:round}
+.carte-fond .mats path{stroke:url(#cg);stroke-width:1.6;stroke-linecap:round}
+.carte-fond .socle ellipse{stroke:rgba(255,255,255,.5);stroke-width:1}
+.carte-fond .socle .plein{fill:#fff}
+.carte-fond .ouest path{stroke:rgba(207,200,255,.5);stroke-width:1;stroke-linecap:round}
 
 .ville{position:absolute;font:700 11px "Plus Jakarta Sans",sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#a79cdd;white-space:nowrap}
-.v-sophia{left:11%;top:70%}
-.v-aix{left:48%;top:28%}
-.v-monaco{left:79%;top:42%}
+.ville i{display:block;margin-top:4px;font:600 10px "Plus Jakarta Sans",sans-serif;font-style:normal;letter-spacing:.14em;color:#7d76ad}
+.v-sophia{left:4%;top:66%}
+.v-monaco{left:70%;top:86%}
+.v-aix{left:3%;top:91%;color:#cfc8ff}
 
 .noeud{position:absolute}
-.noeud a{display:flex;align-items:center;gap:14px;background:#fff;color:var(--ink);border-radius:14px;padding:11px 18px;min-height:52px;box-shadow:0 16px 34px rgba(0,0,0,.3);transition:transform .24s var(--eo),box-shadow .24s var(--eo)}
-.noeud a:hover{transform:translateY(-3px);box-shadow:0 22px 42px rgba(0,0,0,.4)}
+.noeud a{display:flex;align-items:center;gap:14px;background:#fff;color:var(--ink);border-radius:14px;padding:11px 18px;min-height:52px;box-shadow:0 16px 34px rgba(0,0,0,.34);transition:transform .24s var(--eo),box-shadow .24s var(--eo)}
+.noeud a:hover{transform:translateY(-3px);box-shadow:0 22px 44px rgba(0,0,0,.44)}
 .noeud img{flex:none;width:auto;height:30px;max-width:108px;object-fit:contain}
 .noeud b{display:block;font:700 14px "Plus Jakarta Sans",sans-serif;white-space:nowrap}
 .noeud span span{display:block;font-size:12px;color:var(--muted);white-space:nowrap}
-.n-inov-team{left:0;top:48%}
-.n-inov-team-labs{left:31%;top:4%}
-.n-digiteam{left:58%;top:50%}
+.n-inov-team{left:2%;top:26%}
+.n-inov-team-labs{left:30%;top:9%}
+.n-digiteam{left:62%;top:41%}
 
 @media (max-width:980px){
  .carte{aspect-ratio:auto;min-height:0;display:grid;gap:12px}
  .carte-fond,.ville{display:none}
  .noeud{position:static}
- .noeud a{box-shadow:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2);background:#fff}
+ .noeud a{box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
 }
 /* ===== Vie du groupe : un titre et de l'air ===== */
 .vie-t{font-size:clamp(24px,2.4vw,32px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin:46px 0 34px;max-width:620px}
