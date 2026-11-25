@@ -568,3 +568,6 @@ main:focus{outline:none}
  .piste{animation:none}
  .voile{transform:none;opacity:1}
 }
+/* Le bandeau de portraits sur l'accueil : il déborde de la colonne de texte. */
+#equipe .defile-sec{margin:26px 0 22px}
+.eq-lien{margin-bottom:22px}

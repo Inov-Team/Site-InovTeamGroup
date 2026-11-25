@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { POLES } from './poles.js';
-import { ExpertisePage, AllExpertises, EntitePage, ApprochePage, ActualitesPage, ContactPage, CarrieresPage, EquipePage, slug, ENTITES } from './pages.jsx';
+import { ExpertisePage, AllExpertises, EntitePage, ApprochePage, ActualitesPage, ContactPage, CarrieresPage, EquipePage, BandeauPortraits, slug, ENTITES } from './pages.jsx';
 import { meta, SITE } from './routes.js';
 import { motion, AnimatePresence, MotionConfig, useInView, animate, useScroll, useMotionValueEvent, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 
@@ -509,9 +509,13 @@ function App() {
         <section className="sec screen" id="equipe">
           <div className="wrap">
             <div className="head">
-              <div><div className="eyebrow">La vie d’Inov Team</div><h2>Une équipe, un même<br />état d’esprit : <span className="g">brillants ensemble.</span></h2></div>
+              <div><div className="eyebrow">La vie d’Inov Team</div><h2>Ceux qui font <span className="g">Inov Team.</span></h2></div>
               <p style={{ maxWidth: 420 }}>Commerciaux, recruteurs, équipes support et consultants : voici ceux qui font Inov Team au quotidien, dans nos bureaux et sur le terrain.</p>
             </div>
+          </div>
+          <BandeauPortraits />
+          <div className="wrap">
+            <a className="btn out-v eq-lien" href="#equipe-page">Découvrir l’équipe <Icone n="arrow" s={18} c="" w={2} /></a>
             <div className="gal">
               {GAL.map(([f, c, cap, pos], k) => (
                 <Reveal key={f} k={k} className={'gi ' + c}>

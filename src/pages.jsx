@@ -271,6 +271,30 @@ const Eclat = () => (
   </svg>
 );
 
+// Les deux bandeaux, repris tels quels sur l'accueil.
+export const BandeauPortraits = () => (
+  <section className="defile-sec" aria-label="Les visages du groupe">
+    <div className="defile">
+      <div className="piste piste-g">
+        {[0, 1].map((n) => (
+          <div className="jeu" key={n} aria-hidden={n === 1 ? 'true' : undefined}>
+            {BANDE_A.map((t, i) => <span className="tuile grande" key={i}><Tuile t={t} h={196} /></span>)}
+          </div>
+        ))}
+      </div>
+    </div>
+    <div className="defile">
+      <div className="piste piste-d">
+        {[0, 1].map((n) => (
+          <div className="jeu" key={n} aria-hidden={n === 1 ? 'true' : undefined}>
+            {BANDE_B.map((t, i) => <span className="tuile petite" key={i}><Tuile t={t} h={148} /></span>)}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
 export function EquipePage({ I }) {
   const [filtre, setFiltre] = useState(0);
   return (
@@ -278,26 +302,7 @@ export function EquipePage({ I }) {
       <Hero crumb="L’équipe" title="Ceux qui font" em="Inov Team."
         lead="Cent personnes réparties sur trois sites. Des managers qui pratiquent encore leur métier, des recruteurs qui le connaissent, et des consultants qui restent." />
 
-      <section className="defile-sec" aria-label="Les visages du groupe">
-        <div className="defile">
-          <div className="piste piste-g">
-            {[0, 1].map((n) => (
-              <div className="jeu" key={n} aria-hidden={n === 1 ? 'true' : undefined}>
-                {BANDE_A.map((t, i) => <span className="tuile grande" key={i}><Tuile t={t} h={196} /></span>)}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="defile">
-          <div className="piste piste-d">
-            {[0, 1].map((n) => (
-              <div className="jeu" key={n} aria-hidden={n === 1 ? 'true' : undefined}>
-                {BANDE_B.map((t, i) => <span className="tuile petite" key={i}><Tuile t={t} h={148} /></span>)}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <BandeauPortraits />
 
       <section className="psec eq-sec">
         <div className="wrap">
