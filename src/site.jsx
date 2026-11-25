@@ -230,11 +230,10 @@ function Wheel({ sel, pick }) {
 
 function ExpertiseExplorer({ sel, setSel }) {
   const [auto, setAuto] = useState(true);
-  const [hold, setHold] = useState(false);
   const reduce = useReducedMotion();
   const ref = useRef(null);
   const seen = useInView(ref, { margin: '-20% 0px -20% 0px' });
-  const joue = auto && seen && !hold && !reduce;
+  const joue = auto && seen && !reduce;
   useEffect(() => {
     if (!joue) return;
     const t = setInterval(() => setSel((s) => (s + 1) % EXP.length), 5000);
@@ -252,7 +251,7 @@ function ExpertiseExplorer({ sel, setSel }) {
   const p = POLES.find((x) => x.t === t);
   return (
     <div className="xp" ref={ref} onKeyDown={onKey}>
-      <div className="wheel-wrap" onPointerEnter={() => setHold(true)} onPointerLeave={() => setHold(false)}>
+      <div className="wheel-wrap">
         <Wheel sel={sel} pick={pick} />
         <div className="whint">
           <button type="button" className="wpause" onClick={() => setAuto((a) => !a)} aria-pressed={!auto}>
