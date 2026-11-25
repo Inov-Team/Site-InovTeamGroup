@@ -19,6 +19,7 @@ const P = {
   layers: [['rect', { x: 3, y: 13, width: 7, height: 8, rx: 2, className: 'f' }], ['rect', { x: 3, y: 13, width: 7, height: 8, rx: 2 }], ['rect', { x: 14, y: 13, width: 7, height: 8, rx: 2 }], ['rect', { x: 8.5, y: 3, width: 7, height: 7, rx: 2 }], ['path', { d: 'M12 10v2M6.5 13v-1h11v1' }]],
   cube: [['path', { d: 'M12 3 20 7.5v9L12 21 4 16.5v-9z' }], ['path', { d: 'M12 3 20 7.5 12 12 4 7.5z', className: 'f' }], ['path', { d: 'M12 3 20 7.5 12 12 4 7.5z' }], ['path', { d: 'M12 12v9' }]],
   trend: [['path', { d: 'M3 17.5 9 11l4 3.6L21 6v6l-8 8-4-3.6L3 20z', className: 'f' }], ['path', { d: 'M3 17.5 9 11l4 3.6L20.5 6' }], ['path', { d: 'M15.5 6H21v5.5' }]],
+  ia: [['rect', { x: 7, y: 7, width: 10, height: 10, rx: 3, className: 'f' }], ['rect', { x: 5.5, y: 5.5, width: 13, height: 13, rx: 3.5 }], ['rect', { x: 9.5, y: 9.5, width: 5, height: 5, rx: 1.5 }], ['path', { d: 'M9 2.5v3M15 2.5v3M9 18.5v3M15 18.5v3M2.5 9h3M2.5 15h3M18.5 9h3M18.5 15h3' }]],
   code: [['rect', { x: 2.5, y: 4, width: 19, height: 16, rx: 3, className: 'f' }], ['rect', { x: 2.5, y: 4, width: 19, height: 16, rx: 3 }], ['path', { d: 'M9 10.5 6.5 13 9 15.5' }], ['path', { d: 'm15 10.5 2.5 2.5-2.5 2.5' }], ['path', { d: 'm13 9.5-2 7' }]],
   cloud: [['path', { d: 'M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z' }]],
   infini: [['path', { d: 'M12 12c1.8-2.6 3.1-4 5-4a4 4 0 0 1 0 8c-1.9 0-3.2-1.4-5-4-1.8-2.6-3.1-4-5-4a4 4 0 0 0 0 8c1.9 0 3.2-1.4 5-4z', className: 'f' }], ['path', { d: 'M12 12c1.8-2.6 3.1-4 5-4a4 4 0 0 1 0 8c-1.9 0-3.2-1.4-5-4-1.8-2.6-3.1-4-5-4a4 4 0 0 0 0 8c1.9 0 3.2-1.4 5-4z' }]],
@@ -57,6 +58,7 @@ const Burst = () => (
 );
 
 const EXP = [
+  ['ia', 'Intelligence Artificielle', 'Agents, IA générative et automatisation des processus.'],
   ['code', 'Ingénierie Logicielle', 'Développement, architecture et modernisation.'],
   ['infini', 'DevOps & Cloud', 'Industrialisation, automatisation et plateformes cloud.'],
   ['cadenas', 'Cybersécurité', 'Sécurisation des systèmes, des données et des applications.'],
@@ -185,7 +187,7 @@ function Wheel({ sel, pick }) {
   const [ic, t] = EXP[sel];
   return (
     <motion.div className="wheel" onPointerMove={move} onPointerLeave={() => { mx.set(0); my.set(0); }} style={{ rotateX: rx, rotateY: ry }}>
-      <svg viewBox="0 0 520 520" role="tablist" aria-label="Nos 8 pôles d’expertise">
+      <svg viewBox="0 0 520 520" role="tablist" aria-label="Nos 9 pôles d’expertise">
         <defs>
           <linearGradient id="wg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#2b4bff" /><stop offset=".55" stopColor="#7b3fe4" /><stop offset="1" stopColor="#c935a6" /></linearGradient>
           <radialGradient id="wglow"><stop offset="0" stopColor="#9b6bff" stopOpacity=".35" /><stop offset="1" stopColor="#9b6bff" stopOpacity="0" /></radialGradient>
@@ -196,7 +198,7 @@ function Wheel({ sel, pick }) {
         <motion.g animate={{ rotate: rot }} transition={{ type: 'spring', stiffness: 70, damping: 16 }} style={{ originX: '50%', originY: '50%' }}>
           <circle cx={C} cy={C} r="259" fill="transparent" />
           {EXP.map(([i, tt], k) => {
-            const ang = k * 45 - 90, on = k === sel, hl = k === hov && !on;
+            const ang = k * (360 / EXP.length) - 90, on = k === sel, hl = k === hov && !on;
             const [x1, y1] = pol(ang, 96), [x2, y2] = pol(ang, 112), [x3, y3] = pol(ang, on ? 128 : 124), [x4, y4] = pol(ang, on ? 172 : 152);
             const [lx, ly] = pol(ang, 206);
             const w = tt.length * 7.4 + 28;
@@ -260,7 +262,7 @@ function ExpertiseExplorer({ sel, setSel }) {
           <span>ou cliquez sur un pôle</span>
         </div>
       </div>
-      <div className="xp-list" role="tablist" aria-label="Nos 8 pôles">
+      <div className="xp-list" role="tablist" aria-label="Nos 9 pôles">
         {EXP.map(([i, tt], k) => (
           <button key={tt} id={'xt-' + k} role="tab" aria-selected={sel === k} aria-controls="xp-panel" tabIndex={sel === k ? 0 : -1} className="xp-tab" onClick={() => pick(k)}>
             {sel === k && <motion.span layoutId="xp-hl" className="xp-hl" transition={spring} />}
@@ -408,7 +410,7 @@ function App() {
               {[
                 ['users', 100, '+', 'collaborateurs', 'sur trois sites'],
                 ['layers', 3, '', 'entités', 'Inov Team · Labs · DigiTeam'],
-                ['cube', 8, '', 'pôles d’expertise', 'du conseil au run'],
+                ['cube', 9, '', 'pôles d’expertise', 'du conseil au run'],
                 ['trend', 40, '+', 'recrutements / an', 'et nous continuons']
               ].map(([ico, n, pre, label, sous]) => (
                 <div className="stat" key={label}>
@@ -426,7 +428,7 @@ function App() {
         <section className="sec screen" id="expertises">
           <div className="wrap">
             <div className="head">
-              <div><div className="eyebrow">Nos expertises</div><h2>Un haut niveau d’expertise<br />au service de <span className="g">vos projets.</span></h2><p className="hsub">8 pôles, une même exigence : des consultants seniors et un manager technique dédié à chaque mission.</p></div>
+              <div><div className="eyebrow">Nos expertises</div><h2>Un haut niveau d’expertise<br />au service de <span className="g">vos projets.</span></h2><p className="hsub">9 pôles, une même exigence : des consultants seniors et un manager technique dédié à chaque mission.</p></div>
               <a className="btn out-v" href="#expertises-toutes">Voir toutes nos expertises <Icone n="arrow" s={18} c="" w={2} /></a>
             </div>
             <ExpertiseExplorer sel={sel} setSel={setSel} />

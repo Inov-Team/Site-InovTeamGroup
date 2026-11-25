@@ -66,7 +66,7 @@ export function ExpertisePage({ k, I, icons }) {
 export function AllExpertises({ I, icons }) {
   return (
     <>
-      <Hero crumb="Nos expertises" title="Nos 8 pôles" em="d’expertise." lead="Choisissez un pôle pour découvrir ce que nous prenons en charge, les profils que nous mobilisons et nos modes d’intervention." />
+      <Hero crumb="Nos expertises" title="Nos 9 pôles" em="d’expertise." lead="Choisissez un pôle pour découvrir ce que nous prenons en charge, les profils que nous mobilisons et nos modes d’intervention." />
       <section className="psec"><div className="wrap">
         <div className="cards">{POLES.map((p, k) => (
           <motion.a key={p.t} className="card" href={'#expertise-' + slug(p.t)} {...up(k)}>

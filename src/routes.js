@@ -14,11 +14,11 @@ const sl = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().repla
 
 export const ACCUEIL = {
   t: 'Inov Team Group',
-  d: 'ESN agile à taille humaine : ingénierie logicielle, DevOps & Cloud, cybersécurité, data et accessibilité numérique. 90 collaborateurs, 3 entités, 8 pôles d’expertise.'
+  d: 'ESN agile à taille humaine : ingénierie logicielle, DevOps & Cloud, cybersécurité, data et accessibilité numérique. 90 collaborateurs, 3 entités, 9 pôles d’expertise.'
 };
 
 const FIXES = {
-  'expertises-toutes': { t: 'Nos 8 pôles d’expertise', d: 'Ingénierie logicielle, DevOps & Cloud, cybersécurité, data, tests, accessibilité numérique, consulting et delivery : les 8 pôles d’Inov Team Group.' },
+  'expertises-toutes': { t: 'Nos 9 pôles d’expertise', d: 'Ingénierie logicielle, DevOps & Cloud, cybersécurité, data, tests, accessibilité numérique, consulting et delivery : les 9 pôles d’Inov Team Group.' },
   approche: { t: 'Notre approche : une ESN à taille humaine', d: 'Recrutement sélectif, manager technique dédié, communautés d’experts et rituels d’équipe : la façon de travailler d’Inov Team Group.' },
   carrieres: { t: 'Carrières, rejoindre Inov Team Group', d: 'Plus de 40 recrutements par an en ingénierie, cloud, cybersécurité et data. Processus en 4 étapes et programme de cooptation.' },
   'equipe-page': { t: 'Ceux qui font Inov Team', d: 'Direction, management, ambassadeurs, expertise et delivery : les cent personnes qui font vivre Inov Team Group sur ses trois sites.' },
