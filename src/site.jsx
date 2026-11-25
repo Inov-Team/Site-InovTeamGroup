@@ -127,7 +127,7 @@ function Header() {
   return (
     <motion.header className={'hd' + (sc ? ' sc' : '')} animate={{ y: hide ? '-100%' : '0%' }} transition={{ duration: 0.35, ease }}>
       <div className="wrap">
-        <a className="brand" href="#top" aria-label="Inov Team Group, accueil"><img src="assets/logo-group.webp" alt="Inov Team Group" /></a>
+        <a className="brand" href="#top" aria-label="Inov Team Group, accueil"><img src="assets/logo-group.webp" alt="Inov Team Group" width="120" height="74" fetchPriority="high" /></a>
         <nav className="nav" aria-label="Navigation principale">
           <a href="#qui">Qui sommes-nous ?</a>
           <Drop id="exp" label="Nos expertises" />

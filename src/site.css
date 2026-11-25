@@ -324,8 +324,8 @@ a.card{color:inherit}
 .plogo{height:clamp(80px,10vw,130px);width:auto;margin-bottom:18px}
 .olist a.elogo{flex-direction:column;align-items:flex-start;gap:8px}
 .olist a.elogo img{height:70px;width:auto}
-@media (max-width:600px){.brand img{height:50px}}
-.brand img{height:66px}.ent-screen .ecard img.elg{max-width:100%;max-height:130px}.ent-screen .ecard{padding:24px 22px}
+@media (max-width:600px){.brand img{height:56px}}
+.brand img{height:74px}.ent-screen .ecard img.elg{max-width:100%;max-height:130px}.ent-screen .ecard{padding:24px 22px}
 /* explorateur d'expertises */
 .hsub{margin-top:14px;max-width:560px}
 .xp{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:28px;align-items:stretch}
