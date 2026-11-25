@@ -597,18 +597,27 @@ main:focus{outline:none}
 .mq-set img.sq{max-height:62px}
 @media (max-width:600px){.mq-set img{max-height:36px}.mq-set img.sq{max-height:48px}}
 
-/* ===== Entités : la chaîne de valeur ===== */
-.chaine{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding-top:34px}
-.chaine-fil{position:absolute;left:0;right:0;top:0;width:100%;height:40px;overflow:visible}
-.maillon{position:relative}
-.maillon-l{display:flex;flex-direction:column;gap:12px;height:100%;background:#fff;color:var(--ink);border-radius:18px;padding:26px 24px 22px;transition:transform .24s var(--eo),box-shadow .24s var(--eo)}
-.maillon-l:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(0,0,0,.26)}
-.maillon-n{display:flex;align-items:center;gap:12px;font:800 13px "Plus Jakarta Sans",sans-serif;color:var(--violet);letter-spacing:.08em}
-.maillon-n i{font-style:normal;font-weight:700;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-.maillon-l img.elg{width:auto;height:auto;max-width:min(180px,100%);max-height:84px;object-fit:contain;align-self:flex-start}
-.maillon-d{font:700 16px "Plus Jakarta Sans",sans-serif}
-.maillon-t{font-size:14px;line-height:1.55;color:var(--muted)}
-.maillon .arr{display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:8px;font:700 14px "Plus Jakarta Sans",sans-serif;color:var(--violet)}
-.maillon .arr svg{transition:transform .24s var(--eo)}
-.maillon-l:hover .arr svg{transform:translateX(4px)}
-@media (max-width:860px){.chaine{grid-template-columns:minmax(0,1fr);gap:14px;padding-top:0}.chaine-fil{display:none}}
+/* ===== Entités : le groupe et ses trois satellites ===== */
+.satel{position:relative;display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1fr);gap:clamp(20px,4vw,56px);align-items:center;min-height:300px}
+.satel-fils{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.satel-c{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;justify-self:center;padding:30px 34px;border-radius:50%;aspect-ratio:1;width:min(210px,100%);justify-content:center;background:radial-gradient(circle,rgba(123,63,228,.42),rgba(255,255,255,.05) 70%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.22)}
+.satel-c img{width:auto;height:56px;object-fit:contain}
+.satel-c span{font:700 12px "Plus Jakarta Sans",sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#cfc8ff}
+.satel-l{position:relative;list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.satel-l a{display:flex;align-items:center;gap:18px;background:#fff;color:var(--ink);border-radius:14px;padding:14px 20px;min-height:56px;transition:transform .24s var(--eo),box-shadow .24s var(--eo)}
+.satel-l a:hover{transform:translateX(5px);box-shadow:0 14px 30px rgba(0,0,0,.26)}
+.satel-l img{flex:none;width:auto;height:38px;max-width:132px;object-fit:contain}
+.satel-d{flex:1;min-width:0;font:700 15px "Plus Jakarta Sans",sans-serif}
+.satel-a{flex:none;color:var(--violet);transition:transform .24s var(--eo)}
+.satel-l a:hover .satel-a{transform:translateX(4px)}
+@media (max-width:860px){
+ .satel{grid-template-columns:minmax(0,1fr);gap:24px;min-height:0}
+ .satel-fils{display:none}
+ .satel-c{width:min(168px,100%);padding:22px}
+ .satel-c img{height:44px}
+}
+
+/* ===== Vie du groupe : un titre et de l'air ===== */
+.vie-t{font-size:clamp(24px,2.4vw,32px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin:46px 0 34px;max-width:620px}
+#equipe .vie{margin-top:0}
+#equipe .head{margin-bottom:26px}

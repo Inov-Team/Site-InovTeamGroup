@@ -131,7 +131,6 @@ function Header() {
         <nav className="nav" aria-label="Navigation principale">
           <a href="#qui">Qui sommes-nous ?</a>
           <Drop id="exp" label="Nos expertises" />
-          <Drop id="ent" label="Nos entités" />
           <a href="#equipe-page">L’équipe</a>
           <a href="#carrieres">Carrières</a>
           <a href="#actualites">Actualités</a>
@@ -148,7 +147,7 @@ function Header() {
         {open && (
           <motion.div id="mnav" className="mnav" initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} transition={spring}>
             <nav aria-label="Menu mobile">
-              {[['#qui', 'Qui sommes-nous ?'], ['#expertises-toutes', 'Nos expertises'], ['#entites', 'Nos entités'], ['#equipe-page', 'L’équipe'], ['#carrieres', 'Carrières'], ['#actualites', 'Actualités']].map(([h, l]) => <a key={h} href={h} onClick={() => setOpen(false)}>{l}</a>)}
+              {[['#qui', 'Qui sommes-nous ?'], ['#expertises-toutes', 'Nos expertises'], ['#equipe-page', 'L’équipe'], ['#carrieres', 'Carrières'], ['#actualites', 'Actualités']].map(([h, l]) => <a key={h} href={h} onClick={() => setOpen(false)}>{l}</a>)}
               <a className="btn" href="#contact" onClick={() => setOpen(false)}>Nous contacter <Icone n="arrow" s={18} c="" w={2} /></a>
             </nav>
           </motion.div>
@@ -440,25 +439,28 @@ function App() {
               <h2>Un groupe, des expertises<br /><span className="g" style={{ backgroundImage: 'linear-gradient(95deg,#d96bff,#ff7ad0)' }}>complémentaires.</span></h2>
               <span className="rule" />
             </div>
-            <div className="chaine">
-              <svg className="chaine-fil" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true">
-                <motion.path d="M40 20 H960" fill="none" stroke="url(#bm)" strokeWidth="2" strokeDasharray="5 7" strokeLinecap="round"
-                  initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1.4, ease }} />
+            <div className="satel">
+              <svg className="satel-fils" viewBox="0 0 600 300" preserveAspectRatio="none" aria-hidden="true">
+                {[52, 150, 248].map((y, k) => (
+                  <motion.path key={y} d={`M104 150 C 230 150, 300 ${y}, 470 ${y}`} fill="none" stroke="url(#bm)" strokeWidth="1.6" strokeDasharray="4 6" strokeLinecap="round"
+                    initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: k * 0.18, ease }} />
+                ))}
               </svg>
-              {[['Cadrer', 'Le besoin devient un périmètre, une équipe et un calendrier.'],
-                ['Prototyper', 'L’idée est maquettée, mesurée, et abandonnée si elle ne tient pas.'],
-                ['Exploiter', 'Le produit vit : mises en production, supervision, maintien en condition.']
-              ].map(([etape, texte], k) => (
-                <Reveal key={etape} k={k} className="maillon">
-                  <a className="maillon-l" href={'#entite-' + ENTITES[k].k}>
-                    <span className="maillon-n">0{k + 1}<i>{etape}</i></span>
-                    <img className="elg" src={`assets/${ENTITES[k].logo}.webp`} alt={ENT[k][0] + ENT[k][1]} />
-                    <span className="maillon-d">{ENT[k][2]}</span>
-                    <span className="maillon-t">{texte}</span>
-                    <span className="arr">Découvrir <Icone n="arrow" s={16} c="" w={2} /></span>
-                  </a>
-                </Reveal>
-              ))}
+              <div className="satel-c">
+                <img src="assets/logo-group-w.webp" alt="Inov Team Group" width="120" height="74" />
+                <span>Le groupe</span>
+              </div>
+              <ul className="satel-l">
+                {ENTITES.map((e, k) => (
+                  <Reveal key={e.k} k={k} as="li">
+                    <a href={'#entite-' + e.k}>
+                      <img src={`assets/${e.logo}.webp`} alt={(e.t + e.em).trim()} />
+                      <span className="satel-d">{e.d}</span>
+                      <Icone n="arrow" s={17} c="satel-a" w={2} />
+                    </a>
+                  </Reveal>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
@@ -504,6 +506,7 @@ function App() {
           <BandeauPortraits />
           <div className="wrap">
             <a className="btn out-v eq-lien" href="#equipe-page">Découvrir l’équipe <Icone n="arrow" s={18} c="" w={2} /></a>
+            <h3 className="vie-t">Curiosity Break, Inov Night,<br />et bien d’autres choses.</h3>
             <div className="vie">
               {[['bulb', 'Curiosity Break', 'Un collaborateur présente un sujet technique qui le passionne, autour de pizzas. Une fois par mois, sans slides obligatoires.'],
                 ['team', 'Inov Night', 'Soirées jeux, restaurants, canyoning, ski ou randonnée. Hors des bureaux, et sans obligation de parler boutique.'],
