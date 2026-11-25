@@ -445,34 +445,57 @@ function App() {
           <div className="ent-in">
             <div>
               <div className="eyebrow">Nos entités</div>
-              <h2>Un groupe, des expertises<br /><span className="g" style={{ backgroundImage: 'linear-gradient(95deg,#d96bff,#ff7ad0)' }}>complémentaires.</span></h2>
+              <h2>Trois entités,<br /><span className="g" style={{ backgroundImage: 'linear-gradient(95deg,#d96bff,#ff7ad0)' }}>trois ancrages.</span></h2>
               <svg className="rule" width="64" height="12" viewBox="0 0 64 12" fill="none" aria-hidden="true">
                 <path d="M3 6h10M23 6h15M48 6h13" stroke="url(#rg)" strokeWidth="6" strokeLinecap="round" />
                 <defs><linearGradient id="rg" x1="0" y1="0" x2="64" y2="0" gradientUnits="userSpaceOnUse"><stop stopColor="#8b6bff" /><stop offset="1" stopColor="#ff7ae0" /></linearGradient></defs>
               </svg>
             </div>
-            <div className="satel">
-              <svg className="satel-fils" viewBox="0 0 600 300" preserveAspectRatio="none" aria-hidden="true">
-                {[52, 150, 248].map((y, k) => (
-                  <motion.path key={y} d={`M104 150 C 230 150, 300 ${y}, 470 ${y}`} fill="none" stroke="url(#bm)" strokeWidth="1.6" strokeDasharray="4 6" strokeLinecap="round"
-                    initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: k * 0.18, ease }} />
+            <div className="carte">
+              <svg className="carte-fond" viewBox="0 0 760 430" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                <defs>
+                  <linearGradient id="cg" x1="0" y1="0" x2="760" y2="0" gradientUnits="userSpaceOnUse">
+                    <stop offset="0" stopColor="#8b6bff" /><stop offset="1" stopColor="#ff7ae0" />
+                  </linearGradient>
+                </defs>
+                {/* trame de repères, comme le quadrillage d'une carte */}
+                <g className="trame">
+                  {[70, 150, 230, 310, 390].map((y) => <path key={y} d={`M20 ${y} H740`} />)}
+                  {[90, 230, 370, 510, 650].map((x) => <path key={x} d={`M${x} 30 V410`} />)}
+                </g>
+                {/* le trait de côte et ses lignes de profondeur */}
+                <g className="cote">
+                  <path d="M20 322 C 150 276, 236 318, 352 268 S 556 164, 744 120" />
+                  <path d="M20 358 C 160 318, 254 360, 372 310 S 576 208, 744 162" style={{ opacity: .5 }} />
+                  <path d="M20 394 C 170 360, 272 402, 392 352 S 596 252, 744 204" style={{ opacity: .25 }} />
+                </g>
+                {/* les liaisons entre les trois sites */}
+                <motion.path className="lien" d="M150 272 C 300 246, 420 220, 596 152"
+                  initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1.1, ease }} />
+                <motion.path className="lien" d="M150 272 C 222 206, 302 144, 412 96"
+                  initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1.1, delay: 0.18, ease }} />
+                {/* les trois repères */}
+                {[[150, 272], [412, 96], [596, 152]].map(([cx, cy]) => (
+                  <g className="repere" key={cx}>
+                    <circle cx={cx} cy={cy} r="17" />
+                    <circle cx={cx} cy={cy} r="9" />
+                    <circle cx={cx} cy={cy} r="3.4" className="plein" />
+                  </g>
                 ))}
               </svg>
-              <div className="satel-c">
-                <img src="assets/logo-group-w.webp" alt="Inov Team Group" width="120" height="74" />
-                <span>Le groupe</span>
-              </div>
-              <ul className="satel-l">
-                {ENTITES.map((e, k) => (
-                  <Reveal key={e.k} k={k} as="li">
-                    <a href={'#entite-' + e.k}>
-                      <img src={`assets/${e.logo}.webp`} alt={(e.t + e.em).trim()} />
-                      <span className="satel-d">{e.d}</span>
-                      <Icone n="arrow" s={17} c="satel-a" w={2} />
-                    </a>
-                  </Reveal>
-                ))}
-              </ul>
+
+              <span className="ville v-sophia">Sophia-Antipolis</span>
+              <span className="ville v-aix">Aix-en-Provence</span>
+              <span className="ville v-monaco">Monaco</span>
+
+              {ENTITES.map((e, k) => (
+                <Reveal key={e.k} k={k} className={'noeud n-' + e.k}>
+                  <a href={'#entite-' + e.k}>
+                    <img src={`assets/${e.logo}.webp`} alt={(e.t + e.em).trim()} />
+                    <span><b>{(e.t + e.em).trim()}</b><span>{e.d}</span></span>
+                  </a>
+                </Reveal>
+              ))}
             </div>
           </div>
         </div>
