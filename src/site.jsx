@@ -28,7 +28,7 @@ const P = {
   a11y: [['circle', { cx: 12, cy: 12, r: 9, className: 'f' }], ['circle', { cx: 12, cy: 12, r: 9 }], ['circle', { cx: 12, cy: 6.8, r: 1.3 }], ['path', { d: 'M7.5 10h9' }], ['path', { d: 'M12 10v4.5M12 14.5 9.5 18M12 14.5 14.5 18' }]],
   pouls: [['circle', { cx: 12, cy: 12, r: 9, className: 'f' }], ['circle', { cx: 12, cy: 12, r: 9 }], ['path', { d: 'M4 12h3l2-4 3 8 2-5 1.5 2.5H20' }]],
   boussole: [['circle', { cx: 12, cy: 12, r: 9, className: 'f' }], ['circle', { cx: 12, cy: 12, r: 9 }], ['path', { d: 'm15.6 8.4-2 5.2-5.2 2 2-5.2z' }]],
-  rocket: [['path', { d: 'M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91 0Z' }], ['path', { d: 'm12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z' }], ['path', { d: 'M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0' }], ['path', { d: 'M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5' }]],
+  rocket: [['path', { d: 'M13.5 4.2c2.6-2 5.4-2.4 6.6-2.3.1 1.2-.3 4-2.3 6.6-1.6 2.1-4 4.2-6 5.7l-4.3-4.3c1.5-2 3.6-4.4 5.7-6z', className: 'f' }], ['path', { d: 'M13.5 4.2c2.6-2 5.4-2.4 6.6-2.3.1 1.2-.3 4-2.3 6.6-1.6 2.1-4 4.2-6 5.7l-4.3-4.3c1.5-2 3.6-4.4 5.7-6z' }], ['circle', { cx: 15.2, cy: 8.8, r: 1.7 }], ['path', { d: 'M9.3 13.1 6.6 12A9 9 0 0 1 9 8.4l3.4-.6' }], ['path', { d: 'm10.9 14.7 1.1 2.7a9 9 0 0 0 3.6-2.4l.6-3.4' }], ['path', { d: 'M6.4 17.6c-1.4 1.4-1.6 4.4-1.6 4.4s3-.2 4.4-1.6a2 2 0 0 0-2.8-2.8z' }]],
   hands: [['path', { d: 'M12 20.5 4.5 13A4.6 4.6 0 0 1 12 7.6 4.6 4.6 0 0 1 19.5 13z', className: 'f' }], ['path', { d: 'M12 20.5 4.5 13A4.6 4.6 0 0 1 12 7.6 4.6 4.6 0 0 1 19.5 13z' }]],
   bulb: [['path', { d: 'M12 3a6 6 0 0 1 3.6 10.8L15 16H9l-.6-2.2A6 6 0 0 1 12 3z', className: 'f' }], ['path', { d: 'M12 3a6 6 0 0 1 3.6 10.8L15 16H9l-.6-2.2A6 6 0 0 1 12 3z' }], ['path', { d: 'M9.5 19h5M10.5 21.5h3' }]],
   team: [['circle', { cx: 12, cy: 7, r: 3, className: 'f' }], ['circle', { cx: 12, cy: 7, r: 3 }], ['path', { d: 'M6.5 20v-1a4 4 0 0 1 4-4h3a4 4 0 0 1 4 4v1' }], ['path', { d: 'M4.5 11.5a2.3 2.3 0 1 1 2-3.4M19.5 11.5a2.3 2.3 0 1 0-2-3.4' }]],
@@ -399,7 +399,7 @@ function App() {
               <div className="visual">
                 <HandVisual />
                 <motion.div className="since" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.7, ease }}>
-                  <Icone n="rocket" s={40} />
+                  <span className="since-i"><Icone n="rocket" s={34} c="ico" /></span>
                   <div><b>Depuis 2018</b><span>Innovation, expertise<br />et proximité</span></div>
                 </motion.div>
               </div>
