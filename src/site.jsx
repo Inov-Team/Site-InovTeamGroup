@@ -200,15 +200,15 @@ function Wheel({ sel, pick }) {
           <circle cx={C} cy={C} r="259" fill="transparent" />
           {EXP.map(([i, tt], k) => {
             const ang = k * (360 / EXP.length) - 90, on = k === sel, hl = k === hov && !on;
-            const [x1, y1] = pol(ang, 96), [x2, y2] = pol(ang, 112), [x3, y3] = pol(ang, on ? 128 : 124), [x4, y4] = pol(ang, on ? 172 : 152);
-            const [lx, ly] = pol(ang, 210 + (k % 3) * 24);
+            const [x1, y1] = pol(ang, 96), [x2, y2] = pol(ang, 112), [x3, y3] = pol(ang, on ? 96 : 124), [x4, y4] = pol(ang, on ? 190 : 152);
+            const [lx, ly] = pol(ang, 248);
             const w = tt.length * 6.0 + 18;
             return (
               <g key={tt} role="tab" aria-selected={on} aria-label={tt} tabIndex={on ? 0 : -1} className="wray" id={'wr-' + k}
                 onClick={() => pick(k)} onMouseEnter={() => setHov(k)} onMouseLeave={() => setHov(-1)} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), pick(k))}>
                 <line x1={C} y1={C} x2={lx} y2={ly} stroke="transparent" strokeWidth="46" />
-                <motion.line x1={x1} y1={y1} x2={x2} y2={y2} strokeLinecap="round" animate={{ stroke: on ? '#7b3fe4' : '#c8bdf0', strokeWidth: on ? 13 : 10 }} transition={{ duration: 0.3 }} />
-                {on && <line x1={x3} y1={y3} x2={x4} y2={y4} stroke="#b07bff" strokeWidth="30" strokeLinecap="round" filter="url(#wsh)" opacity=".75" />}
+                {!on && <motion.line x1={x1} y1={y1} x2={x2} y2={y2} strokeLinecap="round" animate={{ stroke: '#c8bdf0', strokeWidth: 10 }} transition={{ duration: 0.3 }} />}
+                {on && <line x1={x3} y1={y3} x2={x4} y2={y4} stroke="#b07bff" strokeWidth="26" strokeLinecap="round" filter="url(#wsh)" opacity=".55" />}
                 <motion.line strokeLinecap="round" stroke={on ? 'url(#wg)' : hl ? '#8c6cf0' : '#b3a7e2'} animate={{ x1: x3, y1: y3, x2: x4, y2: y4, strokeWidth: on ? 20 : hl ? 14 : 12 }} transition={{ type: 'spring', stiffness: 200, damping: 18 }} />
                 <motion.g animate={{ rotate: -rot, opacity: 1, scale: on ? 1.08 : 1 }} transition={{ type: 'spring', stiffness: 70, damping: 16 }} style={{ originX: `${lx}px`, originY: `${ly}px` }}>
                   <motion.rect x={lx - w / 2} y={ly - 15} width={w} height="30" rx="15" initial={false} animate={{ fill: on ? '#1b1446' : '#ffffff', stroke: on ? '#1b1446' : hl ? '#7b3fe4' : '#e4dcfa' }} transition={{ duration: 0.2 }} strokeWidth="1" />
