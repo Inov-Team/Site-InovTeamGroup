@@ -201,16 +201,15 @@ function Wheel({ sel, pick }) {
           <circle cx={C} cy={C} r="259" fill="transparent" />
           {EXP.map(([i, tt], k) => {
             const ang = k * PAS - 90, on = k === sel;
-            const [x1, y1] = pol(ang, 96), [x2, y2] = pol(ang, 112), [x3, y3] = pol(ang, on ? 96 : 124), [x4, y4] = pol(ang, on ? 190 : 152);
+            const [x1, y1] = pol(ang, 96), [x2, y2] = pol(ang, 112), [x3, y3] = pol(ang, 124), [x4, y4] = pol(ang, 152);
             const [lx, ly] = pol(ang, 248);
             const w = tt.length * 6.0 + 18;
             return (
               <g key={tt} role="tab" aria-selected={on} aria-label={tt} tabIndex={on ? 0 : -1} className="wray" id={'wr-' + k}
                 onClick={() => pick(k)} onMouseEnter={() => setHov(k)} onMouseLeave={() => setHov(-1)} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), pick(k))}>
                 <line x1={C} y1={C} x2={lx} y2={ly} stroke="transparent" strokeWidth="46" />
-                {!on && <line x1={x1} y1={y1} x2={x2} y2={y2} strokeLinecap="round" stroke="#c8bdf0" strokeWidth="10" />}
-                {on && <line x1={x3} y1={y3} x2={x4} y2={y4} stroke="#b07bff" strokeWidth="26" strokeLinecap="round" filter="url(#wsh)" opacity=".55" />}
-                <motion.line strokeLinecap="round" stroke={on ? 'url(#wg)' : '#b3a7e2'} initial={false} animate={{ x1: x3, y1: y3, x2: x4, y2: y4, strokeWidth: on ? 20 : 12 }} transition={{ duration: 0.28, ease }} />
+                <motion.line x1={x1} y1={y1} x2={x2} y2={y2} strokeLinecap="round" stroke={on ? 'url(#wg)' : '#c8bdf0'} initial={false} animate={{ strokeWidth: on ? 12 : 10 }} transition={{ duration: 0.28, ease }} />
+                                <motion.line x1={x3} y1={y3} x2={x4} y2={y4} strokeLinecap="round" stroke={on ? 'url(#wg)' : '#b3a7e2'} initial={false} animate={{ strokeWidth: on ? 14 : 12 }} transition={{ duration: 0.28, ease }} />
                 <motion.g animate={{ rotate: -rot, opacity: 1, scale: on ? 1.08 : 1 }} transition={{ type: 'spring', stiffness: 70, damping: 16 }} style={{ originX: `${lx}px`, originY: `${ly}px` }}>
                   <motion.rect x={lx - w / 2} y={ly - 15} width={w} height="30" rx="15" initial={false} animate={{ fill: on ? '#1b1446' : '#ffffff', stroke: on ? '#1b1446' : '#e4dcfa' }} transition={{ duration: 0.28, ease }} strokeWidth="1" />
                   <motion.text x={lx} y={ly + 4.3} textAnchor="middle" fontSize="11.5" fontWeight="700" fontFamily="Plus Jakarta Sans, sans-serif" initial={false} animate={{ fill: on ? '#ffffff' : '#4c4868' }} transition={{ duration: 0.28, ease }}>{tt}</motion.text>
